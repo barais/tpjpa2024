@@ -6,6 +6,13 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name="touslesdeps",query="select e from Departement e"),
+	@NamedQuery(name="touslesdepscdcd",query="select e from Departement e"),
+	@NamedQuery(name="touslesdepscdd",query="select e from Departement e"),
+	@NamedQuery(name="touslesdepccdcds",query="select e from Departement e.."),
+	@NamedQuery(name="touslesdepscdad",query="select e from Departement e..")
+})
 public class Department {
 
     private Long id;

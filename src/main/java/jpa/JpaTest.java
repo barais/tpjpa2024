@@ -31,7 +31,7 @@ public class JpaTest {
 			e.setDepartment(d);
 			manager.persist(e);
 			
-			String query ="select e from Department as e where e.name=:nom";
+			String query ="select e from Department as e where e.name=";
 			List<Department> l = manager.createQuery(query).setParameter("nom", "yolo").getResultList();
 			System.err.println(l.size());
 
