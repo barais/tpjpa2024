@@ -6,14 +6,13 @@ import javax.persistence.Persistence;
 
 public class EntityManagerHelper {
 
-    private static final EntityManagerFactory emf; 
+    private static final EntityManagerFactory emf;
     private static final ThreadLocal<EntityManager> threadLocal;
 
     static {
-        emf = Persistence.createEntityManagerFactory("dev");      
-        threadLocal = new ThreadLocal<EntityManager>();
+        emf = Persistence.createEntityManagerFactory("mysql");
+        threadLocal = new ThreadLocal<>();
     }
-
     public static EntityManager getEntityManager() {
         EntityManager em = threadLocal.get();
 
@@ -46,5 +45,5 @@ public class EntityManagerHelper {
 
     public static void commit() {
         getEntityManager().getTransaction().commit();
-    } 
+    }
 }
