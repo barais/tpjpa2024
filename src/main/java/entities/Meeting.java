@@ -62,6 +62,7 @@ public class Meeting implements Serializable {
         this.summary = summary;
     }
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "start_at")
     public Date getStartAt() {
         return startAt;
@@ -71,11 +72,12 @@ public class Meeting implements Serializable {
         this.startAt = startAt;
     }
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "end_at")
     public Date getEndAt() {
         return endAt;
     }
 
-    @Column(name = "end_at")
     public void setEndAt(Date endAt) {
         this.endAt = endAt;
     }

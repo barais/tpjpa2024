@@ -37,6 +37,7 @@ public class SurveyDate implements Serializable {
         this.id = id;
     }
 
+    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     public Date getDate() {
         return date;
