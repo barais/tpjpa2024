@@ -11,19 +11,23 @@ import java.util.Objects;
 public class Survey implements Serializable {
 
     private long id;
-    private String link;
-    private Date endAt;
-    private List<User> participants;
-    private Meeting meeting;
-    private List<DateAvailable> dateAvailables;
-    private List<Dietary> availableDietaries;
 
-    public Survey() {
-    }
+    private String link;
+
+    private Date endAt;
+
+    private Meeting meeting;
+
+    private List<SurveyDate> availableDates;
+
+    private List<Dietary> availableDietaries;
 
     public Survey(String link, Date endAt) {
         this.link = link;
         this.endAt = endAt;
+    }
+
+    public Survey() {
     }
 
     @Id
@@ -36,25 +40,7 @@ public class Survey implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "end_at", nullable = false)
-    public Date getEndAt() {
-        return endAt;
-    }
-
-    public void setEndAt(Date endAt) {
-        this.endAt = endAt;
-    }
-
-    @OneToMany(targetEntity = DateAvailable.class, cascade = CascadeType.PERSIST, mappedBy = "survey")
-    public List<DateAvailable> getDateAvailables() {
-        return dateAvailables;
-    }
-
-    public void setDateAvailables(List<DateAvailable> dateAvailables) {
-        this.dateAvailables = dateAvailables;
-    }
-
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false, unique = true)
     public String getLink() {
         return link;
     }
@@ -63,18 +49,13 @@ public class Survey implements Serializable {
         this.link = link;
     }
 
-    @ManyToMany(targetEntity = User.class)
-    @JoinTable(
-            name = "survey_user",
-            joinColumns = @JoinColumn(name = "survey_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    public List<User> getParticipants() {
-        return participants;
+    @Column(name = "end_at")
+    public Date getEndAt() {
+        return endAt;
     }
 
-    public void setParticipants(List<User> participants) {
-        this.participants = participants;
+    public void setEndAt(Date endAt) {
+        this.endAt = endAt;
     }
 
     @ManyToOne
@@ -87,8 +68,16 @@ public class Survey implements Serializable {
         this.meeting = meeting;
     }
 
-    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
-    @JoinColumn(name = "survey_id", nullable = false)
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
+    public List<SurveyDate> getAvailableDates() {
+        return availableDates;
+    }
+
+    public void setAvailableDates(List<SurveyDate> availableDates) {
+        this.availableDates = availableDates;
+    }
+
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     public List<Dietary> getAvailableDietaries() {
         return availableDietaries;
     }
@@ -115,8 +104,8 @@ public class Survey implements Serializable {
     @Override
     public String toString() {
         return String.format(
-                "Survey{id=%d, link='%s', endAt=%s, participants=%s, meeting=%s, dateAvailables=%s, availableDietaries=%s}",
-                id, link, endAt, participants, meeting, dateAvailables, availableDietaries
+                "Survey{id=%d, link='%s', endAt=%s, meeting=%s, availableDates=%s, availableDietaries=%s}",
+                id, link, endAt, meeting, availableDates, availableDietaries
         );
     }
 }

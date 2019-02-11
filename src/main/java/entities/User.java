@@ -14,11 +14,13 @@ public class User implements Serializable {
 
     private String firstName;
 
-    private List<Survey> surveys;
+    private List<Meeting> meetings;
 
-    private List<DateAvailable> dateChoices;
+    private List<Meeting> participatedMeetings;
 
-    private List<Dietary> dietaryChoices;
+    private List<SurveyDate> datesVoted;
+
+    private List<Dietary> dietariesVoted;
 
     public User() {
     }
@@ -30,7 +32,6 @@ public class User implements Serializable {
     }
 
     @Id
-    @Column(nullable = false)
     public String getEmail() {
         return email;
     }
@@ -39,7 +40,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    @Column(name = "last_name", nullable = false)
+    @Column(nullable = false, name = "last_name")
     public String getLastName() {
         return lastName;
     }
@@ -48,7 +49,7 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    @Column(name = "first_name", nullable = false)
+    @Column(nullable = false, name = "first_name")
     public String getFirstName() {
         return firstName;
     }
@@ -57,13 +58,40 @@ public class User implements Serializable {
         this.firstName = firstName;
     }
 
-    @ManyToMany(targetEntity = Survey.class, mappedBy = "participants")
-    public List<Survey> getSurveys() {
-        return surveys;
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
+    public List<Meeting> getMeetings() {
+        return meetings;
     }
 
-    public void setSurveys(List<Survey> surveys) {
-        this.surveys = surveys;
+    public void setMeetings(List<Meeting> meetings) {
+        this.meetings = meetings;
+    }
+
+    @ManyToMany(mappedBy = "participants")
+    public List<Meeting> getParticipatedMeetings() {
+        return participatedMeetings;
+    }
+
+    public void setParticipatedMeetings(List<Meeting> participatedMeetings) {
+        this.participatedMeetings = participatedMeetings;
+    }
+
+    @ManyToMany(mappedBy = "voters")
+    public List<SurveyDate> getDatesVoted() {
+        return datesVoted;
+    }
+
+    public void setDatesVoted(List<SurveyDate> datesVoted) {
+        this.datesVoted = datesVoted;
+    }
+
+    @ManyToMany(mappedBy = "voters")
+    public List<Dietary> getDietariesVoted() {
+        return dietariesVoted;
+    }
+
+    public void setDietariesVoted(List<Dietary> dietariesVoted) {
+        this.dietariesVoted = dietariesVoted;
     }
 
     @Override
@@ -83,33 +111,9 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "email='" + email + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                '}';
-    }
-
-    @ManyToMany(targetEntity = DateAvailable.class, mappedBy = "voters")
-    public List<DateAvailable> getDateChoices() {
-        return dateChoices;
-    }
-
-    public void setDateChoices(List<DateAvailable> dateChoices) {
-        this.dateChoices = dateChoices;
-    }
-
-    @ManyToMany(targetEntity = Dietary.class)
-    @JoinTable(
-            name = "dietary_vote",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "dietary_id")
-    )
-    public List<Dietary> getDietaryChoices() {
-        return dietaryChoices;
-    }
-
-    public void setDietaryChoices(List<Dietary> dietaryChoices) {
-        this.dietaryChoices = dietaryChoices;
+        return String.format(
+                "User{email='%s', lastName='%s', firstName='%s', meetings=%s, datesVoted=%s, dietariesVoted=%s}",
+                email, lastName, firstName, meetings, datesVoted, dietariesVoted
+        );
     }
 }

@@ -9,31 +9,29 @@ import java.util.Objects;
 @Entity
 @Table(name = "meetings")
 public class Meeting implements Serializable {
+
     private long id;
+
     private String title;
+
     private String summary;
+
     private Date startAt;
+
     private Date endAt;
+
     private List<Survey> surveys;
 
-    public Meeting() {
-    }
+    private User creator;
 
-    public Meeting(String title, String summary, Date startAt, Date endAt) {
+    private List<User> participants;
+
+    public Meeting(String title, String summary) {
         this.title = title;
         this.summary = summary;
-        this.startAt = startAt;
-        this.endAt = endAt;
     }
 
-    @Column(name = "start_at")
-    @Temporal(TemporalType.DATE)
-    public Date getStartAt() {
-        return startAt;
-    }
-
-    public void setStartAt(Date startAt) {
-        this.startAt = startAt;
+    public Meeting() {
     }
 
     @Id
@@ -64,23 +62,55 @@ public class Meeting implements Serializable {
         this.summary = summary;
     }
 
-    @Column(name = "end_at")
-    @Temporal(TemporalType.DATE)
+    @Column(name = "start_at")
+    public Date getStartAt() {
+        return startAt;
+    }
+
+    public void setStartAt(Date startAt) {
+        this.startAt = startAt;
+    }
+
     public Date getEndAt() {
         return endAt;
     }
 
+    @Column(name = "end_at")
     public void setEndAt(Date endAt) {
         this.endAt = endAt;
     }
 
-    @OneToMany(targetEntity = Survey.class, mappedBy = "meeting")
+    @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL)
     public List<Survey> getSurveys() {
         return surveys;
     }
 
     public void setSurveys(List<Survey> surveys) {
         this.surveys = surveys;
+    }
+
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "creator_id", referencedColumnName = "email")
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "meeting_user",
+            joinColumns = @JoinColumn(name = "meeting_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "email")
+    )
+    public List<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<User> participants) {
+        this.participants = participants;
     }
 
     @Override
@@ -90,7 +120,7 @@ public class Meeting implements Serializable {
         Meeting meeting = (Meeting) o;
         return id == meeting.id &&
                 title.equals(meeting.title) &&
-                Objects.equals(summary, meeting.summary) &&
+                summary.equals(meeting.summary) &&
                 Objects.equals(startAt, meeting.startAt) &&
                 Objects.equals(endAt, meeting.endAt);
     }
@@ -98,10 +128,5 @@ public class Meeting implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, title, summary, startAt, endAt);
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Meeting{id=%d, title='%s', summary='%s', startAt=%s, endAt=%s}", id, title, summary, startAt, endAt);
     }
 }

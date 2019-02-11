@@ -2,25 +2,29 @@ package entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "dietaries")
-public class Dietary implements Serializable {
+@Table(name = "survey_dates")
+public class SurveyDate implements Serializable {
     private long id;
 
-    private String name;
+    private Date date;
+
+    private boolean pause = false;
 
     private Survey survey;
 
     private List<User> voters;
 
-    public Dietary() {
+    public SurveyDate(Date date, boolean pause) {
+        this.date = date;
+        this.pause = pause;
     }
 
-    public Dietary(String name) {
-        this.name = name;
+    public SurveyDate() {
     }
 
     @Id
@@ -33,12 +37,22 @@ public class Dietary implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    @Column(nullable = false)
+    public Date getDate() {
+        return date;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    @Column(nullable = false)
+    public boolean isPause() {
+        return pause;
+    }
+
+    public void setPause(boolean pause) {
+        this.pause = pause;
     }
 
     @ManyToOne
@@ -53,8 +67,8 @@ public class Dietary implements Serializable {
 
     @ManyToMany
     @JoinTable(
-            name = "dietary_user",
-            joinColumns = @JoinColumn(name = "dietary_id", referencedColumnName = "id"),
+            name = "survey_date_user",
+            joinColumns = @JoinColumn(name = "survey_date_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "email")
     )
     public List<User> getVoters() {
@@ -69,19 +83,19 @@ public class Dietary implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Dietary dietary = (Dietary) o;
-        return id == dietary.id &&
-                name.equals(dietary.name) &&
-                Objects.equals(voters, dietary.voters);
+        SurveyDate that = (SurveyDate) o;
+        return id == that.id &&
+                pause == that.pause &&
+                date.equals(that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, date, pause);
     }
 
     @Override
     public String toString() {
-        return String.format("Dietary{id=%d, name='%s', voters=%s}", id, name, voters);
+        return String.format("SurveyDate{id=%d, date=%s, pause=%s, survey=%s, voters=%s}", id, date, pause, survey, voters);
     }
 }
