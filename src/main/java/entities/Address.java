@@ -9,6 +9,8 @@ public class Address {
 
     private String location;
 
+    private Survey survey;
+
     @Id
     @GeneratedValue
     public long getId() {
@@ -26,5 +28,15 @@ public class Address {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "survey_id", nullable = false)
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
     }
 }

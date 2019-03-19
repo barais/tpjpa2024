@@ -18,7 +18,7 @@ public class AddressAndDateSurvey extends Survey {
     public AddressAndDateSurvey() {
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Address> getAddresses() {
         return addresses;
     }
@@ -27,7 +27,7 @@ public class AddressAndDateSurvey extends Survey {
         this.addresses = addresses;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<entities.Date> getDates() {
         return dates;
     }

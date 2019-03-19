@@ -17,7 +17,7 @@ public class AddressSurvey extends Survey {
     public AddressSurvey() {
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Address> getAddresses() {
         return addresses;
     }

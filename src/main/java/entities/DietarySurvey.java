@@ -16,7 +16,7 @@ public class DietarySurvey extends Survey {
     public DietarySurvey() {
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Dietary> getDietaries() {
         return dietaries;
     }

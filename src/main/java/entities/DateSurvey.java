@@ -16,7 +16,7 @@ public class DateSurvey extends Survey {
     public DateSurvey() {
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Date> getDates() {
         return dates;
     }

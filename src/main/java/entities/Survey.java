@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "surveys")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "target_type")
+@DiscriminatorColumn(name = "discrimator_type")
 public abstract class Survey implements Serializable {
 
     private long id;

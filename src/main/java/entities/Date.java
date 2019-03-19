@@ -47,7 +47,7 @@ public class Date {
         this.voters = voters;
     }
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Survey.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "survey_id", nullable = false)
     public Survey getSurvey() {
         return survey;
