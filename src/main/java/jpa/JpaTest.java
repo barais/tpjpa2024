@@ -2,9 +2,9 @@ package jpa;
 
 import com.github.javafaker.Faker;
 import com.github.javafaker.Lorem;
+import entities.DateSurvey;
 import entities.Meeting;
 import entities.Survey;
-import entities.SurveyDate;
 import entities.User;
 
 import javax.persistence.EntityManager;
@@ -29,7 +29,7 @@ public class JpaTest {
             Meeting userMeeting = new Meeting(lorem.sentence(), lorem.paragraph());
             user.setMeetings(Collections.singletonList(userMeeting));
             userMeeting.setCreator(user);
-            Survey userSurvey = new Survey(faker.internet().url(), faker.date().future(2, TimeUnit.HOURS));
+            Survey userSurvey = new DateSurvey(faker.internet().url(), faker.date().future(2, TimeUnit.HOURS));
             userMeeting.setSurveys(Collections.singletonList(userSurvey));
             userSurvey.setMeeting(userMeeting);
             manager.persist(user);

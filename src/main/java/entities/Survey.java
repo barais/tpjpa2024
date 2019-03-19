@@ -3,12 +3,13 @@ package entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "surveys")
-public class Survey implements Serializable {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "target_type")
+public abstract class Survey implements Serializable {
 
     private long id;
 
@@ -17,10 +18,6 @@ public class Survey implements Serializable {
     private Date endAt;
 
     private Meeting meeting;
-
-    private List<SurveyDate> availableDates;
-
-    private List<Dietary> availableDietaries;
 
     public Survey(String link, Date endAt) {
         this.link = link;
@@ -49,6 +46,7 @@ public class Survey implements Serializable {
         this.link = link;
     }
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "end_at")
     public Date getEndAt() {
         return endAt;
@@ -66,24 +64,6 @@ public class Survey implements Serializable {
 
     public void setMeeting(Meeting meeting) {
         this.meeting = meeting;
-    }
-
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
-    public List<SurveyDate> getAvailableDates() {
-        return availableDates;
-    }
-
-    public void setAvailableDates(List<SurveyDate> availableDates) {
-        this.availableDates = availableDates;
-    }
-
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
-    public List<Dietary> getAvailableDietaries() {
-        return availableDietaries;
-    }
-
-    public void setAvailableDietaries(List<Dietary> availableDietaries) {
-        this.availableDietaries = availableDietaries;
     }
 
     @Override
@@ -104,8 +84,8 @@ public class Survey implements Serializable {
     @Override
     public String toString() {
         return String.format(
-                "Survey{id=%d, link='%s', endAt=%s, meeting=%s, availableDates=%s, availableDietaries=%s}",
-                id, link, endAt, meeting, availableDates, availableDietaries
+                "Survey{id=%d, link='%s', endAt=%s, meeting=%s}",
+                id, link, endAt, meeting
         );
     }
 }

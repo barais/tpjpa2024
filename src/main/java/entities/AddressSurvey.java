@@ -1,6 +1,28 @@
 package entities;
 
-import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
-public class AddressSurvey implements Serializable {
+@Entity
+@DiscriminatorValue("AddressSurvey")
+public class AddressSurvey extends Survey {
+
+    private List<Address> addresses;
+
+    public AddressSurvey(String link, Date endAt) {
+        super(link, endAt);
+    }
+
+    public AddressSurvey() {
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
 }

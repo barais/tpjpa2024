@@ -18,9 +18,9 @@ public class User implements Serializable {
 
     private List<Meeting> participatedMeetings;
 
-    private List<SurveyDate> datesVoted;
+    private List<Date> votedDates;
 
-    private List<Dietary> dietariesVoted;
+    private List<Dietary> votedDietaries;
 
     public User() {
     }
@@ -77,21 +77,21 @@ public class User implements Serializable {
     }
 
     @ManyToMany(mappedBy = "voters")
-    public List<SurveyDate> getDatesVoted() {
-        return datesVoted;
+    public List<Date> getDatesVoted() {
+        return votedDates;
     }
 
-    public void setDatesVoted(List<SurveyDate> datesVoted) {
-        this.datesVoted = datesVoted;
+    public void setDatesVoted(List<Date> votedDates) {
+        this.votedDates = votedDates;
     }
 
     @ManyToMany(mappedBy = "voters")
     public List<Dietary> getDietariesVoted() {
-        return dietariesVoted;
+        return votedDietaries;
     }
 
-    public void setDietariesVoted(List<Dietary> dietariesVoted) {
-        this.dietariesVoted = dietariesVoted;
+    public void setDietariesVoted(List<Dietary> votedDietaries) {
+        this.votedDietaries = votedDietaries;
     }
 
     @Override
@@ -112,8 +112,8 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return String.format(
-                "User{email='%s', lastName='%s', firstName='%s', meetings=%s, datesVoted=%s, dietariesVoted=%s}",
-                email, lastName, firstName, meetings, datesVoted, dietariesVoted
+                "User{email='%s', lastName='%s', firstName='%s', meetings=%s, votedDates=%s, votedDietaries=%s}",
+                email, lastName, firstName, meetings, votedDates, votedDietaries
         );
     }
 }
