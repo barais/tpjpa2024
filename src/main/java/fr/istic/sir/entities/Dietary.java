@@ -1,4 +1,4 @@
-package entities;
+package fr.istic.sir.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -41,7 +41,7 @@ public class Dietary implements Serializable {
         this.name = name;
     }
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Survey.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "survey_id", nullable = false)
     public Survey getSurvey() {
         return survey;

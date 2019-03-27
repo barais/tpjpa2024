@@ -1,4 +1,7 @@
-package entities;
+package fr.istic.sir.entities;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -82,7 +85,8 @@ public class Meeting implements Serializable {
         this.endAt = endAt;
     }
 
-    @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "meeting", cascade = CascadeType.PERSIST)
     public List<Survey> getSurveys() {
         return surveys;
     }
@@ -91,7 +95,8 @@ public class Meeting implements Serializable {
         this.surveys = surveys;
     }
 
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "creator_id", referencedColumnName = "email")
     public User getCreator() {
         return creator;

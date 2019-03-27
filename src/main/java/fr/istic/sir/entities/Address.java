@@ -1,4 +1,4 @@
-package entities;
+package fr.istic.sir.entities;
 
 import javax.persistence.*;
 
@@ -8,6 +8,8 @@ public class Address {
     private long id;
 
     private String location;
+
+    private Survey survey;
 
     @Id
     @GeneratedValue
@@ -26,5 +28,15 @@ public class Address {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "survey_id", nullable = false)
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
     }
 }

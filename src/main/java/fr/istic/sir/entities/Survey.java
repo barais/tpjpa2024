@@ -1,4 +1,6 @@
-package entities;
+package fr.istic.sir.entities;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,7 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "surveys")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "target_type")
+@DiscriminatorColumn(name = "discriminator_type")
 public abstract class Survey implements Serializable {
 
     private long id;
@@ -56,7 +58,8 @@ public abstract class Survey implements Serializable {
         this.endAt = endAt;
     }
 
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(targetEntity = Meeting.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "meeting_id", nullable = false)
     public Meeting getMeeting() {
         return meeting;

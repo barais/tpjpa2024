@@ -1,11 +1,11 @@
-package jpa;
+package fr.istic.sir.jpa;
 
 import com.github.javafaker.Faker;
 import com.github.javafaker.Lorem;
-import entities.DateSurvey;
-import entities.Meeting;
-import entities.Survey;
-import entities.User;
+import fr.istic.sir.entities.DateSurvey;
+import fr.istic.sir.entities.Meeting;
+import fr.istic.sir.entities.Survey;
+import fr.istic.sir.entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -42,6 +42,4 @@ public class JpaTest {
         manager.close();
         EntityManagerHelper.closeEntityManagerFactory();
     }
-
-
 }
