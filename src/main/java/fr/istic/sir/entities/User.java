@@ -61,7 +61,7 @@ public class User implements Serializable {
     }
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     public List<Meeting> getMeetings() {
         return meetings;
     }
@@ -70,32 +70,32 @@ public class User implements Serializable {
         this.meetings = meetings;
     }
 
-    @ManyToMany(mappedBy = "participants")
-    public List<Meeting> getParticipatedMeetings() {
-        return participatedMeetings;
-    }
+//    @ManyToMany(mappedBy = "participants")
+//    public List<Meeting> getParticipatedMeetings() {
+//        return participatedMeetings;
+//    }
 
-    public void setParticipatedMeetings(List<Meeting> participatedMeetings) {
-        this.participatedMeetings = participatedMeetings;
-    }
+//    public void setParticipatedMeetings(List<Meeting> participatedMeetings) {
+//        this.participatedMeetings = participatedMeetings;
+//    }
 
-    @ManyToMany(mappedBy = "voters")
-    public List<Date> getDatesVoted() {
-        return votedDates;
-    }
-
-    public void setDatesVoted(List<Date> votedDates) {
-        this.votedDates = votedDates;
-    }
-
-    @ManyToMany(mappedBy = "voters")
-    public List<Dietary> getDietariesVoted() {
-        return votedDietaries;
-    }
-
-    public void setDietariesVoted(List<Dietary> votedDietaries) {
-        this.votedDietaries = votedDietaries;
-    }
+//    @ManyToMany(mappedBy = "voters")
+//    public List<Date> getDatesVoted() {
+//        return votedDates;
+//    }
+//
+//    public void setDatesVoted(List<Date> votedDates) {
+//        this.votedDates = votedDates;
+//    }
+//
+//    @ManyToMany(mappedBy = "voters")
+//    public List<Dietary> getDietariesVoted() {
+//        return votedDietaries;
+//    }
+//
+//    public void setDietariesVoted(List<Dietary> votedDietaries) {
+//        this.votedDietaries = votedDietaries;
+//    }
 
     @Override
     public boolean equals(Object o) {

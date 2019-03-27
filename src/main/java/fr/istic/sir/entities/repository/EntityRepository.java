@@ -67,7 +67,7 @@ public abstract class EntityRepository<T> implements Repository<T> {
      * @return Return a resource if the given identity exist, null if not.
      */
     @Override
-    public Optional<T> findById(Long id) {
+    public Optional<T> findById(Object id) {
         return Optional.ofNullable(em.find(entityClass, id));
     }
 
@@ -106,7 +106,9 @@ public abstract class EntityRepository<T> implements Repository<T> {
      */
     @Override
     public T delete(T o) {
-        return null;
+        runInTransaction(em -> em.remove(o));
+
+        return o;
     }
 
     protected void runInTransaction(Consumer<EntityManager> action) {
