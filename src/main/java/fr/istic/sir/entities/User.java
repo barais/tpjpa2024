@@ -1,4 +1,6 @@
-package entities;
+package fr.istic.sir.entities;
+
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -58,7 +60,8 @@ public class User implements Serializable {
         this.firstName = firstName;
     }
 
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.PERSIST)
     public List<Meeting> getMeetings() {
         return meetings;
     }

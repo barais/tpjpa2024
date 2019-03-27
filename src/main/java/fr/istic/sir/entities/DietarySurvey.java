@@ -1,4 +1,4 @@
-package entities;
+package fr.istic.sir.entities;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,7 +16,7 @@ public class DietarySurvey extends Survey {
     public DietarySurvey() {
     }
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     public List<Dietary> getDietaries() {
         return dietaries;
     }

@@ -1,4 +1,4 @@
-package entities;
+package fr.istic.sir.entities;
 
 import javax.persistence.*;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.List;
 @DiscriminatorValue("AddressAndDateSurvey")
 public class AddressAndDateSurvey extends Survey {
 
-    private List<entities.Date> dates;
+    private List<fr.istic.sir.entities.Date> dates;
 
     private List<Address> addresses;
 
@@ -18,7 +18,7 @@ public class AddressAndDateSurvey extends Survey {
     public AddressAndDateSurvey() {
     }
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     public List<Address> getAddresses() {
         return addresses;
     }
@@ -27,8 +27,8 @@ public class AddressAndDateSurvey extends Survey {
         this.addresses = addresses;
     }
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public List<entities.Date> getDates() {
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
+    public List<fr.istic.sir.entities.Date> getDates() {
         return dates;
     }
 

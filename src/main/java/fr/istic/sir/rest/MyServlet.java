@@ -1,4 +1,4 @@
-package servlet;
+package fr.istic.sir.rest;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
