@@ -14,6 +14,13 @@ public class Date {
 
     private List<User> voters;
 
+    public Date() {
+    }
+
+    public Date(java.util.Date time) {
+        this.time = time;
+    }
+
     @Id
     @GeneratedValue
     public long getId() {

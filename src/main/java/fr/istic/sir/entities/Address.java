@@ -11,6 +11,13 @@ public class Address {
 
     private Survey survey;
 
+    public Address() {
+    }
+
+    public Address(String location) {
+        this.location = location;
+    }
+
     @Id
     @GeneratedValue
     public long getId() {
