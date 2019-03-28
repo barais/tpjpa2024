@@ -32,7 +32,7 @@ public class Date {
     }
 
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     public java.util.Date getTime() {
         return time;
     }

@@ -48,7 +48,7 @@ public abstract class Survey implements Serializable {
         this.link = link;
     }
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "end_at")
     public Date getEndAt() {
         return endAt;

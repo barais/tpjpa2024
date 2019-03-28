@@ -26,7 +26,7 @@ public class JpaTest {
             Faker faker = new Faker();
             User user = new User(faker.internet().emailAddress(), faker.name().lastName(), faker.name().firstName());
             Lorem lorem = faker.lorem();
-            Meeting userMeeting = new Meeting(lorem.sentence(), lorem.paragraph());
+            Meeting userMeeting = new Meeting(lorem.sentence(), lorem.paragraph(), null, null);
             user.setMeetings(Collections.singletonList(userMeeting));
             userMeeting.setCreator(user);
             Survey userSurvey = new DateSurvey(faker.internet().url(), faker.date().future(2, TimeUnit.HOURS));

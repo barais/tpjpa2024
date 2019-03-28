@@ -29,9 +29,11 @@ public class Meeting implements Serializable {
 
     private List<User> participants;
 
-    public Meeting(String title, String summary) {
+    public Meeting(String title, String summary, Date startAt, Date endAt) {
         this.title = title;
         this.summary = summary;
+        this.startAt = startAt;
+        this.endAt = endAt;
     }
 
     public Meeting() {
@@ -65,7 +67,7 @@ public class Meeting implements Serializable {
         this.summary = summary;
     }
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "start_at")
     public Date getStartAt() {
         return startAt;
@@ -75,7 +77,7 @@ public class Meeting implements Serializable {
         this.startAt = startAt;
     }
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "end_at")
     public Date getEndAt() {
         return endAt;
@@ -86,7 +88,7 @@ public class Meeting implements Serializable {
     }
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "meeting", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "meeting", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     public List<Survey> getSurveys() {
         return surveys;
     }
@@ -106,7 +108,7 @@ public class Meeting implements Serializable {
         this.creator = creator;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "meeting_user",
             joinColumns = @JoinColumn(name = "meeting_id", referencedColumnName = "id"),
