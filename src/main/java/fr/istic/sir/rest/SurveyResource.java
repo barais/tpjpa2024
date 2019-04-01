@@ -42,17 +42,17 @@ public class SurveyResource {
         JSONArray locations, dates;
         switch (surveyType) {
             case 0: // Date
-                survey = new DateSurvey(link, parseToDate(endAt));
+                survey = new DateSurvey();
                 ((DateSurvey) survey).setDates(associateDate(survey, request.getJSONArray("dates")));
                 break;
 
             case 1: // Location
-                survey = new AddressSurvey(link, parseToDate(endAt));
+                survey = new AddressSurvey();
                 ((AddressSurvey) survey).setAddresses(associateLocation(survey, request.getJSONArray("locations")));
                 break;
 
             case 2: // Date and Location
-                survey = new AddressAndDateSurvey(link, parseToDate(endAt));
+                survey = new AddressAndDateSurvey();
 
                 dates = request.getJSONArray("dates");
                 ((AddressAndDateSurvey) survey).setDates(associateDate(survey, dates));

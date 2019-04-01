@@ -10,7 +10,6 @@ import fr.istic.sir.entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 
 public class JpaTest {
 
@@ -26,10 +25,10 @@ public class JpaTest {
             Faker faker = new Faker();
             User user = new User(faker.internet().emailAddress(), faker.name().lastName(), faker.name().firstName());
             Lorem lorem = faker.lorem();
-            Meeting userMeeting = new Meeting(lorem.sentence(), lorem.paragraph(), null, null);
+            Meeting userMeeting = new Meeting(lorem.sentence(), lorem.paragraph());
             user.setMeetings(Collections.singletonList(userMeeting));
             userMeeting.setCreator(user);
-            Survey userSurvey = new DateSurvey(faker.internet().url(), faker.date().future(2, TimeUnit.HOURS));
+            Survey userSurvey = new DateSurvey();
             userMeeting.setSurveys(Collections.singletonList(userSurvey));
             userSurvey.setMeeting(userMeeting);
             manager.persist(user);

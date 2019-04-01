@@ -37,13 +37,11 @@ public class MeetingResource {
         String creatorEmail = request.getString("email");
         String title = request.getString("title");
         String summary = request.getString("summary");
-        String startAt = request.getString("startAt");
-        String endAt = request.getString("endAt");
 
         Optional<User> creator = userRepository.findById(creatorEmail);
         if (!creator.isPresent()) return null;
 
-        Meeting meeting = new Meeting(title, summary, Utils.parseToDate(startAt), Utils.parseToDate(endAt));
+        Meeting meeting = new Meeting(title, summary);
         meeting.setCreator(creator.get());
 
         repository.save(meeting);
@@ -76,8 +74,6 @@ public class MeetingResource {
         Meeting meeting = opt.get();
         meeting.setTitle(title);
         meeting.setSummary(summary);
-        meeting.setStartAt(Utils.parseToDate(startAt));
-        meeting.setEndAt(Utils.parseToDate(endAt));
 
         repository.update(meeting);
 

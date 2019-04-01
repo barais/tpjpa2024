@@ -1,6 +1,9 @@
 package fr.istic.sir.entities;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
@@ -8,13 +11,6 @@ import java.util.List;
 public class DateSurvey extends Survey {
 
     private List<Date> dates;
-
-    public DateSurvey(String link, java.util.Date endAt) {
-        super(link, endAt);
-    }
-
-    public DateSurvey() {
-    }
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     public List<Date> getDates() {

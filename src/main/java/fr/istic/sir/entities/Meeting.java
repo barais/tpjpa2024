@@ -5,7 +5,6 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,9 +18,7 @@ public class Meeting implements Serializable {
 
     private String summary;
 
-    private Date startAt;
-
-    private Date endAt;
+    private boolean pause = false;
 
     private List<Survey> surveys;
 
@@ -29,12 +26,11 @@ public class Meeting implements Serializable {
 
     private List<User> participants;
 
-    public Meeting(String title, String summary, Date startAt, Date endAt) {
+    public Meeting(String title, String summary) {
         this.title = title;
         this.summary = summary;
-        this.startAt = startAt;
-        this.endAt = endAt;
     }
+
 
     public Meeting() {
     }
@@ -65,26 +61,6 @@ public class Meeting implements Serializable {
 
     public void setSummary(String summary) {
         this.summary = summary;
-    }
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "start_at")
-    public Date getStartAt() {
-        return startAt;
-    }
-
-    public void setStartAt(Date startAt) {
-        this.startAt = startAt;
-    }
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_at")
-    public Date getEndAt() {
-        return endAt;
-    }
-
-    public void setEndAt(Date endAt) {
-        this.endAt = endAt;
     }
 
     @JsonManagedReference
@@ -129,13 +105,20 @@ public class Meeting implements Serializable {
         Meeting meeting = (Meeting) o;
         return id == meeting.id &&
                 title.equals(meeting.title) &&
-                summary.equals(meeting.summary) &&
-                Objects.equals(startAt, meeting.startAt) &&
-                Objects.equals(endAt, meeting.endAt);
+                summary.equals(meeting.summary);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, summary, startAt, endAt);
+        return Objects.hash(id, title, summary);
+    }
+
+    @Column(nullable = false)
+    public boolean isPause() {
+        return pause;
+    }
+
+    public void setPause(boolean pause) {
+        this.pause = pause;
     }
 }

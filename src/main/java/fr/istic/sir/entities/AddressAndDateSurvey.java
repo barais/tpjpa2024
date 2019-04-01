@@ -11,13 +11,6 @@ public class AddressAndDateSurvey extends Survey {
 
     private List<Address> addresses;
 
-    public AddressAndDateSurvey(String link, java.util.Date endAt) {
-        super(link, endAt);
-    }
-
-    public AddressAndDateSurvey() {
-    }
-
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     public List<Address> getAddresses() {
         return addresses;

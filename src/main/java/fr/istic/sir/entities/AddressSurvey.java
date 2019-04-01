@@ -10,13 +10,6 @@ public class AddressSurvey extends Survey {
 
     private List<Address> addresses;
 
-    public AddressSurvey(String link, Date endAt) {
-        super(link, endAt);
-    }
-
-    public AddressSurvey() {
-    }
-
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     public List<Address> getAddresses() {
         return addresses;
