@@ -4,7 +4,6 @@ import fr.istic.sir.jpa.EntityManagerHelper;
 import fr.istic.sir.repositories.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -12,10 +11,9 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 public abstract class EntityRepository<T> implements Repository<T> {
-    protected EntityManager em = EntityManagerHelper.getEntityManager();
-    protected Class<T> entityClass;
+    private Class<T> entityClass;
 
-    public EntityRepository() {
+    EntityRepository() {
         ParameterizedType genericClass = (ParameterizedType) getClass().getGenericSuperclass();
         entityClass = (Class<T>) genericClass.getActualTypeArguments()[0];
     }
@@ -40,7 +38,8 @@ public abstract class EntityRepository<T> implements Repository<T> {
      */
     @Override
     public List<T> findAll() {
-        Query query = em.createQuery("SELECT u FROM " + entityClass.getName() + " u");
+        Query query = EntityManagerHelper.getEntityManager()
+                .createQuery("SELECT u FROM " + entityClass.getName() + " u");
 
         return query.getResultList();
     }
@@ -54,7 +53,7 @@ public abstract class EntityRepository<T> implements Repository<T> {
      */
     @Override
     public List<T> findBy(String columnName, String value) {
-        Query query = em.createQuery("SELECT u FROM " + entityClass.getName() + " u WHERE " + columnName + " = :value");
+        Query query = EntityManagerHelper.getEntityManager().createQuery("SELECT u FROM " + entityClass.getName() + " u WHERE " + columnName + " = :value");
         query.setParameter(value, value);
 
         return query.getResultList();
@@ -68,7 +67,7 @@ public abstract class EntityRepository<T> implements Repository<T> {
      */
     @Override
     public Optional<T> findById(Object id) {
-        return Optional.ofNullable(em.find(entityClass, id));
+        return Optional.ofNullable(EntityManagerHelper.getEntityManager().find(entityClass, id));
     }
 
     /**
@@ -80,7 +79,8 @@ public abstract class EntityRepository<T> implements Repository<T> {
      */
     @Override
     public Optional<T> findOne(String columnName, String value) {
-        Query query = em.createQuery("SELECT u FROM " + entityClass.getName() + " u WHERE " + columnName + " = :value");
+        Query query = EntityManagerHelper.getEntityManager()
+                .createQuery("SELECT u FROM " + entityClass.getName() + " u WHERE " + columnName + " = :value");
         query.setParameter(value, value);
 
         return Optional.ofNullable((T) query.getSingleResult());
@@ -111,18 +111,17 @@ public abstract class EntityRepository<T> implements Repository<T> {
         return o;
     }
 
-    protected void runInTransaction(Consumer<EntityManager> action) {
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
+    private void runInTransaction(Consumer<EntityManager> action) {
+        EntityManagerHelper.beginTransaction();
         try {
-            action.accept(em);
+            action.accept(EntityManagerHelper.getEntityManager());
         } catch (Exception e) {
-            tx.rollback();
+            EntityManagerHelper.rollback();
             e.printStackTrace();
         }
-        tx.commit();
+        EntityManagerHelper.commit();
 
         EntityManagerHelper.closeEntityManager();
-        EntityManagerHelper.closeEntityManagerFactory();
+//        EntityManagerHelper.closeEntityManagerFactory();
     }
 }
