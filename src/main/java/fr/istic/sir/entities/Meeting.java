@@ -5,7 +5,6 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,9 +18,7 @@ public class Meeting implements Serializable {
 
     private String summary;
 
-    private Date startAt;
-
-    private Date endAt;
+    private boolean pause = false;
 
     private List<Survey> surveys;
 
@@ -33,6 +30,7 @@ public class Meeting implements Serializable {
         this.title = title;
         this.summary = summary;
     }
+
 
     public Meeting() {
     }
@@ -65,28 +63,8 @@ public class Meeting implements Serializable {
         this.summary = summary;
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "start_at")
-    public Date getStartAt() {
-        return startAt;
-    }
-
-    public void setStartAt(Date startAt) {
-        this.startAt = startAt;
-    }
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "end_at")
-    public Date getEndAt() {
-        return endAt;
-    }
-
-    public void setEndAt(Date endAt) {
-        this.endAt = endAt;
-    }
-
     @JsonManagedReference
-    @OneToMany(mappedBy = "meeting", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "meeting", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     public List<Survey> getSurveys() {
         return surveys;
     }
@@ -96,7 +74,7 @@ public class Meeting implements Serializable {
     }
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(nullable = false, name = "creator_id", referencedColumnName = "email")
     public User getCreator() {
         return creator;
@@ -106,7 +84,7 @@ public class Meeting implements Serializable {
         this.creator = creator;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "meeting_user",
             joinColumns = @JoinColumn(name = "meeting_id", referencedColumnName = "id"),
@@ -127,13 +105,20 @@ public class Meeting implements Serializable {
         Meeting meeting = (Meeting) o;
         return id == meeting.id &&
                 title.equals(meeting.title) &&
-                summary.equals(meeting.summary) &&
-                Objects.equals(startAt, meeting.startAt) &&
-                Objects.equals(endAt, meeting.endAt);
+                summary.equals(meeting.summary);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, summary, startAt, endAt);
+        return Objects.hash(id, title, summary);
+    }
+
+    @Column(nullable = false)
+    public boolean isPause() {
+        return pause;
+    }
+
+    public void setPause(boolean pause) {
+        this.pause = pause;
     }
 }

@@ -1,5 +1,8 @@
 package fr.istic.sir.entities;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,14 +14,8 @@ public class AddressAndDateSurvey extends Survey {
 
     private List<Address> addresses;
 
-    public AddressAndDateSurvey(String link, java.util.Date endAt) {
-        super(link, endAt);
-    }
-
-    public AddressAndDateSurvey() {
-    }
-
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.PERSIST)
     public List<Address> getAddresses() {
         return addresses;
     }
@@ -27,7 +24,8 @@ public class AddressAndDateSurvey extends Survey {
         this.addresses = addresses;
     }
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
+    @JsonBackReference
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.PERSIST)
     public List<fr.istic.sir.entities.Date> getDates() {
         return dates;
     }

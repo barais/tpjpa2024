@@ -34,7 +34,7 @@ public interface Repository<T> {
      * @param id Resource identity.
      * @return Return a resource if the given identity exist, null if not.
      */
-    Optional<T> findById(Long id);
+    Optional<T> findById(Object id);
 
     /**
      * Find a resource base on a column

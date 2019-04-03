@@ -4,7 +4,6 @@ import org.codehaus.jackson.annotate.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -17,14 +16,7 @@ public abstract class Survey implements Serializable {
 
     private String link;
 
-    private Date endAt;
-
     private Meeting meeting;
-
-    public Survey(String link, Date endAt) {
-        this.link = link;
-        this.endAt = endAt;
-    }
 
     public Survey() {
     }
@@ -39,23 +31,13 @@ public abstract class Survey implements Serializable {
         this.id = id;
     }
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     public String getLink() {
         return link;
     }
 
     public void setLink(String link) {
         this.link = link;
-    }
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "end_at")
-    public Date getEndAt() {
-        return endAt;
-    }
-
-    public void setEndAt(Date endAt) {
-        this.endAt = endAt;
     }
 
     @JsonBackReference
@@ -75,20 +57,19 @@ public abstract class Survey implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Survey survey = (Survey) o;
         return id == survey.id &&
-                link.equals(survey.link) &&
-                endAt.equals(survey.endAt);
+                link.equals(survey.link);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, link, endAt);
+        return Objects.hash(id, link);
     }
 
     @Override
     public String toString() {
         return String.format(
-                "Survey{id=%d, link='%s', endAt=%s, meeting=%s}",
-                id, link, endAt, meeting
+                "Survey{id=%d, link='%s', meeting=%s}",
+                id, link, meeting
         );
     }
 }
