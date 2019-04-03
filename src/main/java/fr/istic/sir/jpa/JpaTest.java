@@ -22,16 +22,16 @@ public class JpaTest {
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
         try {
-            Faker faker = new Faker();
-            User user = new User(faker.internet().emailAddress(), faker.name().lastName(), faker.name().firstName());
-            Lorem lorem = faker.lorem();
-            Meeting userMeeting = new Meeting(lorem.sentence(), lorem.paragraph());
-            user.setMeetings(Collections.singletonList(userMeeting));
-            userMeeting.setCreator(user);
-            Survey userSurvey = new DateSurvey();
-            userMeeting.setSurveys(Collections.singletonList(userSurvey));
-            userSurvey.setMeeting(userMeeting);
-            manager.persist(user);
+//            Faker faker = new Faker();
+//            User user = new User(faker.internet().emailAddress(), faker.name().lastName(), faker.name().firstName());
+//            Lorem lorem = faker.lorem();
+//            Meeting userMeeting = new Meeting(lorem.sentence(), lorem.paragraph());
+//            user.setMeetings(Collections.singletonList(userMeeting));
+//            userMeeting.setCreator(user);
+//            Survey userSurvey = new DateSurvey();
+//            userMeeting.setSurveys(Collections.singletonList(userSurvey));
+//            userSurvey.setMeeting(userMeeting);
+//            manager.persist(user);
         } catch (Exception e) {
             tx.rollback();
             e.printStackTrace();

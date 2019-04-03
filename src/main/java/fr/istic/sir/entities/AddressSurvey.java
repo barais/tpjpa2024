@@ -1,7 +1,11 @@
 package fr.istic.sir.entities;
 
-import javax.persistence.*;
-import java.util.Date;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
@@ -10,7 +14,8 @@ public class AddressSurvey extends Survey {
 
     private List<Address> addresses;
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.PERSIST)
     public List<Address> getAddresses() {
         return addresses;
     }

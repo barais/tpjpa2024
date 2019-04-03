@@ -1,11 +1,14 @@
 package fr.istic.sir.entities;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "dates")
-public class Date {
+public class Date implements Serializable {
     private long id;
 
     private java.util.Date time;
@@ -54,7 +57,8 @@ public class Date {
         this.voters = voters;
     }
 
-    @ManyToOne(targetEntity = Survey.class, cascade = CascadeType.ALL)
+    @JsonBackReference
+    @ManyToOne(targetEntity = Survey.class, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "survey_id", nullable = false)
     public Survey getSurvey() {
         return survey;

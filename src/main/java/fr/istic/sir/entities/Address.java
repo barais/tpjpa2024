@@ -1,10 +1,13 @@
 package fr.istic.sir.entities;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "addresses")
-public class Address {
+public class Address implements Serializable {
     private long id;
 
     private String location;
@@ -37,6 +40,7 @@ public class Address {
         this.location = location;
     }
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "survey_id", nullable = false)
     public Survey getSurvey() {

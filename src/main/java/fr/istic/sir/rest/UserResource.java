@@ -78,7 +78,6 @@ public class UserResource {
 
             return user;
         }
-        System.out.println("is not present");
 
         return null;
     }

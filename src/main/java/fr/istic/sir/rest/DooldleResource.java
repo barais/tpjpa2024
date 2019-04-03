@@ -1,6 +1,7 @@
 package fr.istic.sir.rest;
 
 import fr.istic.sir.entities.*;
+import fr.istic.sir.entities.Date;
 import fr.istic.sir.entities.repository.SurveyRepository;
 import fr.istic.sir.entities.repository.UserRepository;
 import fr.istic.sir.repositories.Repository;
@@ -15,10 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.DatatypeConverter;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Path("/doodle")
 public class DooldleResource {
@@ -35,7 +33,12 @@ public class DooldleResource {
     @Produces(MediaType.APPLICATION_JSON)
     public User store(JSONObject request) throws Exception {
         JSONObject u = request.getJSONObject("user");
-        User user = new User(u.getString("email"), u.getString("lastName"), u.getString("firstName"));
+        Optional<User> opt = repository.findById(u.getString("email"));
+        User user;
+        if (opt.isPresent())
+            user = opt.get();
+        else
+            user = new User(u.getString("email"), u.getString("lastName"), u.getString("firstName"));
 
         JSONObject m = request.getJSONObject("meeting");
         Meeting meeting = new Meeting(m.getString("title"), m.getString("summary"));

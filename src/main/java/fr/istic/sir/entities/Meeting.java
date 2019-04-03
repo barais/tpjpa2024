@@ -74,7 +74,7 @@ public class Meeting implements Serializable {
     }
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(nullable = false, name = "creator_id", referencedColumnName = "email")
     public User getCreator() {
         return creator;

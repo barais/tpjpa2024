@@ -1,5 +1,7 @@
 package fr.istic.sir.entities;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -12,7 +14,8 @@ public class DateSurvey extends Survey {
 
     private List<Date> dates;
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.PERSIST)
     public List<Date> getDates() {
         return dates;
     }
