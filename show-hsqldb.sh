@@ -1,2 +1,2 @@
 #mvn dependency:copy-dependencies
-java -cp target/dependency/hsqldb-2.3.4.jar org.hsqldb.util.DatabaseManager
+java -cp target/dependency/hsqldb-2.5.1.jar org.hsqldb.util.DatabaseManagerSwing
