@@ -1,1 +1,1 @@
-# Template de projet pour le TP JPA 2019 UniR
+# Template de projet pour le TP JPA 2021 UniR
