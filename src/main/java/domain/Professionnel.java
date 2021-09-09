@@ -1,9 +1,8 @@
 package domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Professionnel {
@@ -12,6 +11,8 @@ public class Professionnel {
     private String nom;
 
     private Departement departement;
+
+    private List<Rdv> rdvs = new ArrayList<>();
 
     public Professionnel() {
     }
@@ -44,12 +45,21 @@ public class Professionnel {
     }
 
     @ManyToOne
-    public Departement getDepartment() {
+    public Departement getDepartement() {
         return departement;
     }
 
-    public void setDepartment(Departement department) {
+    public void setDepartement(Departement department) {
         this.departement = department;
+    }
+
+    @OneToMany(mappedBy = "professionnel", cascade = CascadeType.PERSIST)
+    public List<Rdv> getRdvs() {
+        return rdvs;
+    }
+
+    public void setRdvs(List<Rdv> rdvs){
+        this.rdvs = rdvs;
     }
 
     @Override
