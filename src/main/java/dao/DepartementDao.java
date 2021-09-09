@@ -1,13 +1,13 @@
 package dao;
 
-import domain.Departement;
-import domain.Professionnel;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
+
+import domain.Departement;
 
 public class DepartementDao {
 
@@ -17,29 +17,7 @@ public class DepartementDao {
         this.manager = manager;
     }
 
-    public static void main(String[] args) {
-        EntityManagerFactory factory =
-                Persistence.createEntityManagerFactory("example");
-        EntityManager manager = factory.createEntityManager();
-        DepartementDao test = new DepartementDao (manager);
-
-        EntityTransaction tx = manager.getTransaction();
-        tx.begin();
-        try {
-            test.createDepartements();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        tx.commit();
-
-        test.listDepartements();
-
-        manager.close();
-        System.out.println(".. done");
-    }
-
-
-    private void createDepartements() {
+    public void createDepartements() {
         int numOfDepartements = manager.createQuery("Select a From Departement a", Departement.class).getResultList().size();
         if (numOfDepartements == 0) {
             manager.persist(new Departement("MAN"));
@@ -47,11 +25,11 @@ public class DepartementDao {
         }
     }
 
-    private void listDepartements() {
+    public void listDepartements() {
         List<Departement> resultList = manager.createQuery("Select a From Departement a", Departement.class).getResultList();
-        System.out.println("num of departements:" + resultList.size());
+        System.out.println("Nombre de départements : " + resultList.size());
         for (Departement next : resultList) {
-            System.out.println("next departement: " + next);
+            System.out.println("Département suivant : " + next);
         }
     }
 }

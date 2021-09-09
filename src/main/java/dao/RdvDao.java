@@ -1,14 +1,15 @@
 package dao;
 
-import domain.Departement;
-import domain.Professionnel;
-import domain.Rdv;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
+
+import domain.Departement;
+import domain.Professionnel;
+import domain.Rdv;
 
 public class RdvDao {
     private EntityManager manager;
@@ -17,29 +18,7 @@ public class RdvDao {
         this.manager = manager;
     }
 
-    public static void main(String[] args) {
-        EntityManagerFactory factory =
-                Persistence.createEntityManagerFactory("example");
-        EntityManager manager = factory.createEntityManager();
-        RdvDao test = new RdvDao (manager);
-
-        EntityTransaction tx = manager.getTransaction();
-        tx.begin();
-        try {
-            test.createRdvs();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        tx.commit();
-
-        test.listRdvs();
-
-        manager.close();
-        System.out.println(".. done");
-    }
-
-
-    private void createRdvs() {
+    public void createRdvs() {
         int numOfRdvs = manager.createQuery("Select a From Rdv a", Rdv.class).getResultList().size();
         if (numOfRdvs == 0) {
             Departement departement = new Departement("java");
@@ -52,11 +31,11 @@ public class RdvDao {
         }
     }
 
-    private void listRdvs() {
+    public void listRdvs() {
         List<Rdv> resultList = manager.createQuery("Select a From Rdv a", Rdv.class).getResultList();
-        System.out.println("num of rdvs:" + resultList.size());
+        System.out.println("Nombre de rdvs :" + resultList.size());
         for (Rdv next : resultList) {
-            System.out.println("next rdv: " + next);
+            System.out.println("Rdv suivant : " + next);
         }
     }
 }

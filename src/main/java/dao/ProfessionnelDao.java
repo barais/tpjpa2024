@@ -1,14 +1,14 @@
 package dao;
 
-import domain.Departement;
-import domain.Professionnel;
-import jpa.EntityManagerHelper;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
+
+import domain.Departement;
+import domain.Professionnel;
 
 public class ProfessionnelDao {
 
@@ -18,45 +18,22 @@ public class ProfessionnelDao {
         this.manager = manager;
     }
 
-    public static void main(String[] args) {
-        EntityManagerFactory factory =
-                Persistence.createEntityManagerFactory("example");
-        EntityManager manager = factory.createEntityManager();
-        ProfessionnelDao test = new ProfessionnelDao (manager);
-
-        EntityTransaction tx = manager.getTransaction();
-        tx.begin();
-        try {
-            test.createProfessionnels();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        tx.commit();
-
-        test.listProfessionnels();
-
-        manager.close();
-        System.out.println(".. done");
-    }
-
-
-    private void createProfessionnels() {
+    public void createProfessionnels() {
         int numOfEmployees = manager.createQuery("Select a From Professionnel a", Professionnel.class).getResultList().size();
         if (numOfEmployees == 0) {
             Departement departement = new Departement("java");
             manager.persist(departement);
 
-            manager.persist(new Professionnel("Jakab Gipsz",departement));
-            manager.persist(new Professionnel("Captain Nemo",departement));
-
+            manager.persist(new Professionnel("Professionnel 1",departement));
+            manager.persist(new Professionnel("Professionnel 2",departement));
         }
     }
 
-    private void listProfessionnels() {
+    public void listProfessionnels() {
         List<Professionnel> resultList = manager.createQuery("Select a From Professionnel a", Professionnel.class).getResultList();
-        System.out.println("num of employess:" + resultList.size());
+        System.out.println("Nombre de professionnels : " + resultList.size());
         for (Professionnel next : resultList) {
-            System.out.println("next employee: " + next);
+            System.out.println("Professionnel suivant : " + next);
         }
     }
 
