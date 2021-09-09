@@ -9,20 +9,20 @@ import javax.persistence.ManyToOne;
 public class Professionnel {
     private Long id;
 
-    private String name;
+    private String nom;
 
-    private Departement department;
+    private Departement departement;
 
     public Professionnel() {
     }
 
     public Professionnel(String name, Departement department) {
-        this.name = name;
-        this.department = department;
+        this.nom = name;
+        this.departement = department;
     }
 
     public Professionnel(String name) {
-        this.name = name;
+        this.nom = name;
     }
 
     @Id
@@ -36,26 +36,26 @@ public class Professionnel {
     }
 
     public String getName() {
-        return name;
+        return nom;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nom = name;
     }
 
     @ManyToOne
     public Departement getDepartment() {
-        return department;
+        return departement;
     }
 
     public void setDepartment(Departement department) {
-        this.department = department;
+        this.departement = department;
     }
 
     @Override
     public String toString() {
-        return "Professionnel [id=" + id + ", name=" + name + ", departement="
-                + department.getName() + "]";
+        return "Professionnel [id=" + id + ", nom=" + nom + ", departement="
+                + departement.getName() + "]";
     }
 
 }
