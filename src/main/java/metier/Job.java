@@ -2,11 +2,7 @@ package metier;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Job {
@@ -17,8 +13,6 @@ public class Job {
     private String name;
 
     private int salaires;
-
-    private List<Job> jobs = new ArrayList<Job>();
 
     public Job(){
 
@@ -55,6 +49,7 @@ public class Job {
     public void setSalaires(int salaires) {
         this.salaires = salaires;
     }
+
 
     @Override
     public String toString(){
