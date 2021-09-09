@@ -2,6 +2,8 @@ package jpa;
 
 import javax.persistence.*;
 
+import metier.*;
+
 public class JpaTest {
 
 	/**
@@ -15,6 +17,9 @@ public class JpaTest {
 
 
 		try {
+			
+			User u=new User();
+			manager.persist(u);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -23,7 +28,7 @@ public class JpaTest {
 
 
 		manager.close();
-		//EntityManagerHelper.closeEntityManagerFactory();
+		EntityManagerHelper.closeEntityManagerFactory();
 		factory.close();
 	}
 
