@@ -17,6 +17,14 @@ public class User {
 
 	private List<Appointment> appointments;
 
+	public User(String name){
+		this.name = name;
+	}
+
+	public User() {
+
+	}
+
 	public Date getDateNaissance() {
 		return dateNaissance;
 	}

@@ -18,7 +18,7 @@ public class JpaTest {
 
 		try {
 			
-			User u=new User();
+			User u=new User("test");
 			manager.persist(u);
 
 		} catch (Exception e) {
