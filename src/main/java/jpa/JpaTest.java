@@ -1,8 +1,9 @@
 package jpa;
 
+import model.Profs;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 
 public class JpaTest {
 
@@ -17,7 +18,13 @@ public class JpaTest {
 
 
 		try {
+			Profs arnaud = new Profs();
+			arnaud.setName("Arnaud");
+			Profs yao = new Profs();
+			yao.setName("Yao");
 
+			manager.persist(arnaud);
+			manager.persist(yao);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
