@@ -18,11 +18,11 @@ public class ProfessionnelDao {
     public void createProfessionnels() {
         int numOfEmployees = manager.createQuery("Select a From Professionnel a", Professionnel.class).getResultList().size();
         if (numOfEmployees == 0) {
-            Departement departement = new Departement("java");
+            Departement departement = new Departement("Java");
             manager.persist(departement);
 
-            manager.persist(new Professionnel("Jakab Gipsz",departement));
-            manager.persist(new Professionnel("Captain Nemo",departement));
+            manager.persist(new Professionnel("Prof 1",departement));
+            manager.persist(new Professionnel("Prof 2",departement));
 
         }
     }

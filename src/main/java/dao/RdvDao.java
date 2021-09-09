@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import domain.Departement;
 import domain.Professionnel;
 import domain.Rdv;
+import domain.Utilisateur;
 
 public class RdvDao {
     private EntityManager manager;
@@ -18,13 +19,14 @@ public class RdvDao {
     public void createRdvs() {
         int numOfRdvs = manager.createQuery("Select a From Rdv a", Rdv.class).getResultList().size();
         if (numOfRdvs == 0) {
-            Departement departement = new Departement("java");
-            Professionnel professionnel = new Professionnel("professionnel", departement);
+            Departement departement = new Departement("Java");
+            Professionnel professionnel = new Professionnel("Prof 3", departement);
+            Utilisateur utilisateur = new Utilisateur("User 3");
             manager.persist(departement);
             manager.persist(professionnel);
 
-            manager.persist(new Rdv("MAN", 2, professionnel));
-            manager.persist(new Rdv("TAA", 3, professionnel));
+            manager.persist(new Rdv("MAN", 2, professionnel, utilisateur));
+            manager.persist(new Rdv("TAA", 3, professionnel, utilisateur));
         }
     }
 
