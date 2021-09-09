@@ -1,5 +1,7 @@
 package jpa;
 
+import dao.ProfessionnelDao;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -15,16 +17,9 @@ public class JpaTest {
 				.createEntityManagerFactory("dev");
 		EntityManager manager = factory.createEntityManager();
 
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		try {
 
-
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		tx.commit();
+		ProfessionnelDao profdao = new ProfessionnelDao(manager);
+		profdao.createProfessionnels();
 
 		manager.close();
 		factory.close();
