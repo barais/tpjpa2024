@@ -1,20 +1,27 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Departement {
     private Long id;
 
-    private String name;
+    private String nom;
+
+    private List<Professionnel> professionnels = new ArrayList<Professionnel>();
 
     public Departement() {
     }
 
     public Departement(String name) {
-        this.name = name;
+        this.nom = name;
     }
 
     @Id
@@ -28,16 +35,27 @@ public class Departement {
     }
 
     public String getName() {
-        return name;
+        return nom;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nom = name;
     }
 
     @Override
     public String toString() {
-        return "Departement [id=" + id + ", name=" + name + "]";
+        return "Departement [id=" + id + ", name=" + nom + "]";
     }
+
+
+    @OneToMany(mappedBy = "departement", cascade = CascadeType.PERSIST)
+    public List<Professionnel> getProfessionnels() {
+        return professionnels;
+    }
+
+    public void setProfessionnels(List<Professionnel> professionnels) {
+        this.professionnels = professionnels;
+    }
+
 
 }
