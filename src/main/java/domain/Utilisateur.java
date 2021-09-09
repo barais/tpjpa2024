@@ -9,14 +9,7 @@ public class Utilisateur {
 
     private String name;
 
-    private Departement department;
-
     public Utilisateur() {
-    }
-
-    public Utilisateur(String name, Departement department) {
-        this.name = name;
-        this.department = department;
     }
 
     public Utilisateur (String name) {
