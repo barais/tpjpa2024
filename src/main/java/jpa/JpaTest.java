@@ -23,17 +23,18 @@ public class JpaTest {
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		try {
+
 			DepartementDao departementDao = new DepartementDao(manager);
 			departementDao.createDepartements();
 
 			ProfessionnelDao professionnelDao = new ProfessionnelDao(manager);
 			professionnelDao.createProfessionnels();
 
-			RdvDao rdvDao = new RdvDao(manager);
-			rdvDao.createRdvs();
-
 			UtilisateurDao utilisateurDao = new UtilisateurDao(manager);
 			utilisateurDao.createUtilisateurs();
+
+			RdvDao rdvDao = new RdvDao(manager);
+			rdvDao.createRdvs();
 
 		} catch (Exception e) {
 			e.printStackTrace();
