@@ -24,6 +24,7 @@ public class RdvDao {
             Utilisateur utilisateur = new Utilisateur("User 3");
             manager.persist(departement);
             manager.persist(professionnel);
+            manager.persist(utilisateur);
 
             manager.persist(new Rdv("MAN", 2, professionnel, utilisateur));
             manager.persist(new Rdv("TAA", 3, professionnel, utilisateur));
