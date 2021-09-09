@@ -1,8 +1,9 @@
 package jpa;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Persistence;
 
 public class JpaTest {
 
@@ -10,24 +11,23 @@ public class JpaTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		EntityManagerFactory factory = Persistence
+				.createEntityManagerFactory("dev");
+		EntityManager manager = factory.createEntityManager();
 
-		EntityManager manager = EntityManagerHelper.getEntityManager();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
-
-
 		try {
+
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		tx.commit();
 
-
 		manager.close();
-		EntityManagerHelper.closeEntityManagerFactory();
-		//		factory.close();
+		factory.close();
 	}
-
 
 }
