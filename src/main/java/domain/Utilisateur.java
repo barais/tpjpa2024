@@ -9,13 +9,13 @@ import javax.persistence.ManyToOne;
 public class Utilisateur {
     private Long id;
 
-    private String name;
+    private String nom;
 
     public Utilisateur() {
     }
 
-    public Utilisateur (String name) {
-        this.name = name;
+    public Utilisateur (String nom) {
+        this.nom = nom;
     }
 
     @Id
@@ -28,18 +28,18 @@ public class Utilisateur {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNom() {
+        return nom;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
 
 
     @Override
     public String toString() {
-        return "Utilisateur [id=" + id + ", name=" + name + "]";
+        return "Utilisateur [id=" + id + ", nom=" + nom + "]";
     }
 }

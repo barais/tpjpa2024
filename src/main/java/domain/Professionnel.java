@@ -22,8 +22,8 @@ public class Professionnel {
         this.departement = department;
     }
 
-    public Professionnel(String name) {
-        this.nom = name;
+    public Professionnel(String nom) {
+        this.nom = nom;
     }
 
     @Id
@@ -36,12 +36,12 @@ public class Professionnel {
         this.id = id;
     }
 
-    public String getName() {
+    public String getNom() {
         return nom;
     }
 
-    public void setName(String name) {
-        this.nom = name;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     @ManyToOne
@@ -49,8 +49,8 @@ public class Professionnel {
         return departement;
     }
 
-    public void setDepartement(Departement department) {
-        this.departement = department;
+    public void setDepartement(Departement departement) {
+        this.departement = departement;
     }
 
     @OneToMany(mappedBy = "professionnel", cascade = CascadeType.PERSIST)
@@ -65,7 +65,7 @@ public class Professionnel {
     @Override
     public String toString() {
         return "Professionnel [id=" + id + ", nom=" + nom + ", departement="
-                + departement.getName() + "]";
+                + departement.getNom() + "]";
     }
 
 }

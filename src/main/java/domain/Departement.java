@@ -20,8 +20,8 @@ public class Departement {
     public Departement() {
     }
 
-    public Departement(String name) {
-        this.nom = name;
+    public Departement(String nom) {
+        this.nom = nom;
     }
 
     @Id
@@ -34,17 +34,17 @@ public class Departement {
         this.id = id;
     }
 
-    public String getName() {
+    public String getNom() {
         return nom;
     }
 
-    public void setName(String name) {
-        this.nom = name;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     @Override
     public String toString() {
-        return "Departement [id=" + id + ", name=" + nom + "]";
+        return "Departement [id=" + id + ", nom=" + nom + "]";
     }
 
 

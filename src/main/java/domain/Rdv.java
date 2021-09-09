@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 public class Rdv {
     private Long id;
 
-    private String name;
+    private String nom;
 
     private int dureeMinimale;
 
@@ -19,8 +19,8 @@ public class Rdv {
     public Rdv() {
     }
 
-    public Rdv(String name, int dureeMinimale, Professionnel professionnel) {
-        this.name = name;
+    public Rdv(String nom, int dureeMinimale, Professionnel professionnel) {
+        this.nom = nom;
         this.dureeMinimale = dureeMinimale;
         this.professionnel = professionnel;
     }
@@ -35,12 +35,12 @@ public class Rdv {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNom() {
+        return nom;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public int getDureeMinimale(){return dureeMinimale;}
@@ -58,6 +58,6 @@ public class Rdv {
 
     @Override
     public String toString() {
-        return "RDV [id=" + id + ", name=" + name + "]";
+        return "RDV [id=" + id + ", nom=" + nom + "]";
     }
 }
