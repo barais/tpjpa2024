@@ -20,17 +20,25 @@ public class JpaTest {
 				.createEntityManagerFactory("dev");
 		EntityManager manager = factory.createEntityManager();
 
-		DepartementDao departementDao = new DepartementDao(manager);
-		departementDao.createDepartements();
+		EntityTransaction tx = manager.getTransaction();
+		tx.begin();
+		try {
+			DepartementDao departementDao = new DepartementDao(manager);
+			departementDao.createDepartements();
 
-		ProfessionnelDao professionnelDao = new ProfessionnelDao(manager);
-		professionnelDao.createProfessionnels();
+			ProfessionnelDao professionnelDao = new ProfessionnelDao(manager);
+			professionnelDao.createProfessionnels();
 
-		RdvDao rdvDao = new RdvDao(manager);
-		rdvDao.createRdvs();
+			RdvDao rdvDao = new RdvDao(manager);
+			rdvDao.createRdvs();
 
-		UtilisateurDao utilisateurDao = new UtilisateurDao(manager);
-		utilisateurDao.createUtilisateurs();
+			UtilisateurDao utilisateurDao = new UtilisateurDao(manager);
+			utilisateurDao.createUtilisateurs();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		tx.commit();
 
 		manager.close();
 		factory.close();
