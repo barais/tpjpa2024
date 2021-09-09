@@ -1,11 +1,11 @@
 package dao;
 
-import domain.Departement;
-import domain.Professionnel;
-
+import java.util.List;
 
 import javax.persistence.EntityManager;
-import java.util.List;
+
+import domain.Departement;
+import domain.Professionnel;
 
 public class ProfessionnelDao {
 
@@ -15,13 +15,12 @@ public class ProfessionnelDao {
         this.manager = manager;
     }
 
-
     public void createProfessionnels() {
         int numOfEmployees = manager.createQuery("Select a From Professionnel a", Professionnel.class).getResultList().size();
         if (numOfEmployees == 0) {
             Departement departement = new Departement("java");
             manager.persist(departement);
-            //Code
+
             manager.persist(new Professionnel("Jakab Gipsz",departement));
             manager.persist(new Professionnel("Captain Nemo",departement));
 
