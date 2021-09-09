@@ -1,6 +1,6 @@
 package metier;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,15 +12,15 @@ import javax.persistence.Transient;
 public class User {
 	private Long id;
 	private String name;
-	private String dateNaissance;//'jj/mm/yyyy'
+	private Date dateNaissance; //'jj/mm/yyyy'
 
 	private List<Appointment> appointments;
 
-	public String getDateNaissance() {
+	public Date getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(String dateNaissance) {
+	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 
