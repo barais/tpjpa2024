@@ -1,5 +1,7 @@
 package domain;
 
+import dao.UtilisateurDao;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,10 +23,11 @@ public class Rdv {
     public Rdv() {
     }
 
-    public Rdv(String nom, int dureeMinimale, Professionnel professionnel) {
+    public Rdv(String nom, int dureeMinimale, Professionnel professionnel, Utilisateur utilisateur) {
         this.nom = nom;
         this.dureeMinimale = dureeMinimale;
         this.professionnel = professionnel;
+        this.utilisateur = utilisateur;
     }
 
     @Id
