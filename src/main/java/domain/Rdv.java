@@ -16,6 +16,8 @@ public class Rdv {
 
     private Professionnel professionnel;
 
+    private Utilisateur utilisateur;
+
     public Rdv() {
     }
 
@@ -54,6 +56,15 @@ public class Rdv {
 
     public void setProfessionnel(Professionnel professionnel) {
         this.professionnel = professionnel;
+    }
+
+    @ManyToOne
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 
     @Override

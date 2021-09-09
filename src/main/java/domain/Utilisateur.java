@@ -1,15 +1,16 @@
 package domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Utilisateur {
     private Long id;
 
     private String nom;
+
+    private List<Rdv> rdvs = new ArrayList<>();
 
     public Utilisateur() {
     }
@@ -37,6 +38,14 @@ public class Utilisateur {
     }
 
 
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.PERSIST)
+    public List<Rdv> getRdvs() {
+        return rdvs;
+    }
+
+    public void setRdvs(List<Rdv> rdvs){
+        this.rdvs = rdvs;
+    }
 
     @Override
     public String toString() {
