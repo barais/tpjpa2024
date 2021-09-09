@@ -1,5 +1,7 @@
 package jpa;
 
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +9,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import jpa.Entity.Etudiant;
+import jpa.Entity.Professeur;
+import jpa.Entity.Rdv;
+import jpa.Service.RdvService;
 
 public class JpaTest {
 
@@ -20,42 +30,51 @@ public class JpaTest {
      * @param args
      */
     public static void main(String[] args) {
+		// dev : hsql
+		//mysql : mysql
         EntityManagerFactory factory = Persistence
-                .createEntityManagerFactory("dev");
+                .createEntityManagerFactory("mysql");
         EntityManager manager = factory.createEntityManager();
+		RdvService rdvService = new RdvService(manager);
 		JpaTest test = new JpaTest(manager);
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
         try {
-			test.createRdvs();
-
+			test.test();
         
         } catch (Exception e) {
             e.printStackTrace();
         }
         tx.commit();
-        test.rdvsInfo();
+        test.result();
         manager.close();
         factory.close();
     }
 
-	private void createRdvs(){
-		Professeur p1 = new Professeur("Leeroy Jenkins");
-		Etudiant p2 = new Etudiant("Xavier Dang");
-		Date d1 = new Date();
-		Rdv r1 = new Rdv(p1, d1, p2);
-		Rdv r2 = new Rdv(p1, d1, p2);
-		manager.persist(p1);
-		manager.persist(p2);
-		manager.persist(r1);
-		manager.persist(r2);
+	private void test(){
+		System.out.println("Debut des tests");
+		test1();
+		System.out.println("Fin des tests");
 	}
 
-	private void rdvsInfo(){
-		List<Rdv> rdvs = manager.createQuery("Select a From Rdv a", Rdv.class).getResultList();
-		System.out.println("Nombre de rdv actuel : " + rdvs.size());
-		for (Rdv rdv : rdvs) {
-		System.out.println(rdv);
-		}
+	private void test1(){
+		System.out.println("Test 1 : Creation Etudiant et Professeurs");
+		Etudiant e1 = new Etudiant("Justin bridou");
+		Etudiant e2 = new Etudiant("Razer Xbox");
+		Etudiant e3 = new Etudiant("Alexander pistoletov");
+		Etudiant e4 = new Etudiant("Antoine Daniel");
+		Etudiant e5 = new Etudiant("Le stagiaire");
+		manager.persist(e1);
+		manager.persist(e2);
+		manager.persist(e3);
+		manager.persist(e4);
+		manager.persist(e5);
+	}
+	private void result(){
+		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
+		CriteriaQuery<Integer> query = criteriaBuilder.createQuery(Integer.class);
+Root<Etudiant> from = query.from(Etudiant.class);
+
+
 	}
 }

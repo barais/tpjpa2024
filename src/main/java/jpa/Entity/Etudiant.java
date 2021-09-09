@@ -1,14 +1,14 @@
-package jpa;
+package jpa.Entity;
+
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import java.util.List;
-
 @Entity
-public class Professeur extends Personne{
+public class Etudiant implements Personne{
     private Long id;
 
     private String name;
@@ -17,7 +17,7 @@ public class Professeur extends Personne{
 
     private List<Rdv> rdvs;
 
-    public Professeur(String name){
+    public Etudiant(String name){
         this.name = name;
     }
 
@@ -47,12 +47,16 @@ public class Professeur extends Personne{
         this.id=id;
     }
 
-    @OneToMany(mappedBy = "professeur")
+    @OneToMany(mappedBy = "etudiant")
     public List<Rdv> getRdvs(){
         return this.rdvs;
     }
 
     public void setRdvs(List<Rdv> rdvs){
         this.rdvs = rdvs;
+    }
+
+    public String toString(){
+        return "L'etudiant " + name + " à pris " + rdvs.size() + "rdvs";
     }
 }

@@ -1,4 +1,4 @@
-package jpa;
+package jpa.Entity;
 
 import java.util.Date;
 
@@ -19,10 +19,23 @@ public class Rdv {
 
     private Etudiant etudiant;
 
+    //créer un slot de rdv
     public Rdv(Professeur professeur, Date heureDebut){
         this.heureDebut = heureDebut;
         this.professeur = professeur;
+        this.heureFin = new Date();
+        heureFin.setTime(heureDebut.getTime() + 3600000); // 1h base
+        
     }
+
+    //créer un slot de rdv
+    public Rdv(Professeur professeur, Date heureDebut, Date heureFin){
+        this.heureDebut = heureDebut;
+        this.professeur = professeur;
+        this.heureFin = heureFin;
+    }
+
+    //créer un rdv
     public Rdv(Professeur professeur, Date heureDebut, Etudiant etudiant){
         this.heureDebut = heureDebut;
         this.heureFin = new Date();
