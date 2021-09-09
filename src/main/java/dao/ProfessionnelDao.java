@@ -20,7 +20,7 @@ public class ProfessionnelDao {
         if (numOfEmployees == 0) {
             Departement departement = new Departement("java");
             manager.persist(departement);
-
+            //Code
             manager.persist(new Professionnel("Professionnel 1",departement));
             manager.persist(new Professionnel("Professionnel 2",departement));
         }
