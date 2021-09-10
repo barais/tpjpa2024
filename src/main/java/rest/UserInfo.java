@@ -20,15 +20,12 @@ public class UserInfo extends HttpServlet {
         PrintWriter out = response.getWriter();
 
 
+
         out.println("<HTML>\n<BODY>\n" +
                 "<H1>Recapitulatif des informations</H1>\n" +
                 "<UL>\n" +
                 " <LI>Nom: "
-                + request.getParameter("name") + "\n" +
-                " <LI>Prenom: "
-                + request.getParameter("firstname") + "\n" +
-                " <LI>Age: "
-                + request.getParameter("age") + "\n" +
+                + request.getParameter("nom") +
                 "</UL>\n" +
                 "</BODY></HTML>");
     }
