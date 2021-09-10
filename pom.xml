@@ -6,6 +6,7 @@
 	<groupId>test</groupId>
 	<artifactId>testjpa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
 	<packaging>war</packaging>
 
 	<properties>
@@ -52,7 +53,7 @@
 	</dependencies>
 
 	<build>
-		<pluginManagement>
+
 			<plugins>
 				<plugin>
 			<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-maven-plugin -->
@@ -69,7 +70,7 @@
 			</configuration>
 				</plugin>
 			</plugins>
-		</pluginManagement>
+
 	</build>
 
 
