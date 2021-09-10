@@ -14,7 +14,7 @@ public class Utilisateur extends Personne {
     }
 
     public Utilisateur (String nom) {
-        this.nom = nom;
+        super(nom);
     }
 
 

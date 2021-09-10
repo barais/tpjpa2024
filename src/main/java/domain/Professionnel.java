@@ -11,10 +11,7 @@ import java.util.List;
                 @NamedQuery(name="tousLesProfessionnelsParNom", query="SELECT p FROM Professionnel p WHERE p.nom LIKE CONCAT('%',:name,'%') ORDER BY p.nom")
         }
 )
-public class Professionnel {
-    private Long id;
-
-    private String nom;
+public class Professionnel extends Personne{
 
     private Departement departement;
 
@@ -24,7 +21,7 @@ public class Professionnel {
     }
 
     public Professionnel(String name, Departement department) {
-        this.nom = name;
+        super(name);
         this.departement = department;
     }
 

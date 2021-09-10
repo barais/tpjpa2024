@@ -44,6 +44,12 @@ public class JpaTest {
 		}
 		tx.commit();
 
+		professionnelDao.listProfessionnelsParNom("Prof");
+		professionnelDao.listProfessionnels();
+		departementDao.listDepartements();
+		utilisateurDao.listUtilisateurs();
+		rdvDao.listRdvs();
+
 		manager.close();
 		factory.close();
 	}
