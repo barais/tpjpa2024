@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,7 +16,11 @@ public class Professeur implements Personne{
 
     private String email;
 
-    private List<Rdv> rdvs;
+    private List<Rdv> rdvs = new ArrayList<Rdv>();
+
+    public Professeur(){
+        this.name = "dummy";
+    }
 
     public Professeur(String name){
         this.name = name;
@@ -54,5 +59,9 @@ public class Professeur implements Personne{
 
     public void setRdvs(List<Rdv> rdvs){
         this.rdvs = rdvs;
+    }
+
+    public String toString(){
+        return "Le professeur " + this.name + " à " + this.rdvs.size() + " rdvs totaux";
     }
 }

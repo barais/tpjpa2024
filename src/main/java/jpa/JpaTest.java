@@ -19,13 +19,17 @@ import jpa.Entity.Etudiant;
 import jpa.Entity.Professeur;
 import jpa.Entity.Rdv;
 import jpa.Service.RdvService;
+import jpa.Service.RepositoryRequests;
 
 public class JpaTest {
 
 	private EntityManager manager;
 
+	private RepositoryRequests repoReq;
+
     public JpaTest(EntityManager manager) {
 		this.manager = manager;
+		this.repoReq = new RepositoryRequests(manager);
 	}
 
 	/**
@@ -61,52 +65,45 @@ public class JpaTest {
 	}
 
 	private void test1(){
-		Etudiant e1 = new Etudiant("Justin bridou");
-		Etudiant e2 = new Etudiant("Razer Xbox");
-		Etudiant e3 = new Etudiant("Alexander pistoletov");
-		Etudiant e4 = new Etudiant("Antoine Daniel");
-		Etudiant e5 = new Etudiant("Le stagiaire");
+		Etudiant e1 = new Etudiant("Harry Potter");
+		Etudiant e2 = new Etudiant("Hermione Granger");
+		Etudiant e3 = new Etudiant("Ron Weaseley");
+		Etudiant e4 = new Etudiant("Dobby");
 		manager.persist(e1);
 		manager.persist(e2);
 		manager.persist(e3);
 		manager.persist(e4);
-		manager.persist(e5);
 	}
 
 	private void test2(){
-		Professeur e1 = new Professeur("Helene Tuffigo");
-		Professeur e2 = new Professeur("Frank Poirier");
-		Professeur e3 = new Professeur("Caroline Larboulette");
-		Professeur e4 = new Professeur("Nicolas Courti");
-		Professeur e5 = new Professeur("Luc Courti");
+		Professeur e1 = new Professeur("Godric Gryffondor");
+		Professeur e2 = new Professeur("Helga Poufsouffle");
+		Professeur e3 = new Professeur("Rowena Serdaigle");
+		Professeur e4 = new Professeur("Salazar Serpentar");
 		manager.persist(e1);
 		manager.persist(e2);
 		manager.persist(e3);
 		manager.persist(e4);
-		manager.persist(e5);
 	}
 	
 	private void test3(){
-		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
-		CriteriaQuery<Etudiant> query = criteriaBuilder.createQuery(Etudiant.class);
-		Root<Etudiant> from = query.from(Etudiant.class);
-		query.select(from.get("name"));
-		List<Etudiant> result = manager.createQuery(query).getResultList();
-		Iterator<Etudiant> it = result.iterator();
 	}
 
 
 
 	private void result(){
-		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
-		CriteriaQuery<Etudiant> query = criteriaBuilder.createQuery(Etudiant.class);
-		Root<Etudiant> from = query.from(Etudiant.class);
-		query.select(from);
-		List<Etudiant> result = manager.createQuery(query).getResultList();
+		
+		List<Etudiant> result = repoReq.getAllEtudiants();
 		Iterator<Etudiant> it = result.iterator();
 		System.out.println("Test 1 : Etudiants");
 		while(it.hasNext()){
 			System.out.println(it.next());
+		}
+		List<Professeur> listprof = repoReq.getAllProfesseurs();
+		Iterator<Professeur> itprof = listprof.iterator();
+		System.out.println("Test 2 : Etudiants");
+		while(itprof.hasNext()){
+			System.out.println(itprof.next());
 		}
 	}
 }

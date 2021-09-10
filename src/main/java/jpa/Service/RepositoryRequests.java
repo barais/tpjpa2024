@@ -17,12 +17,25 @@ public class RepositoryRequests {
 
     private EntityManager manager;
 
+	public RepositoryRequests(EntityManager manager){
+		this.manager = manager;
+	}
+
    public List<Etudiant> getAllEtudiants(){
        CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
 		CriteriaQuery<Etudiant> query = criteriaBuilder.createQuery(Etudiant.class);
 		Root<Etudiant> from = query.from(Etudiant.class);
 		query.select(from);
 		List<Etudiant> result = manager.createQuery(query).getResultList();
+		return result;
+
+    } 
+	  public List<Professeur> getAllProfesseurs(){
+       CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
+		CriteriaQuery<Professeur> query = criteriaBuilder.createQuery(Professeur.class);
+		Root<Professeur> from = query.from(Professeur.class);
+		query.select(from);
+		List<Professeur> result = manager.createQuery(query).getResultList();
 		return result;
 
     }

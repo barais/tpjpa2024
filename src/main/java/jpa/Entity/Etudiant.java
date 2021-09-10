@@ -1,5 +1,6 @@
 package jpa.Entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -15,7 +16,11 @@ public class Etudiant implements Personne{
 
     private String email;
 
-    private List<Rdv> rdvs;
+    private List<Rdv> rdvs = new ArrayList<Rdv>();
+
+    public Etudiant(){
+        this.name = "dummy";
+    }
 
     public Etudiant(String name){
         this.name = name;
