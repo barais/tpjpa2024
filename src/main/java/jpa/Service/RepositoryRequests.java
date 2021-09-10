@@ -39,5 +39,15 @@ public class RepositoryRequests {
 		return result;
 
     }
+	  public Professeur findProfByName(String str){
+		List<Professeur> results = manager.createQuery("SELECT p FROM Professeur p where p.name = :value1")
+		.setParameter("value1", str).getResultList();
+		return results.get(0);
+    }
+	  public Etudiant findEtudiantByName(String str){
+		List<Etudiant> results = manager.createQuery("SELECT p FROM Etudiant p where p.name = :value1")
+		.setParameter("value1", str).getResultList();
+		return results.get(0);
+    }
 
 }

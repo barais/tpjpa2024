@@ -27,9 +27,12 @@ public class JpaTest {
 
 	private RepositoryRequests repoReq;
 
+	private RdvService rdvService;
+
     public JpaTest(EntityManager manager) {
 		this.manager = manager;
 		this.repoReq = new RepositoryRequests(manager);
+		this.rdvService = new RdvService(manager);
 	}
 
 	/**
@@ -41,16 +44,17 @@ public class JpaTest {
         EntityManagerFactory factory = Persistence
                 .createEntityManagerFactory("mysql");
         EntityManager manager = factory.createEntityManager();
-		RdvService rdvService = new RdvService(manager);
 		JpaTest test = new JpaTest(manager);
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
+		test.resetDb();
         try {
 			test.test();
         
         } catch (Exception e) {
             e.printStackTrace();
         }
+		manager.flush();
         tx.commit();
         test.result();
         manager.close();
@@ -59,13 +63,8 @@ public class JpaTest {
 
 	private void test(){
 		System.out.println("Debut des tests");
-		test1();
-		test2();
-		System.out.println("Fin des tests");
-	}
-
-	private void test1(){
-		Etudiant e1 = new Etudiant("Harry Potter");
+		System.out.println("Creation des etudiants");
+		/*Etudiant e1 = new Etudiant("Harry Potter");
 		Etudiant e2 = new Etudiant("Hermione Granger");
 		Etudiant e3 = new Etudiant("Ron Weaseley");
 		Etudiant e4 = new Etudiant("Dobby");
@@ -73,20 +72,31 @@ public class JpaTest {
 		manager.persist(e2);
 		manager.persist(e3);
 		manager.persist(e4);
-	}
+		System.out.println("Creation des professeurs");
+		Professeur p1 = new Professeur("Godric Gryffondor");
+		Professeur p2 = new Professeur("Helga Poufsouffle");
+		Professeur p3 = new Professeur("Rowena Serdaigle");
+		Professeur p4 = new Professeur("Salazar Serpentar");
+		manager.persist(p1);
+		manager.persist(p2);
+		manager.persist(p3);
+		manager.persist(p4);*/
+		System.out.println("Creation de rdvs sans query la db");
+		Date d1 = new Date();
+		//rdvService.createPossibleRdv(d1, p2);
 
-	private void test2(){
-		Professeur e1 = new Professeur("Godric Gryffondor");
-		Professeur e2 = new Professeur("Helga Poufsouffle");
-		Professeur e3 = new Professeur("Rowena Serdaigle");
-		Professeur e4 = new Professeur("Salazar Serpentar");
-		manager.persist(e1);
-		manager.persist(e2);
-		manager.persist(e3);
-		manager.persist(e4);
+		manager.flush();
+		System.out.println("Creaton de rdv avec query");
+		Professeur profFromDb = repoReq.findProfByName("Godric Gryffondor");
+		Rdv rdv = rdvService.createPossibleRdv(d1, profFromDb);
+
+		System.out.println("Prise du rdv par un étudiant");
+		Etudiant etudiantFromDb = repoReq.findEtudiantByName("Harry Potter");
+		rdvService.prendreRdv(rdv, etudiantFromDb);
 	}
 	
-	private void test3(){
+	private void resetDb(){
+			manager.clear();
 	}
 
 

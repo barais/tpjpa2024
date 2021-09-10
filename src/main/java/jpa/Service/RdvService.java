@@ -21,10 +21,12 @@ public class RdvService {
         Date dateFin = new Date();
         dateFin.setTime(dateDebut.getTime() + duration); // 1h base
         Rdv ret = new Rdv(professeur, dateDebut, dateFin);
+        manager.persist(ret);
         return ret;
     }
     public Rdv createPossibleRdv(Date dateDebut, Professeur professeur){
         Rdv ret = new Rdv(professeur, dateDebut);
+        manager.persist(ret);
         return ret;
     }
     
@@ -32,7 +34,7 @@ public class RdvService {
     public void prendreRdv(Rdv rdv, Etudiant etudiant){
         rdv.setEtudiant(etudiant);
         manager.persist(rdv);
-        manager.getTransaction().commit();
+        manager.flush();
     }
         //decaler un rdv
     public void decalerRdv(Rdv rdv, Date heureDebut){
@@ -46,18 +48,18 @@ public class RdvService {
         dateFin.setTime(heureDebut.getTime() + diff); 
         rdv.setHeureFin(dateFin);
         manager.persist(rdv);
-        manager.getTransaction().commit();
+        manager.flush();
     }
     //supprimer un rdv
     public void supprimerRdv(Rdv rdv){
         manager.remove(rdv);
-        manager.getTransaction().commit();
+        manager.flush();
     }
 
     //décommander un rdv
     public void decommandRdv(Rdv rdv){
         rdv.setEtudiant(null);
         manager.persist(rdv);
-        manager.getTransaction().commit();
+        manager.flush();
     }
 }

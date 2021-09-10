@@ -19,6 +19,9 @@ public class Rdv {
 
     private Etudiant etudiant;
 
+    public Rdv(){
+        
+    }
     //créer un slot de rdv
     public Rdv(Professeur professeur, Date heureDebut){
         this.heureDebut = heureDebut;
