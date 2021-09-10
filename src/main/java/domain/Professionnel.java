@@ -45,7 +45,7 @@ public class Professionnel extends Personne{
 
     @Override
     public String toString() {
-        return "Professionnel [id=" + getId() + ", nom=" + getNom() + ", departement="
+        return "Professionnel [id=" + getId() + ", nom=" + getNom() + ", département="
                 + departement.getNom() + "]";
     }
 

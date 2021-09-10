@@ -55,6 +55,7 @@
 	<build>
 
 			<plugins>
+
 				<plugin>
 			<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-maven-plugin -->
 			<groupId>org.eclipse.jetty</groupId>
