@@ -29,9 +29,9 @@ public class ProfessionnelDao {
 
     public void listProfessionnels() {
         List<Professionnel> resultList = manager.createQuery("Select a From Professionnel a", Professionnel.class).getResultList();
-        System.out.println("num of employess:" + resultList.size());
+        System.out.println("Nombre de professionnels : " + resultList.size());
         for (Professionnel next : resultList) {
-            System.out.println("next employee: " + next);
+            System.out.println("Professionnel suivant : " + next);
         }
     }
 

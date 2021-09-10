@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import domain.Utilisateur;
 
+
 public class UtilisateurDao {
 
     private EntityManager manager;

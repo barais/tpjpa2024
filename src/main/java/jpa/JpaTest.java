@@ -26,7 +26,6 @@ public class JpaTest {
 		tx.begin();
 		try {
 
-			DepartementDao departementDao = new DepartementDao(manager);
 			departementDao.createDepartements();
 
 			ProfessionnelDao professionnelDao = new ProfessionnelDao(manager);
@@ -35,7 +34,6 @@ public class JpaTest {
 			UtilisateurDao utilisateurDao = new UtilisateurDao(manager);
 			utilisateurDao.createUtilisateurs();
 
-			RdvDao rdvDao = new RdvDao(manager);
 			rdvDao.createRdvs();
 
 		} catch (Exception e) {
