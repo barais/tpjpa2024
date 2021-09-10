@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQueries(
+        {
+                @NamedQuery(name="tousLesProfessionnelsParNom", query="SELECT p FROM Professionnel p WHERE p.nom LIKE CONCAT('%',:name,'%') ORDER BY p.nom")
+        }
+)
 public class Professionnel {
     private Long id;
 

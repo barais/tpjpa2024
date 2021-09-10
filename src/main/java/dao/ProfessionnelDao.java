@@ -35,5 +35,13 @@ public class ProfessionnelDao {
         }
     }
 
+    public void listProfessionnelsParNom(String name){
+        List<Professionnel> resultList = manager.createNamedQuery("tousLesProfessionnelsParNom").setParameter("name", name).getResultList();
+        System.out.println("Nombre de professionnels : " + resultList.size());
+        for (Professionnel next : resultList) {
+            System.out.println("Professionnel suivant : " + next);
+        }
+    }
+
 
 }
