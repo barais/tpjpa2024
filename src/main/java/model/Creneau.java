@@ -14,8 +14,9 @@ public class Creneau implements Serializable {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
-
+    @Temporal(TemporalType.DATE)
     private Date debut;
+    @Temporal(TemporalType.DATE)
     private Date fin ;
 
     @ManyToMany
