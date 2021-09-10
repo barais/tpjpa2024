@@ -1,9 +1,6 @@
 package jpa;
 
-import dao.DepartementDao;
-import dao.ProfessionnelDao;
-import dao.RdvDao;
-import dao.UtilisateurDao;
+import dao.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,6 +23,7 @@ public class JpaTest {
 		DepartementDao departementDao = new DepartementDao(manager);
 		UtilisateurDao utilisateurDao = new UtilisateurDao(manager);
 		RdvDao rdvDao = new RdvDao(manager);
+		PersonneDao personneDao = new PersonneDao(manager);
 
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();

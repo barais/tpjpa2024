@@ -8,6 +8,9 @@ public abstract class Personne {
 
     private Long id;
     private String nom;
+    private String identifiant;
+    private String mdp;
+    private String mail;
 
     public Personne(){
     }
@@ -16,9 +19,11 @@ public abstract class Personne {
         this.nom = nom;
     }
 
-
-    public void setId(Long id) {
-        this.id = id;
+    public Personne(String nom, String identifiant, String mail, String mdp) {
+        this.nom = nom;
+        this.mail = mail;
+        this.identifiant = identifiant;
+        this.mdp = mdp;
     }
 
     @Id
@@ -27,12 +32,16 @@ public abstract class Personne {
         return id;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNom() {
         return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getIdentifiant() {
