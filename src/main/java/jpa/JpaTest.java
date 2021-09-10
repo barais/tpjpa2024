@@ -19,7 +19,7 @@ public class JpaTest {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory("dev");
 		//EntityManagerFactory factory = Persistence
-		//				.createEntityManagerFactory("dev");
+		//				.createEntityManagerFactory("mysql");
 		EntityManager manager = factory.createEntityManager();
 
 		ProfessionnelDao professionnelDao = new ProfessionnelDao(manager);
@@ -43,12 +43,6 @@ public class JpaTest {
 			e.printStackTrace();
 		}
 		tx.commit();
-
-		professionnelDao.listProfessionnelsParNom("Prof");
-		professionnelDao.listProfessionnels();
-		departementDao.listDepartements();
-		utilisateurDao.listUtilisateurs();
-		rdvDao.listRdvs();
 
 		manager.close();
 		factory.close();

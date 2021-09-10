@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Utilisateur {
-    private Long id;
-
-    private String nom;
+@DiscriminatorValue("U")
+public class Utilisateur extends Personne {
 
     private List<Rdv> rdvs = new ArrayList<>();
 
@@ -16,24 +14,6 @@ public class Utilisateur {
     }
 
     public Utilisateur (String nom) {
-        this.nom = nom;
-    }
-
-    @Id
-    @GeneratedValue
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
         this.nom = nom;
     }
 
@@ -49,6 +29,6 @@ public class Utilisateur {
 
     @Override
     public String toString() {
-        return "Utilisateur [id=" + id + ", nom=" + nom + "]";
+        return "Utilisateur [id=" + getId() + ", nom=" + getNom() + "]";
     }
 }

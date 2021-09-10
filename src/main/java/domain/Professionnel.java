@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue("P")
 @NamedQueries(
         {
                 @NamedQuery(name="tousLesProfessionnelsParNom", query="SELECT p FROM Professionnel p WHERE p.nom LIKE CONCAT('%',:name,'%') ORDER BY p.nom")
@@ -27,28 +28,6 @@ public class Professionnel {
         this.departement = department;
     }
 
-    public Professionnel(String nom) {
-        this.nom = nom;
-    }
-
-    @Id
-    @GeneratedValue
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
     @ManyToOne
     public Departement getDepartement() {
         return departement;
@@ -69,7 +48,7 @@ public class Professionnel {
 
     @Override
     public String toString() {
-        return "Professionnel [id=" + id + ", nom=" + nom + ", departement="
+        return "Professionnel [id=" + getId() + ", nom=" + getNom() + ", departement="
                 + departement.getNom() + "]";
     }
 
