@@ -1,11 +1,10 @@
 package model;
 
 import lombok.Data;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,4 +16,10 @@ public class Creneau {
 
     private Date debut;
     private Date fin ;
+
+    @ManyToMany
+    private List<Prof> profs;
+
+    @OneToMany(mappedBy = "creneau", cascade = CascadeType.PERSIST)
+    private List<Rdv> rdv;
 }

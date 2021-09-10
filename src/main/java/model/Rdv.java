@@ -11,11 +11,11 @@ public class Rdv {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
     private String title;
-    @OneToOne
-    Clients client;
-    @OneToOne
-    Profs prof;
-    @OneToOne
+    @ManyToOne
+    Client client;
+    @ManyToOne
+    Prof prof;
+    @ManyToOne
     Creneau creneau;
 
 }

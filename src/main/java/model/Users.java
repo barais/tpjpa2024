@@ -1,14 +1,13 @@
 package model;
 
 import lombok.Data;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
-public class Users {
+public abstract class Users {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
@@ -22,15 +21,6 @@ public class Users {
 
     public Users() {
     }
-
-
-
-
-//    @Override
-//    public String toString() {
-//        return "Users [id=" + id + ", name=" + name + ", agenda="
-//                + agenda.getName() + "]";
-//    }
 
 
 }
