@@ -44,11 +44,13 @@ public class JpaTest {
 		}
 		tx.commit();
 
+
 		professionnelDao.listProfessionnelsParNom("Prof");
 		professionnelDao.listProfessionnels();
 		departementDao.listDepartements();
 		utilisateurDao.listUtilisateurs();
 		rdvDao.listRdvs();
+		personneDao.listPersonnes();
 
 		manager.close();
 		factory.close();
