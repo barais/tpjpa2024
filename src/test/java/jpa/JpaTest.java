@@ -1,5 +1,7 @@
 package jpa;
 
+import dao.UsersDao;
+import model.Client;
 import model.Prof;
 
 import javax.persistence.EntityManager;
@@ -20,13 +22,16 @@ public class JpaTest {
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
         try {
+            UsersDao usersDao = new UsersDao();
             Prof arnaud = new Prof();
             arnaud.setName("Arnaud");
-            Prof yao = new Prof();
+            arnaud.setEmail("arnaud@gmail.com");
+            Client yao = new Client();
             yao.setName("Yao");
+            yao.setEmail("yao@Hotmail.fr");
 
-            manager.persist(arnaud);
-            manager.persist(yao);
+            usersDao.save(arnaud);
+            usersDao.save(yao);
 
         } catch (Exception e) {
             e.printStackTrace();
