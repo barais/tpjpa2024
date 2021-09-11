@@ -3,6 +3,8 @@ package metier;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
@@ -20,12 +22,11 @@ public class Worker extends User {
 		this.rate=rate;
 	}
 	
-	@Transient
+	@ManyToOne//cardinalité cible puis celle du sujet
 	public Job getJob() {
 		return job;
 	}
 	
-	@Transient
 	public void setJob(Job job) {
 		this.job = job;
 	}

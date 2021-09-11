@@ -17,6 +17,14 @@ public class Appointment {
     private User user;
 
 
+    public Appointment() {}
+    
+    public Appointment(String s, Date d, User u, Worker w) {
+    	this.sujet=s;
+    	this.dateRdv=d;
+    	this.user=u;
+    	this.worker=w;
+    }
 
 
     @Id

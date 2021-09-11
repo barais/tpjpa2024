@@ -22,7 +22,8 @@ public class JpaTest {
 
 		try {
 			
-			testInitUser1();
+			//testInitUser1();
+			testInitRDV1();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -37,7 +38,7 @@ public class JpaTest {
 
 	
 	public static void testInitUser1() {
-		User u1=new User("Georges",new Date(1265899));
+		User u1=new User("Georges",new Date(1265899000L));
 		manager.persist(u1);
 		
 		User u2=new User("Albert", new Date(0));
@@ -48,6 +49,20 @@ public class JpaTest {
 		
 		User w1=new Worker("Albert", new Date(0),job1,15);
 		manager.persist(w1);
+	}
+	
+	public static void testInitRDV1() {
+		User u1=new User("Albert", new Date(1265899000L));
+		manager.persist(u1);
+		
+		Job job1=new Job("plombier",2000);
+		manager.persist(job1);
+		
+		Worker w1=new Worker("Albert", new Date(0),job1,15);
+		manager.persist(w1);
+		
+		Appointment rdv1= new Appointment("J'ai mal o crane jpp", new Date(888888888L), u1, w1);
+		manager.persist(rdv1);
 	}
 
 }
