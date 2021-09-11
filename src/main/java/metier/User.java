@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
@@ -56,12 +57,11 @@ public class User {
 		this.id = id;
 	}
 
-	@Transient
+	@OneToMany(mappedBy="user")
 	public List<Appointment> getAppointments() {
 		return appointments;
 	}
 
-	@Transient
 	public void setAppointments(List<Appointment> appointments) {
 		this.appointments = appointments;
 	}

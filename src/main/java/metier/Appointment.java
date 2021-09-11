@@ -57,12 +57,12 @@ public class Appointment {
         this.worker = worker;
     }
 
-    @OneToOne
+    @ManyToOne
     public Worker getWorker(){
         return  this.worker;
     }
 
-    @OneToOne
+    @ManyToOne
     public User getUser() {
         return user;
     }

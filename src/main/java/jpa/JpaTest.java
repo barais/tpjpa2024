@@ -63,6 +63,9 @@ public class JpaTest {
 		
 		Appointment rdv1= new Appointment("J'ai mal o crane jpp", new Date(888888888L), u1, w1);
 		manager.persist(rdv1);
+		
+		Appointment rdv2= new Appointment("J'ai mal partout wtf", new Date(888888888L), u1, w1);
+		manager.persist(rdv2);
 	}
 
 }
