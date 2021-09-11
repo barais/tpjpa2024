@@ -17,12 +17,15 @@ public class User {
 
 	private List<Appointment> appointments;
 
+	public User() {}
+	
 	public User(String name){
 		this.name = name;
 	}
-
-	public User() {
-
+	
+	public User(String name, Date dateNaissance) {
+		this.name=name;
+		this.dateNaissance=dateNaissance;
 	}
 
 	public Date getDateNaissance() {

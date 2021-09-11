@@ -1,15 +1,25 @@
 package metier;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 @Entity
 public class Worker extends User {
 	private Job job;
+	
+	private int rate;//note moyenne [0,20] que les clients lui ont donnée
 
-
-	private String name;
-
+	public Worker() {
+		super();
+	}
+	public Worker(String name, Date dateNaissance,Job job,int rate) {
+		super(name,dateNaissance);
+		this.job=job;
+		this.rate=rate;
+	}
+	
 	@Transient
 	public Job getJob() {
 		return job;
@@ -20,14 +30,11 @@ public class Worker extends User {
 		this.job = job;
 	}
 
-
-	@Override
-	public String getName() {
-		return name;
+	public int getRate() {
+		return rate;
 	}
 
-	@Override
-	public void setName(String name) {
-		this.name = name;
+	public void setRate(int rate) {
+		this.rate = rate;
 	}
 }
