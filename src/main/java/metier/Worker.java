@@ -2,11 +2,10 @@ package metier;
 
 import java.sql.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
+@DiscriminatorValue("Worker")
 public class Worker extends User {
 	private Job job;
 	
