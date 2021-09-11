@@ -1,10 +1,11 @@
 package metier;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
-public class Appointment {
+public class Appointment implements Serializable {
 
     private Long id;
 

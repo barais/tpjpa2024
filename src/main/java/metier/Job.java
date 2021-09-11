@@ -4,9 +4,10 @@ package metier;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import java.io.Serializable;
 
 @Entity
-public class Job {
+public class Job implements Serializable {
 
 
     private Long id;

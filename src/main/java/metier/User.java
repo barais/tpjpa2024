@@ -1,5 +1,6 @@
 package metier;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
-public class User {
+public class User implements Serializable {
 	private Long id;
 	private String name;
 	private Date dateNaissance; //'jj/mm/yyyy'
