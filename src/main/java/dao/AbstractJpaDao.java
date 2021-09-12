@@ -4,6 +4,7 @@ import jpa.EntityManagerHelper;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -19,20 +20,22 @@ public abstract class AbstractJpaDao<K, T extends Serializable> implements IGene
         this.clazz = clazzToSet;
     }
     
-    public T findOne(K id) {
-        return entityManager.find(clazz, id);
+    public Optional<T> findOne(K id) {
+        T t = entityManager.find(clazz, id);
+        return Optional.of(t);
     }
 
     public List<T> findAll() {
         return entityManager.createQuery("select e from " + clazz.getName() + " as e",clazz).getResultList();
     }
 
-    public void save(T entity) {
+    public T save(T entity) {
         EntityTransaction t = this.entityManager.getTransaction();
         t.begin();
         entityManager.persist(entity);
         t.commit();
 
+        return entity;
     }
 
     public T update(final T entity) {
@@ -53,7 +56,11 @@ public abstract class AbstractJpaDao<K, T extends Serializable> implements IGene
     }
 
     public void deleteById(K entityId) {
-        T entity = findOne(entityId);
-        delete(entity);
+        Optional<T> entity = findOne(entityId);
+        delete(entity.get());
+    }
+
+    public boolean existsById(K entityId) {
+       return findOne(entityId).isPresent();
     }
 }

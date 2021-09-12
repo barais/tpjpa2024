@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -19,9 +19,9 @@ public class Creneau implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fin ;
 
-    @ManyToMany
-    private List<Prof> profs;
+    @ManyToMany(mappedBy = "creneaux", cascade = CascadeType.ALL)
+    private Set<Prof> profs;
 
-    @OneToMany(mappedBy = "creneau", cascade = CascadeType.PERSIST)
-    private List<Rdv> rdv;
+    @OneToMany( mappedBy = "creneau", cascade = {CascadeType.ALL})
+    private Set<Rdv> rdv;
 }

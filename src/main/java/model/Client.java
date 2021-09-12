@@ -2,16 +2,14 @@ package model;
 
 import lombok.Data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import java.util.List;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue("Client")
 @Data
 public class Client extends Users {
-    @OneToMany(mappedBy = "client", cascade = CascadeType.PERSIST)
-    private List<Rdv> rdv;
+    @OneToMany(mappedBy = "client",fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private Set<Rdv> rdv;
 }
