@@ -14,9 +14,9 @@ import javax.swing.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name="adduserinfo",
-        urlPatterns={"/UserInfo"})
-public class UserInfo extends HttpServlet {
+@WebServlet(name="adduser",
+        urlPatterns={"/AddUser"})
+public class AddUser extends HttpServlet {
 
     private EntityManagerFactory factory;
 
@@ -29,6 +29,7 @@ public class UserInfo extends HttpServlet {
         // Création de l'objet utilisateur
         Utilisateur user = new Utilisateur();
         user.setNom(request.getParameter("nom"));
+        user.setPrenom(request.getParameter("prenom"));
 
         // Ajout données à la database
         EntityManager manager = factory.createEntityManager();
@@ -44,6 +45,8 @@ public class UserInfo extends HttpServlet {
                 "<UL>\n" +
                 " <LI>Nom : "
                 + request.getParameter("nom") +
+                ", Prénom : "
+                + request.getParameter("prenom") +
                 "</UL>\n" +
                 "</BODY></HTML>");
     }

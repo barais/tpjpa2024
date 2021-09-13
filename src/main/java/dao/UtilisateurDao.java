@@ -9,7 +9,7 @@ import domain.Utilisateur;
 
 public class UtilisateurDao {
 
-    private EntityManager manager;
+    private final EntityManager manager;
 
     public UtilisateurDao (EntityManager manager) {
         this.manager = manager;
@@ -23,12 +23,16 @@ public class UtilisateurDao {
         }
     }
 
-    public void listUtilisateurs() {
+    public void printlistUtilisateurs() {
         List<Utilisateur> resultList = manager.createQuery("Select a From Utilisateur a", Utilisateur.class).getResultList();
         System.out.println("Nombre d'utilisateurs : " + resultList.size());
         for (Utilisateur next : resultList) {
             System.out.println("Utilisateur suivant : " + next);
         }
+    }
+
+    public List<Utilisateur> listUtilisateurs() {
+        return manager.createQuery("Select a From Utilisateur a", Utilisateur.class).getResultList();
     }
 
 

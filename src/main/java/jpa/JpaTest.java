@@ -46,7 +46,7 @@ public class JpaTest {
 		professionnelDao.listProfessionnelsParNom("Prof");
 		professionnelDao.listProfessionnels();
 		departementDao.listDepartements();
-		utilisateurDao.listUtilisateurs();
+		utilisateurDao.printlistUtilisateurs();
 		rdvDao.listRdvs();
 		personneDao.listPersonnes();
 
