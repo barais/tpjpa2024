@@ -38,7 +38,7 @@ public class AfficheUserInfo extends HttpServlet{
 
         System.out.println(userList.size());
 
-        out.append("<HTML>\n<BODY>\n" + "<H1> Recapitulatif des informations de Appointment </H1>\n"
+        out.append("<HTML>\n<BODY>\n" + "<H1> Recapitulatif des informations Users   </H1>\n"
                     + "<UL>\n" + " <LI> User Total :  " + userList.size());
 
         for(User u : userList){
