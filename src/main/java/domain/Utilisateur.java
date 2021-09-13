@@ -29,6 +29,6 @@ public class Utilisateur extends Personne {
 
     @Override
     public String toString() {
-        return "Utilisateur [id=" + getId() + ", nom=" + getNom() + "]";
+        return "Utilisateur [id=" + getId() + ", nom=" + getNom() + ", prénom=" + getPrenom() + "]";
     }
 }
