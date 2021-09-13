@@ -11,6 +11,7 @@ public abstract class Personne {
     private String identifiant;
     private String mdp;
     private String mail;
+    private String prenom;
 
     public Personne(){
     }
@@ -19,8 +20,9 @@ public abstract class Personne {
         this.nom = nom;
     }
 
-    public Personne(String nom, String identifiant, String mail, String mdp) {
+    public Personne(String nom, String prenom, String identifiant, String mail, String mdp) {
         this.nom = nom;
+        this.prenom = prenom;
         this.mail = mail;
         this.identifiant = identifiant;
         this.mdp = mdp;
@@ -44,6 +46,15 @@ public abstract class Personne {
         this.nom = nom;
     }
 
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    @Column(unique = true)
     public String getIdentifiant() {
         return identifiant;
     }
@@ -60,6 +71,7 @@ public abstract class Personne {
         this.mdp = mdp;
     }
 
+    @Column(unique = true)
     public String getMail() {
         return mail;
     }
