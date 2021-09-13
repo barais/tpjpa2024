@@ -12,6 +12,27 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
+	<packaging>war</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+					<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-maven-plugin -->
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-maven-plugin</artifactId>
+					<version>9.4.31.v20200723</version>
+					<configuration>
+						<webApp>
+							<contextPath>/</contextPath>
+						</webApp>
+						<httpConnector>
+							<port>8080</port>
+						</httpConnector>
+					</configuration>
+				</plugin>
+		</plugins>
+	</build>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -23,6 +44,13 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.30</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			 <scope>provided</scope>			
 		</dependency>
 
 		<dependency>
