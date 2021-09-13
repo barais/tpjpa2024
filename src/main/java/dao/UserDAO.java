@@ -1,6 +1,5 @@
 package dao;
 import metier.*;
-import org.hibernate.jdbc.WorkExecutor;
 
 import java.util.List;
 
