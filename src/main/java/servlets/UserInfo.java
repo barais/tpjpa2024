@@ -19,6 +19,7 @@ public void doPost(HttpServletRequest request,
 
 	PrintWriter out = response.getWriter();
 
+	System.out.println();
 	
 	out.println("<HTML>\n<BODY>\n" +
 				"<H1>Recapitulatif des informations</H1>\n" +
