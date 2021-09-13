@@ -26,7 +26,7 @@ public class JpaTestDao {
         JobDao jobDao = new JobDao();
         jobDao.save(job1);
 
-        Worker w1=new Worker("Albert", new Date(0),job1,15);
+        Worker w1=new Worker("Georges", new Date(0),job1,15);
         WorkerDao workerDao= new WorkerDao();
         workerDao.save(w1);
 
@@ -34,7 +34,10 @@ public class JpaTestDao {
         AppointmentDao dao = new AppointmentDao();
         dao.save(a);
 
-        System.out.println(userDAO.getBestWorkerName());
+
+        System.out.println(
+                manager.createNamedQuery("bestWorker",Worker.class).getSingleResult().getName()
+        );
         List<User> userList = userDAO.getAllUser();
         for(User u : userList){
             System.out.println("User :" + u.getName()+ ", date naissance : "+

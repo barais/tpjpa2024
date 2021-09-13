@@ -16,9 +16,10 @@ public class UserDAO extends AbstractJpaDao<Long, User> {
     }
 
     public Worker getBestWorkerName() {
+        String query = "select e from Worker as e where e.rate = (select max(e.rate) from User as" +
+                " e)";
 
-        String query = "SELECT e FROM USER as e where e.rate =(select max(e.rate) from user " +
-                "as e)";
-        return (Worker) this.entityManager.createQuery(query).getSingleResult();
+        //String query = "select e from Worker as e ";
+        return  this.entityManager.createQuery(query,Worker.class).getSingleResult();
     }
 }

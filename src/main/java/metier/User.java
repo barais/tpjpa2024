@@ -8,6 +8,12 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@NamedQueries(
+		{@NamedQuery (name ="bestWorker",query = "select e from Worker as e where e.rate = " +
+				"(select max(e.rate) from User as e)"),
+			@NamedQuery(name ="allWorker", query = "select e from Worker as e"),
+		@NamedQuery(name ="allUser", query = "select e from User as e")}
+)
 public class User implements Serializable {
 	private Long id;
 	private String name;
