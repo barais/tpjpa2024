@@ -23,6 +23,7 @@ public class UserInfo extends HttpServlet {
     public void init() throws ServletException {
         emf = Persistence.createEntityManagerFactory("dev");
 
+
     }
 
     @Override
