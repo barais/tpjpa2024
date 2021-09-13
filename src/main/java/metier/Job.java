@@ -1,10 +1,14 @@
 package metier;
 
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
-public class Job {
+public class Job implements Serializable {
 
 
     private Long id;
