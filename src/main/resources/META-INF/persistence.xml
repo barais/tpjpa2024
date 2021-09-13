@@ -19,7 +19,7 @@
          <property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost/"/>
       </properties>
    </persistence-unit>
-<persistence-unit name="prod" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="prod" transaction-type="RESOURCE_LOCAL">
      <!-- <class>org.hibernate.ejb.test.Cat</class> -->
      <!--  <class>org.hibernate.ejb.test.Distributor</class> -->
      <!--  <class>org.hibernate.ejb.test.Item</class> -->
