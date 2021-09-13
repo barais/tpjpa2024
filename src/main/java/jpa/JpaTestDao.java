@@ -34,10 +34,11 @@ public class JpaTestDao {
         AppointmentDao dao = new AppointmentDao();
         dao.save(a);
 
-       /* List<User> userList = userDAO.getAllUser();
+        System.out.println(userDAO.getBestWorkerName());
+        List<User> userList = userDAO.getAllUser();
         for(User u : userList){
             System.out.println("User :" + u.getName()+ ", date naissance : "+
                     u.getDateNaissance()+" a rdv : "+u.getAppointments());
-        }*/
+        }
     }
 }
