@@ -19,7 +19,7 @@ public class RdvDao {
     public void createRdvs() {
         int numOfRdvs = manager.createQuery("Select a From Rdv a", Rdv.class).getResultList().size();
         if (numOfRdvs == 0) {
-            Departement departement = new Departement("Java");
+            Departement departement = new Departement("Java2");
             Professionnel professionnel = new Professionnel("Prof 3", departement);
             Utilisateur utilisateur = new Utilisateur("User 3");
             manager.persist(departement);
