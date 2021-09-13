@@ -1,5 +1,6 @@
 package rest;
 
+import dao.UtilisateurDao;
 import domain.Utilisateur;
 
 import javax.persistence.EntityManager;
@@ -25,6 +26,8 @@ public class AddUser extends HttpServlet {
         factory = Persistence.createEntityManagerFactory("dev");
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        EntityManager manager = factory.createEntityManager();
+        UtilisateurDao userDao = new UtilisateurDao(manager);
 
         // Création de l'objet utilisateur
         Utilisateur user = new Utilisateur();
@@ -32,9 +35,8 @@ public class AddUser extends HttpServlet {
         user.setPrenom(request.getParameter("prenom"));
 
         // Ajout données à la database
-        EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
-        manager.persist(user);
+        userDao.addUser(user);
         manager.getTransaction().commit();
         manager.close();
 
