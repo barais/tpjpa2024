@@ -38,10 +38,14 @@ public class JpaTestDao {
         System.out.println(
                 manager.createNamedQuery("bestWorker",Worker.class).getSingleResult().getName()
         );
-        List<User> userList = userDAO.getAllUser();
+       // List<User> userList = userDAO.getAllUser();
+
+        List<User> userList =
+                manager.createNamedQuery("allUser",User.class).getResultList();
         for(User u : userList){
             System.out.println("User :" + u.getName()+ ", date naissance : "+
                     u.getDateNaissance()+" a rdv : "+u.getAppointments());
         }
+
     }
 }

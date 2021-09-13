@@ -5,6 +5,10 @@ import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "getAllApointment",query = "select distinct e from Appointment as e")
+
+})
 public class Appointment implements Serializable {
 
     private Long id;

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name="userinfo",
 urlPatterns={"/UserInfo"})
 public class UserInfo extends HttpServlet {
+
 public void doPost(HttpServletRequest request,
 					HttpServletResponse response)
 	 throws ServletException, IOException {
@@ -19,8 +20,7 @@ public void doPost(HttpServletRequest request,
 
 	PrintWriter out = response.getWriter();
 
-	System.out.println();
-	
+
 	out.println("<HTML>\n<BODY>\n" +
 				"<H1>Recapitulatif des informations</H1>\n" +
 				"<UL>\n" +			
