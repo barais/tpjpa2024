@@ -62,7 +62,7 @@
 							<contextPath>/</contextPath>
 						</webApp>
 						<httpConnector>
-							<port>8080</port>
+							<port>8000</port>
 						</httpConnector>
 					</configuration>
 				</plugin>
