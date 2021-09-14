@@ -5,7 +5,7 @@ import model.Users;
 
 import java.util.List;
 
-public class UsersDao extends AbstractJpaDao<String, Users> {
+public class UsersDao extends AbstractJpaDao<Long, Users> {
 
     public UsersDao(){
         super(Users.class);

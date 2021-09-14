@@ -11,6 +11,10 @@ import java.io.Serializable;
 public abstract class Users implements Serializable {
 
     @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
     private String email;
 
     private String name;

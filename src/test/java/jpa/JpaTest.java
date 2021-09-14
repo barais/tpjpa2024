@@ -1,9 +1,9 @@
-package jpa;
-
 import Service.CreneauService;
 import Service.RdvService;
 import Service.UserService;
+
 import model.Client;
+
 import model.Creneau;
 import model.Prof;
 import model.Rdv;
@@ -23,7 +23,7 @@ public class JpaTest {
 
         try {
             //Alimentation de la bdd
-            //Users
+            //Users (PROF, CLIENT, CRENEAU, RDV)
             Prof user01 = new Prof();
                 user01.setName("Koa");
                 user01.setLastname("Arnaud");
@@ -40,6 +40,10 @@ public class JpaTest {
                 user03.setEmail("papou@gmail.com");
 
 
+            Prof user04 = new Prof();
+            user04.setName("Karim");
+            user04.setLastname("Ougueur");
+            user04.setEmail("futuringenieur@gmail.com");
             //Cerneau
             SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yy");
             Creneau creneau01 = new Creneau();
@@ -51,11 +55,11 @@ public class JpaTest {
             Creneau creneau03 = new Creneau();
                 creneau03.setDebut(formater.parse("25-09-2021"));
                 creneau03.setFin(formater.parse("27-09-2021"));
-            user01.setCreneaux(new  HashSet<>() {{
+            user01.setCreneaux(new  HashSet<Creneau>() {{
                 add(creneau01);
                 add(creneau03);
             }});
-            user03.setCreneaux(new HashSet<>() {{
+            user03.setCreneaux(new HashSet<Creneau>() {{
                 add(creneau02);
                 add(creneau03);
             }});
@@ -80,9 +84,13 @@ public class JpaTest {
             creneauService.saveCreneau(creneau03);
             rdvService.saveRdv(rdv01);
             rdvService.saveRdv(rdv02);
-           // userService.deleteUser(user02.getEmail());
-    //        creneauService.deleteCreneau(creneau03.getId());
 
+
+          /*  userService.deleteUser(user01.getId());
+            userService.deleteUser(user02.getId());
+            userService.deleteUser(user03.getId());*/
+
+            userService.modifyUser(user02.getId(), user04);
 
         } catch (Exception e) {
             e.printStackTrace();

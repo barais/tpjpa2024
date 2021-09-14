@@ -9,7 +9,6 @@ import java.util.Set;
 @DiscriminatorValue("Client")
 @Data
 public class Client extends Users {
-    @OneToMany(mappedBy = "client",fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client")
     private Set<Rdv> rdv;
 }

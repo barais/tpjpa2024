@@ -1,10 +1,12 @@
 package model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,9 +21,11 @@ public class Creneau implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fin ;
 
-    @ManyToMany(mappedBy = "creneaux", cascade = CascadeType.ALL)
-    private Set<Prof> profs;
+    @ManyToMany(mappedBy = "creneaux", cascade = {CascadeType.PERSIST, CascadeType.DETACH})
+    @EqualsAndHashCode.Exclude
+    private Set<Prof> profs = new HashSet<>();
 
     @OneToMany( mappedBy = "creneau", cascade = {CascadeType.ALL})
-    private Set<Rdv> rdv;
+    @EqualsAndHashCode.Exclude
+    private Set<Rdv> rdv = new HashSet<>();
 }

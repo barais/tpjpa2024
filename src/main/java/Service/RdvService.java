@@ -20,6 +20,8 @@ public class RdvService {
         return rdvDao.findByTitle(title);
     }
 
+    public Iterable<Rdv> getRdvByEmail(Long id)   {return rdvDao.findByUser(id);}
+
     public void  deleteRdv(final Long id){
         if (rdvDao.existsById(id)) {
             rdvDao.deleteById(id);
@@ -35,4 +37,8 @@ public class RdvService {
         }
         return rdv;
     }
+
+
+
+
 }
