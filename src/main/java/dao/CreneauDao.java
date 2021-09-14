@@ -10,7 +10,4 @@ public class CreneauDao extends AbstractJpaDao<Long,Creneau> {
         super(Creneau.class);
     }
 
-    public List<Rdv> findByCrenel(long id) {
-        return entityManager.createQuery("select e from Rdv as e where e.creneau.id ='" +id+ "'", Rdv.class).getResultList();
-    }
 }

@@ -11,7 +11,7 @@ import java.util.Optional;
 @Data
 public class CreneauService {
     private CreneauDao creneauDao = new CreneauDao();
-    private CreneauDao crenelDAO = new CreneauDao();
+    private RdvDao rdvDao = new RdvDao();
     private RdvService rdvService = new RdvService();
 
     public Optional<Creneau> getCreneau(final Long id){
@@ -25,7 +25,7 @@ public class CreneauService {
     public void  deleteCreneau(final Long id){
         if (creneauDao.existsById(id)) {
 
-            for (Rdv rdv : crenelDAO.findByCrenel(id)){
+            for (Rdv rdv : rdvDao.findByCrenel(id)){
                 rdvService.deleteRdv(rdv.getId());
             }
             creneauDao.deleteById(id);
