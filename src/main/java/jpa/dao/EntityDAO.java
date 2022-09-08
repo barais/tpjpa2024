@@ -36,7 +36,7 @@ public class EntityDAO {
     }
 
     public static void main(String[] args) {
-        var entityManagerFactory = Persistence.createEntityManagerFactory("example");
+        var entityManagerFactory = Persistence.createEntityManagerFactory("dev");
         var entityManager = entityManagerFactory.createEntityManager();
         var entityDAO = new EntityDAO(entityManager);
 
