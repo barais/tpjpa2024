@@ -1,16 +1,17 @@
 package jpa.po;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Patient {
-    Long id;
-    String lastName;
-    String firstName;
-    List<Appointment> appointments;
+    private Long id;
+    private String lastName;
+    private String firstName;
+    private List<Appointment> appointments;
+
+    @ManyToOne
+    private Professional professional;
 
     public Patient() {
         super();
@@ -47,12 +48,20 @@ public class Patient {
         this.firstName = lastName;
     }
 
-    @ManyToOne()
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.PERSIST)
     public List<Appointment> getAppointments() {
         return appointments;
     }
 
     public void setAppointments(List<Appointment> appointments) {
-        return this.appointments;
+        this.appointments = appointments;
+    }
+
+    public Professional getProfessionals() {
+        return professional;
+    }
+
+    public void setProfessionals(Professional professional) {
+        this.professional = professional;
     }
 }

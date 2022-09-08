@@ -2,6 +2,7 @@ package jpa.po;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Professional {
@@ -10,6 +11,8 @@ public class Professional {
     private String lastName;
 
     private List<Appointment> listAppointments = new ArrayList<>();
+
+    private List<Patient> listPatients = new ArrayList<>();
 
     public Professional() {}
 
@@ -51,5 +54,14 @@ public class Professional {
 
     public void setListAppointments(List<Appointment> listAppointments) {
         this.listAppointments = listAppointments;
+    }
+
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.PERSIST)
+    public List<Patient> getListPatients() {
+        return listPatients;
+    }
+
+    public void setListPatients(List<Patient> listPatients) {
+        this.listPatients = listPatients;
     }
 }
