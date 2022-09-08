@@ -5,19 +5,19 @@ import javax.persistence.GeneratedValue; import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Employe {
+public class Doctor {
 
     private Long id;
     private String name;
     private Specialisation spe;
 
-    public Employe() {}
+    public Doctor() {}
 
-    public Employe(String name, Specialisation spe) {
+    public Doctor(String name, Specialisation spe) {
         this.name = name;
         this.spe = spe; }
 
-    public Employe(String name) {
+    public Doctor(String name) {
         this.name = name;
     }
 
