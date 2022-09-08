@@ -1,8 +1,6 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue; import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Doctor {
@@ -39,7 +37,7 @@ public class Doctor {
         this.name = name;
     }
 
-    @ManyToOne
+    @Transient
     public Specialisation getSpecialisation() {
         return spe;
     }
