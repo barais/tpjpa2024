@@ -1,5 +1,8 @@
 package servlet;
 
+import dao.PatientDAO;
+import entities.Patient;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -8,6 +11,15 @@ import javax.servlet.http.HttpServletRequest; import javax.servlet.http.HttpServ
 
 @WebServlet(name="patientInfo", urlPatterns={"/PatientInfo"})
 public class PatientInfo extends HttpServlet {
+
+    PatientDAO patientDAO;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        this.patientDAO = new PatientDAO();
+    }
+
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -19,5 +31,13 @@ public class PatientInfo extends HttpServlet {
                 + request.getParameter("lastName") + "\n" + " <LI>Social Security Number: "
                 + request.getParameter("numSS") + "\n" + "</UL>\n" +
                 "</BODY></HTML>");
+
+
+        Patient newPatient = new Patient();
+        newPatient.setFirstName(request.getParameter("firstName"));
+        newPatient.setLastName(request.getParameter("lastName"));
+        newPatient.setNumSS(Long.parseLong(request.getParameter("numSS")));
+
+        patientDAO.save(newPatient);
     }
 }
