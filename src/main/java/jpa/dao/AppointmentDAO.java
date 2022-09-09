@@ -10,5 +10,8 @@ public class AppointmentDAO extends GenericJpaDao<Appointment, Long> {
     public AppointmentDAO() {
         super(Appointment.class);
     }
+
+    // Access appointments
+
     // Create, list, remove and update
 }

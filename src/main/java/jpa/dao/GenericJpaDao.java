@@ -16,13 +16,13 @@ public class GenericJpaDao<T, TK> {
         this.objectClass = objectClass;
     }
 
-    public T get(TK id) {
+    public T getById(TK id) {
         return this.manager.find(this.objectClass, id);
     }
 
     public List<T> getAll() {
-        return this.manager.createQuery(
-                        "select obj from " + this.objectClass.getName() + " obj", objectClass)
+        return this.manager
+                .createQuery("select obj from " + this.objectClass.getName() + " obj", objectClass)
                 .getResultList();
     }
 

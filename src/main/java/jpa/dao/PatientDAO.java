@@ -1,9 +1,9 @@
 package jpa.dao;
 
-import jpa.EntityManagerHelper;
+import jpa.po.Appointment;
 import jpa.po.Patient;
 
-import javax.persistence.EntityManager;
+import java.util.List;
 
 public class PatientDAO extends GenericJpaDao<Patient, Long> {
 
@@ -11,9 +11,13 @@ public class PatientDAO extends GenericJpaDao<Patient, Long> {
         super(Patient.class);
     }
 
+    // Create queries
+
     public void createPatients(String firstName, String lastName) {
         manager.persist(new Patient(firstName, lastName));
     }
+
+    // Fetch queries
 
     public Patient getPatientByName(String firstName, String lastName) {
         return manager
@@ -24,15 +28,30 @@ public class PatientDAO extends GenericJpaDao<Patient, Long> {
                 .get(0);
     }
 
-    public void listPatients() {
-        var listResults = manager
+    public List<Patient> getPatientList() {
+        return manager
                 .createQuery("Select p From Patient p", Patient.class)
                 .getResultList();
-        System.out.print("Number of patients: " + listResults.size());
-        for (var next : listResults) {
-            System.out.println("Next patient: " + next);
-        }
     }
 
-    // Create, list, remove and update
+    // Remove queries
+
+    public void removePatientByName(String firstName, String lastName) {
+
+    }
+
+    // Update queries
+
+    public void addAppointmentToPatient(String firstName, String lastName, Appointment appointment) {
+
+    }
+
+
+    public void removeAppointmentToPatient(String firstName, String lastName, Long appointmentId) {
+
+    }
+
+    public static void main(String[] args) {
+    }
+
 }
