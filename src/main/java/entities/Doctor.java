@@ -12,8 +12,7 @@ public class Doctor extends Person implements Serializable {
     public Doctor() {}
 
     public Doctor(String firstName, String lastName, Specialisation spe) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        super(firstName, lastName);
         this.spe = spe; }
 
     public Doctor(String firstName, String lastName) {
