@@ -10,7 +10,6 @@ public class Patient {
     private String firstName;
     private List<Appointment> appointments;
 
-    @ManyToOne
     private Professional professional;
 
     public Patient() {
@@ -57,11 +56,12 @@ public class Patient {
         this.appointments = appointments;
     }
 
-    public Professional getProfessionals() {
+    @ManyToOne
+    public Professional getProfessional() {
         return professional;
     }
 
-    public void setProfessionals(Professional professional) {
+    public void setProfessional(Professional professional) {
         this.professional = professional;
     }
 

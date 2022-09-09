@@ -37,18 +37,20 @@ public class PatientDAO extends GenericJpaDAO<Patient, Long> {
     // Remove queries
 
     public void removePatientByName(String firstName, String lastName) {
-
+        this.manager.createQuery("delete from Patient p where p.firstName = :firstName and p.lastName = :lastName")
+                .setParameter("lastName", lastName)
+                .setParameter("firstName", firstName);
     }
 
     // Update queries
 
-    public void addAppointmentToPatient(String firstName, String lastName, Appointment appointment) {
-
-    }
-
-
     public void removeAppointmentToPatient(String firstName, String lastName, Long appointmentId) {
-
+        this.manager.createQuery("delete from Appointment app " +
+                "where app.id = :id and app.patient.lastName = :lastName " +
+                "and app.patient.firstName = :firstName")
+                .setParameter("id", appointmentId)
+                .setParameter("lastName", lastName)
+                .setParameter("firstName", firstName);
     }
 
     public static void main(String[] args) {
