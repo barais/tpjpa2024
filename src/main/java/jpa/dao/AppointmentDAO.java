@@ -16,14 +16,14 @@ public class AppointmentDAO extends GenericJpaDAO<Appointment, Long> {
         manager.persist(new Appointment(reason, startingTime, patient, professional));
     }
     // Access appointments
-    public List<Professional> getAppointmentsByProfessionalId(Long id) {
-        return manager.createQuery("SELECT p FROM Professional p WHERE p.id = :id", Professional.class)
+    public List<Appointment> getAppointmentsByProfessionalId(Long id) {
+        return manager.createQuery("SELECT p FROM Appointment p WHERE p.professional.id = :id", Appointment.class)
                 .setParameter("id", id)
                 .getResultList();
     }
 
-    public List<Patient> getAppointmentsByPatientId(Long id) {
-        return manager.createQuery("SELECT p FROM Patient p WHERE p.id = :id", Patient.class)
+    public List<Appointment> getAppointmentsByPatientId(Long id) {
+        return manager.createQuery("SELECT p FROM Appointment p WHERE p.patient.id = :id", Appointment.class)
                 .setParameter("id", id)
                 .getResultList();
     }
