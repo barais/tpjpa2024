@@ -15,18 +15,18 @@ public class PatientDAO {
         manager.persist(new Patient(firstName, lastName));
     }
 
-    public Object getPatientByName(String firstName, String lastName) {
+    public Patient getPatientByName(String firstName, String lastName) {
         return manager
-                .createQuery("SELECT p FROM Patient p WHERE p.lastName LIKE :lastName AND p.firstName LIKE :firstName")
+                .createQuery("SELECT p FROM Patient p WHERE p.lastName LIKE :lastName AND p.firstName LIKE :firstName", Patient.class)
                 .setParameter("firstName", firstName)
                 .setParameter("lastName", lastName)
                 .getResultList()
                 .get(0);
     }
 
-    public Object getPatientId(String firstName, String lastName) {
+    public Long getPatientId(String firstName, String lastName) {
         return manager
-                .createQuery("SELECT p.id FROM Patient p WHERE p.lastName LIKE :lastName AND p.firstName LIKE :firstName")
+                .createQuery("SELECT p.id FROM Patient p WHERE p.lastName LIKE :lastName AND p.firstName LIKE :firstName", Long.class)
                 .setParameter("firstName", firstName)
                 .setParameter("lastName", lastName)
                 .getResultList()
