@@ -1,5 +1,6 @@
 package jpa.dao;
 
+import jpa.EntityManagerHelper;
 import jpa.po.Patient;
 
 import javax.persistence.EntityManager;
@@ -7,8 +8,8 @@ import javax.persistence.EntityManager;
 public class PatientDAO {
     private EntityManager manager;
 
-    public PatientDAO(EntityManager manager) {
-        this.manager = manager;
+    public PatientDAO() {
+        this.manager = EntityManagerHelper.getEntityManager();
     }
 
     public void createPatients(String firstName, String lastName) {
