@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.Date;
 
-public class Appointement {
+public class Appointment {
     private Long id;
     private Doctor doctor;
     private Patient patient;
