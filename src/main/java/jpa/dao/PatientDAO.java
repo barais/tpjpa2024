@@ -24,15 +24,6 @@ public class PatientDAO extends GenericJpaDao<Patient, Long> {
                 .get(0);
     }
 
-    public Long getPatientId(String firstName, String lastName) {
-        return manager
-                .createQuery("SELECT p.id FROM Patient p WHERE p.lastName LIKE :lastName AND p.firstName LIKE :firstName", Long.class)
-                .setParameter("firstName", firstName)
-                .setParameter("lastName", lastName)
-                .getResultList()
-                .get(0);
-    }
-
     public void listPatients() {
         var listResults = manager
                 .createQuery("Select p From Patient p", Patient.class)
