@@ -1,7 +1,7 @@
 # Template de projet pour le TP JPA 2021 UniR
 
+**TODO**
 - Ajouter profs au git
-- Héritage et au moins une 1-*
 
 ---
 
