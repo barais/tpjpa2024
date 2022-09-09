@@ -5,7 +5,6 @@ import entities.Specialisation;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class JpaTest {
@@ -27,7 +26,7 @@ public class JpaTest {
 
 
 		try {
-			test.createEmployees();
+			test.createDoctors();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -40,21 +39,21 @@ public class JpaTest {
 	}
 
 
-	private void createEmployees() {
+	private void createDoctors() {
 		int numOfDoctors = manager.createQuery("Select a From Doctor a", Doctor.class).getResultList().size();
 		if (numOfDoctors == 0) {
-			Specialisation specialisation = new Specialisation("java");
+			Specialisation specialisation = new Specialisation("Dentist");
 			manager.persist(specialisation);
 			manager.persist(new Doctor("Jakab Gipsz",specialisation));
 			manager.persist(new Doctor("Captain Nemo",specialisation));
 		}
 	}
+
 	private void listDoctors() {
-		List<Doctor> resultList = manager.createQuery("Select a From Doctor a",
-				Doctor.class).getResultList();
-		System.out.println("num of employess:" + resultList.size());
+		List<Doctor> resultList = manager.createQuery("Select a From Doctor a", Doctor.class).getResultList();
+		System.out.println("num of doctors:" + resultList.size());
 		for (Doctor next : resultList) {
-			System.out.println("next employee: " + next);
+			System.out.println("next doctors: " + next);
 		}
 	}
 
