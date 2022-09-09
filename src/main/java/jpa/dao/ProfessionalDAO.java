@@ -1,12 +1,10 @@
 package jpa.dao;
 
-import jpa.EntityManagerHelper;
 import jpa.po.Professional;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
-public class ProfessionalDAO extends GenericJpaDao<Professional, Long> {
+public class ProfessionalDAO extends GenericJpaDAO<Professional, Long> {
 
     public ProfessionalDAO() {
         super(Professional.class);

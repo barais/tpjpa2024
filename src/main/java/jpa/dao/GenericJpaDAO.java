@@ -6,12 +6,12 @@ import org.hibernate.cfg.NotYetImplementedException;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class GenericJpaDao<T, TK> {
+public class GenericJpaDAO<T, TK> {
 
     protected final EntityManager manager;
     protected final Class<T> objectClass;
 
-    protected GenericJpaDao(Class<T> objectClass) {
+    protected GenericJpaDAO(Class<T> objectClass) {
         this.manager = EntityManagerHelper.getEntityManager();
         this.objectClass = objectClass;
     }

@@ -13,7 +13,6 @@ public class Appointment {
     private Long id;
 
     private String reason;
-    private String category;
     private LocalDateTime startingTime;
 
     private Professional professional;
@@ -21,10 +20,11 @@ public class Appointment {
 
     public Appointment() {}
 
-    public Appointment(String reason, String category, LocalDateTime startingTime) {
+    public Appointment(String reason, LocalDateTime startingTime, Patient patient, Professional professional) {
         this.reason = reason;
-        this.category = category;
         this.startingTime = startingTime;
+        this.patient = patient;
+        this.professional = professional;
     }
 
     @Id
@@ -43,14 +43,6 @@ public class Appointment {
 
     public void setReason(String reason) {
         this.reason = reason;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public LocalDateTime getStartingTime() {
@@ -84,7 +76,6 @@ public class Appointment {
         return "Appointment{" +
                 "id=" + id +
                 ", reason='" + reason + '\'' +
-                ", category='" + category + '\'' +
                 ", startingTime=" + startingTime +
                 ", professional=" + professional.toString() +
                 ", patient=" + patient.toString() +

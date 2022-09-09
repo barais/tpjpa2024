@@ -5,7 +5,7 @@ import jpa.po.Patient;
 
 import java.util.List;
 
-public class PatientDAO extends GenericJpaDao<Patient, Long> {
+public class PatientDAO extends GenericJpaDAO<Patient, Long> {
 
     public PatientDAO() {
         super(Patient.class);
