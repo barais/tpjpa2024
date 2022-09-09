@@ -1,12 +1,14 @@
 package jpa.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jpa.EntityManagerHelper;
+import jpa.po.Appointment;
 
-public class AppointmentDAO {
-    private EntityManager manager;
-    public AppointmentDAO(EntityManager manager) {
-        this.manager = manager;
+import javax.persistence.EntityManager;
+
+public class AppointmentDAO extends GenericJpaDao<Appointment, Long> {
+    public AppointmentDAO() {
+        super(Appointment.class);
     }
+
+    // Create, list, remove and update
 }

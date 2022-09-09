@@ -64,4 +64,12 @@ public class Patient {
     public void setProfessionals(Professional professional) {
         this.professional = professional;
     }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                '}';
+    }
 }

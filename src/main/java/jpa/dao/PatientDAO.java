@@ -5,11 +5,10 @@ import jpa.po.Patient;
 
 import javax.persistence.EntityManager;
 
-public class PatientDAO {
-    private EntityManager manager;
+public class PatientDAO extends GenericJpaDao<Patient, Long> {
 
     public PatientDAO() {
-        this.manager = EntityManagerHelper.getEntityManager();
+        super(Patient.class);
     }
 
     public void createPatients(String firstName, String lastName) {
@@ -43,4 +42,6 @@ public class PatientDAO {
             System.out.println("Next patient: " + next);
         }
     }
+
+    // Create, list, remove and update
 }

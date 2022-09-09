@@ -78,4 +78,16 @@ public class Appointment {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id=" + id +
+                ", reason='" + reason + '\'' +
+                ", category='" + category + '\'' +
+                ", startingTime=" + startingTime +
+                ", professional=" + professional.toString() +
+                ", patient=" + patient.toString() +
+                '}';
+    }
 }

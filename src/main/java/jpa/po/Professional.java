@@ -64,4 +64,12 @@ public class Professional {
     public void setListPatients(List<Patient> listPatients) {
         this.listPatients = listPatients;
     }
+
+    @Override
+    public String toString() {
+        return "Professional{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
 }
