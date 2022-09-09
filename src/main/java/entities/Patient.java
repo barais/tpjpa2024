@@ -1,5 +1,8 @@
 package entities;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Patient extends Person {
 
 

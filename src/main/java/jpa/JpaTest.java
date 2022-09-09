@@ -1,6 +1,7 @@
 package jpa;
 
 import entities.Doctor;
+import entities.Patient;
 import entities.Specialisation;
 
 import javax.persistence.EntityManager;
@@ -44,7 +45,8 @@ public class JpaTest {
 		if (numOfDoctors == 0) {
 			Specialisation specialisation = new Specialisation("Dentist");
 			manager.persist(specialisation);
-			manager.persist(new Doctor("Jakab", "Gipsz",specialisation));
+			manager.persist(new Doctor("Justine", "DELOURMEL",specialisation));
+			manager.persist(new Patient("Arnaud", "DELOURMEL", 123454324L));
 			manager.persist(new Doctor("Captain", "Nemo",specialisation));
 		}
 	}

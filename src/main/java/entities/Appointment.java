@@ -1,10 +1,9 @@
 package entities;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Appointment {
     private Long id;
     private Doctor doctor;
@@ -22,7 +21,7 @@ public class Appointment {
         this.id = id;
     }
 
-    @OneToMany
+    @ManyToOne
     public Doctor getDoctor() {
         return doctor;
     }
@@ -31,7 +30,7 @@ public class Appointment {
         this.doctor = doctor;
     }
 
-    @OneToMany
+    @ManyToOne
     public Patient getPatient() {
         return patient;
     }
