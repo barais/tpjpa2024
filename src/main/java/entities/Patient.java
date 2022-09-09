@@ -1,25 +1,18 @@
 package entities;
 
 import javax.persistence.Entity;
+import java.io.Serializable;
 
 @Entity
-public class Patient extends Person {
+public class Patient extends Person implements Serializable {
 
-
-    private Long id;
     private Long numSS;
+
+    public Patient() {}
 
     public Patient(String firstName, String lastName, Long numSS) {
         super(firstName, lastName);
         this.numSS = numSS;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getNumSS() {
