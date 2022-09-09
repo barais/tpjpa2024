@@ -1,9 +1,10 @@
 package entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Doctor {
+public class Doctor implements Serializable {
 
     private Long id;
     private String name;
@@ -37,7 +38,7 @@ public class Doctor {
         this.name = name;
     }
 
-    @Transient
+    @ManyToOne
     public Specialisation getSpecialisation() {
         return spe;
     }

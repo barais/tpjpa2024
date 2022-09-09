@@ -1,5 +1,7 @@
 package dao;
 
+import jpa.EntityManagerHelper;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,12 +10,13 @@ import javax.persistence.EntityTransaction;
 
 public abstract class AbstractJpaDao<K, T extends Serializable> implements IGenericDao<K, T> {
 
-	private Class<T> clazz;
+	protected Class<T> clazz;
 
 	protected EntityManager entityManager;
 
-	public AbstractJpaDao() {
+	public AbstractJpaDao(Class<T> clazzToSet) {
 		this.entityManager = EntityManagerHelper.getEntityManager();
+		this.clazz = clazzToSet;
 	}
 
 	public void setClazz(Class<T> clazzToSet) {

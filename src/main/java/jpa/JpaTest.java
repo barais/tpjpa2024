@@ -27,7 +27,7 @@ public class JpaTest {
 
 
 		try {
-			test.createEmployees();
+			test.listDoctors();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
