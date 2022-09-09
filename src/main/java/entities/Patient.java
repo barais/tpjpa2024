@@ -1,6 +1,6 @@
 package entities;
 
-public class Patient extends Personne {
+public class Patient extends Person {
     public Long getId() {
         return id;
     }
