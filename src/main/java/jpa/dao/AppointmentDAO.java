@@ -27,5 +27,17 @@ public class AppointmentDAO extends GenericJpaDAO<Appointment, Long> {
                 .setParameter("id", id)
                 .getResultList();
     }
-    // Create, list, remove and update
+
+    //update
+    public void updateStartingTime(Long id, LocalDateTime startingTime) {
+        manager.createQuery("UPDATE Appointment a SET a.startingTime = :startingTime WHERE a.id = :id")
+                .setParameter("startingTime", startingTime)
+                .setParameter("id", id);
+    }
+
+    //remove
+    public void removeById(Long id) {
+        manager.createQuery("DELETE FROM Appointment a WHERE a.id = :id")
+                .setParameter("id", id);
+    }
 }
