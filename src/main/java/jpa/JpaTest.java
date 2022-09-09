@@ -6,6 +6,7 @@ import entities.Specialisation;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.io.PrintWriter;
 import java.util.List;
 
 public class JpaTest {
@@ -50,11 +51,11 @@ public class JpaTest {
 			manager.persist(new Doctor("Captain", "Nemo",specialisation));
 		}
 	}
-	private void listDoctors() {
+	private void listDoctors(PrintWriter print) {
 		List<Doctor> resultList = manager.createQuery("Select a From Doctor a", Doctor.class).getResultList();
-		System.out.println("num of doctors:" + resultList.size());
+		print.println("num of doctors:" + resultList.size());
 		for (Doctor next : resultList) {
-			System.out.println("next doctor: " + next);
+			print.println("next doctor: " + next);
 		}
 	}
 

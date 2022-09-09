@@ -14,6 +14,7 @@ public class Servlet extends HttpServlet {
         PrintWriter p = new PrintWriter(resp.getOutputStream());
         p.print("Hello world");
         p.flush();
+
     }
 
     @Override
