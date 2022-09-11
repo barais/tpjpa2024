@@ -11,7 +11,7 @@ Diagram (work in progress) :
 classDiagram
     Patient "1" <--> "0..*" Appointment  
     Appointment "0..*" <--> "1" Doctor
-    Doctor "*" *-- "1" Specialization
+    Doctor "*" *-- "1" Specialisation
     Person <|-- Patient
     Person <|-- Doctor
 
@@ -25,7 +25,7 @@ classDiagram
         Long numSS
     }
 
-    class Specialization {
+    class Specialisation {
         Long id
         String name
     }
