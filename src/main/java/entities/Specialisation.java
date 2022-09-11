@@ -3,9 +3,10 @@ package entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Specialisation {
+public class Specialisation implements Serializable {
 
     private String name;
     private Long id;
