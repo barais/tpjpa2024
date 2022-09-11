@@ -52,8 +52,4 @@ public class PatientDAO extends GenericJpaDAO<Patient, Long> {
                 .setParameter("lastName", lastName)
                 .setParameter("firstName", firstName);
     }
-
-    public static void main(String[] args) {
-    }
-
 }
