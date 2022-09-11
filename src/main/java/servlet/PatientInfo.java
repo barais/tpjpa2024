@@ -21,23 +21,36 @@ public class PatientInfo extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String patientFirsName = request.getParameter("firstName");
+        String patientLastName = request.getParameter("lastName");
+        String patientNumSS = request.getParameter("numSS");
+
+        //Print patient information on web page
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<HTML>\n<BODY>\n" +
-                "<H1>Patient Informations</H1>\n" +
+                "<H1>Patient Information</H1>\n" +
                 "<UL>\n" + " <LI>First Name: "
-                + request.getParameter("firstName") + "\n" +
+                + patientFirsName + "\n" +
                 " <LI>Last Name: "
-                + request.getParameter("lastName") + "\n" + " <LI>Social Security Number: "
-                + request.getParameter("numSS") + "\n" + "</UL>\n" +
+                + patientLastName + "\n" + " <LI>Social Security Number: "
+                + patientNumSS + "\n" + "</UL>\n"
+                + "<a href='index.html'>Home page</a>\n" +
                 "</BODY></HTML>");
 
+        //Post patient information in database
+        postPatientInfo(patientFirsName, patientLastName, patientNumSS);
 
+    }
+
+    public void postPatientInfo(String patientFirsName, String patientLastName, String patientNumSS) {
         Patient newPatient = new Patient();
-        newPatient.setFirstName(request.getParameter("firstName"));
-        newPatient.setLastName(request.getParameter("lastName"));
-        newPatient.setNumSS(Long.parseLong(request.getParameter("numSS")));
+        newPatient.setFirstName(patientFirsName);
+        newPatient.setLastName(patientLastName);
+        newPatient.setNumSS(Long.parseLong(patientNumSS));
 
         patientDAO.save(newPatient);
     }
+
 }
