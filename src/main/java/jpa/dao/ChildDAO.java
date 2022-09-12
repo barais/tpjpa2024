@@ -14,14 +14,14 @@ public class ChildDAO extends GenericJpaDAO{
         manager.persist(new Child(firstName, lastName, parentName, age));
     }
 
-    public Child getChildByName(String firstName, String lastName) {
+    // We think that returning a list is better than returning a single element from a list.
+    public List<Child> getChildByName(String firstName, String lastName) {
         return manager
                 .createQuery("SELECT c FROM Child c WHERE c.lastName LIKE :lastName " +
                         "AND c.firstName LIKE :firstName", Child.class)
                 .setParameter("firstName", firstName)
                 .setParameter("lastName", lastName)
-                .getResultList()
-                .get(0);
+                .getResultList();
     }
 
     public List<Child> getChildList() {

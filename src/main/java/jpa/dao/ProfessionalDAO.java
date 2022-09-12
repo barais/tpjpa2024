@@ -18,13 +18,12 @@ public class ProfessionalDAO extends GenericJpaDAO<Professional, Long> {
 
     // Get
 
-    public Professional getPatientByName(String firstName, String lastName) {
+    public List<Professional> getPatientByName(String firstName, String lastName) {
         return manager
                 .createQuery("SELECT p FROM Professional p WHERE p.lastName LIKE :lastName AND p.firstName LIKE :firstName", Professional.class)
                 .setParameter("firstName", firstName)
                 .setParameter("lastName", lastName)
-                .getResultList()
-                .get(0);
+                .getResultList();
     }
 
     public List<Professional> listProfessionals() {

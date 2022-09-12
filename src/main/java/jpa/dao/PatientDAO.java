@@ -19,13 +19,12 @@ public class PatientDAO extends GenericJpaDAO<Patient, Long> {
 
     // Fetch queries
 
-    public Patient getPatientByName(String firstName, String lastName) {
+    public List<Patient> getPatientByName(String firstName, String lastName) {
         return manager
                 .createQuery("SELECT p FROM Patient p WHERE p.lastName LIKE :lastName AND p.firstName LIKE :firstName", Patient.class)
                 .setParameter("firstName", firstName)
                 .setParameter("lastName", lastName)
-                .getResultList()
-                .get(0);
+                .getResultList();
     }
 
     public List<Patient> getPatientList() {
