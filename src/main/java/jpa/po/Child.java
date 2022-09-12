@@ -1,11 +1,27 @@
 package jpa.po;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Child extends Patient {
+
+    Long id;
     String parentName;
     Integer age;
+
+    @Override
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Child() {}
 

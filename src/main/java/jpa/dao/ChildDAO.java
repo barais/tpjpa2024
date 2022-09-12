@@ -6,8 +6,8 @@ import java.util.List;
 
 public class ChildDAO extends GenericJpaDAO{
 
-    public ChildDAO(Class objectClass) {
-        super(objectClass);
+    public ChildDAO() {
+        super(Child.class);
     }
 
     public void createChild(String firstName, String lastName, String parentName, Integer age) {
