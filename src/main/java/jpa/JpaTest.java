@@ -1,11 +1,13 @@
 package jpa;
 
+import dao.DoctorDAO;
+import dao.PatientDAO;
+import dao.SpecialisationDAO;
 import entities.Doctor;
 import entities.Patient;
 import entities.Specialisation;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import java.io.PrintWriter;
 import java.util.List;
 
