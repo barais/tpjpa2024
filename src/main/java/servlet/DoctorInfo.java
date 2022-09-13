@@ -7,6 +7,7 @@ import entities.Specialisation;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet; import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest; import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,24 @@ public class DoctorInfo extends HttpServlet {
         super.init();
         this.doctorDAO = new DoctorDAO();
         this.speDAO = new SpecialisationDAO();
+    }
+
+    public  void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Doctor> doctors = doctorDAO.findAll();
+
+
+        resp.setContentType("text/html");
+        PrintWriter out = resp.getWriter();
+        out.println("<HTML>\n<BODY>\n" +
+                "<H1>Doctors Information</H1>\n");
+        for (Doctor doc : doctors) {
+            out.println("<p>" + doc.toString() + "<\\p>");
+
+        }
+
+        out.println("</BODY></HTML>");
+
+        out.flush();
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
