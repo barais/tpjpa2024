@@ -23,18 +23,18 @@ public class PatientRessource {
     @Consumes("application/json")
     public Response addPatient(
             @Parameter(description = "Patient object that needs to be added to the store", required = true) Patient patient) {
-        //if(patientDAO.findOne(patient.getId()) != null) return Response.status(Response.Status.CONFLICT).build();
+        //TODO handle already patient in databse
         patientDAO.save(patient);
-        return Response.ok().entity("SUCCESS").build();
+        return Response.ok().entity("SUCCESS ADD").build();
     }
 
-    /*
-    @POST
+    @DELETE
+    @Path("/{patientID}")
     @Consumes("application/json")
-    public Response removePatient(
-            @Parameter(description = "Patient object that need to be removed from the store", required = true) Patient patient) {
-        PatientDAO.delete(entities.Patient);
-        return Response.ok().entity("SUCCESS").build();
-    }*/
+    public Response removePatient(@PathParam("patientID") Long patientID) {
+        if(patientDAO.findOne(patientID)==null) return Response.status(404).build();
+        patientDAO.deleteById(patientID);
+        return Response.ok().entity("SUCCESS DELETE").build();
+    }
 
 }
