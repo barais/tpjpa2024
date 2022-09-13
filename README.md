@@ -5,6 +5,11 @@
 
 ---
 
+Connect to DB :
+jdbc:hsqldb:hsql://localhost/
+
+---
+
 Diagram (work in progress) :
 
 ```mermaid
