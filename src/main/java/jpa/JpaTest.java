@@ -6,6 +6,7 @@ import entities.Specialisation;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.io.PrintWriter;
 import java.util.List;
 
 public class JpaTest {
@@ -20,23 +21,18 @@ public class JpaTest {
 	 */
 	public static void main(String[] args) {
 
-		EntityManager manager = EntityManagerHelper.getEntityManager();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		JpaTest test = new JpaTest(manager);
+		Specialisation dentist = new Specialisation("Dentist");
+		Doctor dentist1 = new Doctor("Justine", "DELOURMEL", dentist);
+		Patient patient1 = new Patient("Arnaud", "DELOURMEL", 1236546L);
 
+		SpecialisationDAO specialisationDAO = new SpecialisationDAO();
+		specialisationDAO.save(dentist);
 
-		try {
-			test.createDoctors();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		tx.commit();
+		DoctorDAO doctorDAO = new DoctorDAO();
+		doctorDAO.save(dentist1);
 
-
-		manager.close();
-		EntityManagerHelper.closeEntityManagerFactory();
-		//		factory.close();
+		PatientDAO patientDAO = new PatientDAO();
+		patientDAO.save(patient1);
 	}
 
 
@@ -51,11 +47,11 @@ public class JpaTest {
 		}
 	}
 
-	private void listDoctors() {
+	private void listDoctors(PrintWriter print) {
 		List<Doctor> resultList = manager.createQuery("Select a From Doctor a", Doctor.class).getResultList();
-		System.out.println("num of doctors:" + resultList.size());
+		print.println("num of doctors:" + resultList.size());
 		for (Doctor next : resultList) {
-			System.out.println("next doctor: " + next);
+			print.println("next doctor: " + next);
 		}
 	}
 
