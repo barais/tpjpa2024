@@ -18,23 +18,27 @@
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import rest.PatientRessource;
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
+import rest.SwaggerRessource;
 
-public class TestApplication extends Application {
+@ApplicationPath("/")
+public class RestApplication extends Application {
 
 
     @Override
     public Set<Class<?>> getClasses() {
 
-        final Set<Class<?>> clazzes = new HashSet<Class<?>>();
+        final Set<Class<?>> ressources = new HashSet<Class<?>>();
 
-        clazzes.add(PatientRessource.class);
-        clazzes.add(OpenApiResource.class);
+        ressources.add(PatientRessource.class);
+        ressources.add(OpenApiResource.class);
+        ressources.add(SwaggerRessource.class);
 
-        return clazzes;
+        return ressources;
     }
 
 }
