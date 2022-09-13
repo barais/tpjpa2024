@@ -1,5 +1,8 @@
 package jpa;
 
+import dao.DoctorDAO;
+import dao.PatientDAO;
+import dao.SpecialisationDAO;
 import entities.Doctor;
 import entities.Patient;
 import entities.Specialisation;
@@ -21,23 +24,18 @@ public class JpaTest {
 	 */
 	public static void main(String[] args) {
 
-		EntityManager manager = EntityManagerHelper.getEntityManager();
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		JpaTest test = new JpaTest(manager);
+		Specialisation dentist = new Specialisation("Dentist");
+		Doctor dentist1 = new Doctor("Justine", "DELOURMEL", dentist);
+		Patient patient1 = new Patient("Arnaud", "DELOURMEL", 1236546L);
 
+		SpecialisationDAO specialisationDAO = new SpecialisationDAO();
+		specialisationDAO.save(dentist);
 
-		try {
-			test.createDoctor();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		tx.commit();
+		DoctorDAO doctorDAO = new DoctorDAO();
+		doctorDAO.save(dentist1);
 
-
-		manager.close();
-		EntityManagerHelper.closeEntityManagerFactory();
-		//		factory.close();
+		PatientDAO patientDAO = new PatientDAO();
+		patientDAO.save(patient1);
 	}
 
 
