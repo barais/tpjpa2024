@@ -27,7 +27,7 @@ public class JpaTest {
 
 
 		try {
-			test.createDoctor();
+			test.createDoctors();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -40,7 +40,7 @@ public class JpaTest {
 	}
 
 
-	private void createDoctor() {
+	private void createDoctors() {
 		int numOfDoctors = manager.createQuery("Select a From Doctor a", Doctor.class).getResultList().size();
 		if (numOfDoctors == 0) {
 			Specialisation specialisation = new Specialisation("Dentist");
@@ -50,6 +50,7 @@ public class JpaTest {
 			manager.persist(new Doctor("Captain", "Nemo",specialisation));
 		}
 	}
+
 	private void listDoctors() {
 		List<Doctor> resultList = manager.createQuery("Select a From Doctor a", Doctor.class).getResultList();
 		System.out.println("num of doctors:" + resultList.size());

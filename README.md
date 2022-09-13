@@ -1,7 +1,7 @@
 # Template de projet pour le TP JPA 2021 UniR
 
+**TODO**
 - Ajouter profs au git
-- Héritage et au moins une 1-*
 
 ---
 
@@ -9,11 +9,36 @@ Diagram (work in progress) :
 
 ```mermaid
 classDiagram
-	Patient --> "0..*" Appointment  
-  Appointment "0..*" <--> "1" Doctor
-  Doctor "*" *-- "1" Specialization
-  Person <|-- Patient
-  Person <|-- Doctor
+    Patient "1" <--> "0..*" Appointment  
+    Appointment "0..*" <--> "1" Doctor
+    Doctor "*" *-- "1" Specialisation
+    Person <|-- Patient
+    Person <|-- Doctor
+
+    class Person {
+       String firstName    
+       String lastName
+    }
+
+    class Patient {
+        Long id
+        Long numSS
+    }
+
+    class Specialisation {
+        Long id
+        String name
+    }
+
+    class Doctor {
+        Long id
+    }
+
+    class Appointment {
+        Long id
+        Date date
+    }
+
 ```
 
 Edited on Mermaid :
