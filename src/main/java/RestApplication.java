@@ -22,6 +22,7 @@ import javax.ws.rs.core.Application;
 
 import rest.PatientRessource;
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
+import rest.SwaggerRessource;
 
 public class RestApplication extends Application {
 
@@ -33,6 +34,7 @@ public class RestApplication extends Application {
 
         ressources.add(PatientRessource.class);
         ressources.add(OpenApiResource.class);
+        ressources.add(SwaggerRessource.class);
 
         return ressources;
     }
