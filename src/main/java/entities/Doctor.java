@@ -1,22 +1,23 @@
 package entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Doctor {
+public class Doctor extends Person implements Serializable {
 
     private Long id;
-    private String name;
     private Specialisation spe;
 
     public Doctor() {}
 
-    public Doctor(String name, Specialisation spe) {
-        this.name = name;
+    public Doctor(String firstName, String lastName, Specialisation spe) {
+        super(firstName, lastName);
         this.spe = spe; }
 
-    public Doctor(String name) {
-        this.name = name;
+    public Doctor(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     @Id
@@ -29,15 +30,23 @@ public class Doctor {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    @Transient
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @ManyToOne
     public Specialisation getSpecialisation() {
         return spe;
     }
@@ -48,7 +57,7 @@ public class Doctor {
 
     @Override
     public String toString() {
-        return "Medecin [id=" + id + ", name=" + name + ", specialisation=" + spe;
+        return "Medecin [id=" + id + ", first name=" + firstName + ", last name=" + lastName + ", specialisation=" + spe;
     }
 }
 

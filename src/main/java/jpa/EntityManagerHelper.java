@@ -18,6 +18,7 @@ public class EntityManagerHelper {
         EntityManager em = threadLocal.get();
 
         if (em == null) {
+
             em = emf.createEntityManager();
             threadLocal.set(em);
         }
