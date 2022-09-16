@@ -1,9 +1,8 @@
 package api;
 
 import domain.Doctor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import exception.DoctorNotFoundException;
+import org.springframework.web.bind.annotation.*;
 import service.DoctorDAO;
 
 import java.util.List;
@@ -35,18 +34,18 @@ public class DoctorController {
     @GetMapping("/employees/{id}")
     Doctor one(@PathVariable Long id) {
 
-        return dao.findById(id)
-                .orElseThrow(() -> new DoctorNotFoundException(id));
+        return dao.findById(id).orElseThrow();
     }
 
     @PutMapping("/employees/{id}")
     Doctor replaceDoctor(@RequestBody Doctor newDoctor, @PathVariable Long id) {
 
         return dao.findById(id)
-                .map(employee -> {
-                    employee.setName(newDoctor.getName());
-                    employee.setRole(newDoctor.getRole());
-                    return dao.save(employee);
+                .map(doctor -> {
+                    doctor.setFirstName(newDoctor.getFirstName());
+                    doctor.setLastName(newDoctor.getLastName());
+                    doctor.setSpecialisation(newDoctor.getSpecialisation());
+                    return dao.save(doctor);
                 })
                 .orElseGet(() -> {
                     newDoctor.setId(id);
