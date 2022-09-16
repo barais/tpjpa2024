@@ -1,7 +1,6 @@
 package api;
 
 import domain.Patient;
-import domain.Person;
 import exception.PatientNotFoundException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,26 +25,25 @@ class PatientController {
 
     // Aggregate root
     // tag::get-aggregate-root[]
-    @GetMapping("/Patients")
+    @GetMapping("/patients")
     List<Patient> all() {
         return patientDAO.findAll();
     }
     // end::get-aggregate-root[]
 
-    @PostMapping("/Patients")
+    @PostMapping("/patients")
     Patient newPatient(@RequestBody Patient newPatient) {
         return patientDAO.save(newPatient);
     }
 
     // Single item
 
-    @GetMapping("/Patients/{id}")
+    @GetMapping("/patients/{id}")
     Patient one(@PathVariable Long id) throws PatientNotFoundException {
-
         return patientDAO.findById(id).orElseThrow(() -> new PatientNotFoundException(id));
     }
 
-    @PutMapping("/Patients/{id}")
+    @PutMapping("/patients/{id}")
     Patient replacePatient(@RequestBody Patient newPatient, @PathVariable Long id) {
 
         return patientDAO.findById(id)
@@ -61,7 +59,7 @@ class PatientController {
                 });
     }
 
-    @DeleteMapping("/Patients/{id}")
+    @DeleteMapping("/patients/{id}")
     void deletePatient(@PathVariable Long id) {
         patientDAO.deleteById(id);
     }
