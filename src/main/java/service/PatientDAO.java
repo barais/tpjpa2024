@@ -1,8 +1,8 @@
 package service;
 
 import domain.Patient;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public class PatientDAO extends AbstractJpaDao<Long, Patient> {
+public interface PatientDAO extends JpaRepository<Patient, Long> {
 
-    public PatientDAO() { super(Patient.class); }
 }

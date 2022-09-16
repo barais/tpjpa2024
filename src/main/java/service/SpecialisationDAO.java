@@ -1,8 +1,8 @@
 package service;
 
 import domain.Specialisation;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public class SpecialisationDAO extends AbstractJpaDao<Long, Specialisation> {
+public interface SpecialisationDAO extends JpaRepository<Specialisation, Long> {
 
-    public SpecialisationDAO() { super(Specialisation.class); }
 }
