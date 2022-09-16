@@ -1,11 +1,14 @@
 package domain;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 public class Doctor extends Person implements Serializable {
 
+    @NotNull
     private Specialisation spe;
 
     public Doctor() {}

@@ -1,18 +1,24 @@
 package domain;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 public class Appointment {
-    private Long id;
-    private Doctor doctor;
-    private Patient patient;
-    private Date date;
-
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @NotNull
+    private Doctor doctor;
+    @NotNull
+    private Patient patient;
+    @NotNull
+    private Date date;
+
     public Long getId() {
         return id;
     }
