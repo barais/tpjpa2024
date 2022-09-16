@@ -1,6 +1,6 @@
 package dao;
 
-import entities.Patient;
+import domain.Patient;
 
 public class PatientDAO extends AbstractJpaDao<Long, Patient> {
 

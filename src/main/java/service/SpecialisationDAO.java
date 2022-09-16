@@ -1,6 +1,6 @@
 package dao;
 
-import entities.Specialisation;
+import domain.Specialisation;
 
 public class SpecialisationDAO extends AbstractJpaDao<Long, entities.Specialisation> {
 
