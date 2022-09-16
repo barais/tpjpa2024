@@ -1,6 +1,5 @@
-package dao;
+package service;
 
-import jpa.EntityManagerHelper;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,7 +14,7 @@ public abstract class AbstractJpaDao<K, T extends Serializable> implements IGene
 	protected EntityManager entityManager;
 
 	public AbstractJpaDao(Class<T> clazzToSet) {
-		this.entityManager = EntityManagerHelper.getEntityManager();
+		//this.entityManager = EntityManagerHelper.getEntityManager();
 		this.clazz = clazzToSet;
 	}
 
