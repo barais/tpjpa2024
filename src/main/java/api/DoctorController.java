@@ -18,26 +18,26 @@ public class DoctorController {
 
     // Aggregate root
     // tag::get-aggregate-root[]
-    @GetMapping("/employees")
+    @GetMapping("/doctors")
     List<Doctor> all() {
         return dao.findAll();
     }
     // end::get-aggregate-root[]
 
-    @PostMapping("/employees")
+    @PostMapping("/doctors")
     Doctor newDoctor(@RequestBody Doctor newDoctor) {
         return dao.save(newDoctor);
     }
 
     // Single item
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/doctors/{id}")
     Doctor one(@PathVariable Long id) {
 
         return dao.findById(id).orElseThrow();
     }
 
-    @PutMapping("/employees/{id}")
+    @PutMapping("/doctors/{id}")
     Doctor replaceDoctor(@RequestBody Doctor newDoctor, @PathVariable Long id) {
 
         return dao.findById(id)
@@ -53,7 +53,7 @@ public class DoctorController {
                 });
     }
 
-    @DeleteMapping("/employees/{id}")
+    @DeleteMapping("/doctors/{id}")
     void deleteDoctor(@PathVariable Long id) {
         dao.deleteById(id);
     }
