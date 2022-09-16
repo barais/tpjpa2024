@@ -1,4 +1,4 @@
-package entities;
+package domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
