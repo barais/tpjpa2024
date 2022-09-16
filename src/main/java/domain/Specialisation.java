@@ -11,9 +11,8 @@ public class Specialisation implements Serializable {
     private String name;
     private Long id;
 
-    public Specialisation() {
+    public Specialisation() {}
 
-    }
     public Specialisation(String name) {
         this.name = name;
     }
