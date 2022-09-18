@@ -1,9 +1,8 @@
-package api;
+package com.springproject.springproject.api;
 
-import domain.Doctor;
-import exception.DoctorNotFoundException;
+import com.springproject.springproject.domain.Doctor;
+import com.springproject.springproject.service.DoctorDAO;
 import org.springframework.web.bind.annotation.*;
-import service.DoctorDAO;
 
 import java.util.List;
 

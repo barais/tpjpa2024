@@ -1,4 +1,4 @@
-package exception;
+package com.springproject.springproject.exception;
 
 public class PatientNotFoundException extends Exception {
     public PatientNotFoundException(Long id) {

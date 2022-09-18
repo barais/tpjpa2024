@@ -1,6 +1,6 @@
-package service;
+package com.springproject.springproject.service;
 
-import domain.Patient;
+import com.springproject.springproject.domain.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
