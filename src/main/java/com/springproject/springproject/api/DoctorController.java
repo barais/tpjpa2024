@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@RestController
 public class DoctorController {
 
     private final DoctorDAO dao;
