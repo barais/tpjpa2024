@@ -2,54 +2,67 @@ package com.springproject.springproject.api;
 
 import com.springproject.springproject.domain.Appointment;
 import com.springproject.springproject.exception.AppointmentNotFoundException;
+import com.springproject.springproject.exception.DoctorNotFoundException;
+import com.springproject.springproject.exception.PatientNotFoundException;
 import com.springproject.springproject.service.AppointmentDAO;
+import com.springproject.springproject.service.DoctorDAO;
+import com.springproject.springproject.service.PatientDAO;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/appointment")
 public class AppointmentController {
 
-    private final AppointmentDAO dao;
+    private final AppointmentDAO appointmentDAO;
+    private final DoctorDAO doctorDAO;
+    private final PatientDAO patientDAO;
 
-    AppointmentController(AppointmentDAO dao) {
-        this.dao = dao;
+    AppointmentController(AppointmentDAO dao, DoctorDAO doctorDAO, PatientDAO patientDAO) {
+        this.appointmentDAO = dao;
+        this.doctorDAO = doctorDAO;
+        this.patientDAO = patientDAO;
     }
 
     @GetMapping("")
     List<Appointment> all() {
-        return dao.findAll();
+        return appointmentDAO.findAll();
     }
 
-    @PostMapping("")
-    Appointment newAppointment(@RequestBody Appointment newAppointment) {
-        return dao.save(newAppointment);
+    @PostMapping("/patient/{patientId}/doctor/{doctorId}")
+    Appointment newAppointment(@RequestBody Date date, @PathVariable Long doctorId, @PathVariable Long patientId) throws DoctorNotFoundException, PatientNotFoundException {
+        Appointment newAppointment = new Appointment(
+                doctorDAO.findById(doctorId).orElseThrow(() -> new DoctorNotFoundException(doctorId)),
+                patientDAO.findById(patientId).orElseThrow(() -> new PatientNotFoundException(patientId)),
+                date);
+        return appointmentDAO.save(newAppointment);
     }
 
     @GetMapping("{id}")
     Appointment one(@PathVariable Long id) throws AppointmentNotFoundException {
-        return dao.findById(id).orElseThrow(() -> new AppointmentNotFoundException(id));
+        return appointmentDAO.findById(id).orElseThrow(() -> new AppointmentNotFoundException(id));
     }
 
     @PutMapping("{id}")
     Appointment replacePatient(@RequestBody Appointment newAppointment, @PathVariable Long id) {
 
-        return dao.findById(id)
+        return appointmentDAO.findById(id)
                 .map(Appointment -> {
                     Appointment.setPatient(newAppointment.getPatient());
                     Appointment.setDoctor(newAppointment.getDoctor());
                     Appointment.setDate(newAppointment.getDate());
-                    return dao.save(Appointment);
+                    return appointmentDAO.save(Appointment);
                 })
                 .orElseGet(() -> {
                     newAppointment.setId(id);
-                    return dao.save(newAppointment);
+                    return appointmentDAO.save(newAppointment);
                 });
     }
 
     @DeleteMapping("{id}")
     void deleteAppointment(@PathVariable Long id) {
-        dao.deleteById(id);
+        appointmentDAO.deleteById(id);
     }
 }
