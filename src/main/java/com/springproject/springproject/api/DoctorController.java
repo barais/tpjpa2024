@@ -16,31 +16,23 @@ public class DoctorController {
         this.dao = dao;
     }
 
-
-    // Aggregate root
-    // tag::get-aggregate-root[]
     @GetMapping("/doctors")
     List<Doctor> all() {
         return dao.findAll();
     }
-    // end::get-aggregate-root[]
 
     @PostMapping("/doctors")
     Doctor newDoctor(@RequestBody Doctor newDoctor) {
         return dao.save(newDoctor);
     }
 
-    // Single item
-
     @GetMapping("/doctors/{id}")
     Doctor one(@PathVariable Long id) {
-
         return dao.findById(id).orElseThrow();
     }
 
     @PutMapping("/doctors/{id}")
     Doctor replaceDoctor(@RequestBody Doctor newDoctor, @PathVariable Long id) {
-
         return dao.findById(id)
                 .map(doctor -> {
                     doctor.setFirstName(newDoctor.getFirstName());

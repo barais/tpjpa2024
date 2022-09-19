@@ -17,21 +17,15 @@ class PatientController {
         this.patientDAO = patientDAO;
     }
 
-
-    // Aggregate root
-    // tag::get-aggregate-root[]
     @GetMapping("")
     List<Patient> all() {
         return patientDAO.findAll();
     }
-    // end::get-aggregate-root[]
 
     @PostMapping("")
     Patient newPatient(@RequestBody Patient newPatient) {
         return patientDAO.save(newPatient);
     }
-
-    // Single item
 
     @GetMapping("{id}")
     Patient one(@PathVariable Long id) throws PatientNotFoundException {
