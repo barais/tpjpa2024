@@ -1,10 +1,12 @@
 package com.springproject.springproject.api;
 
 import com.springproject.springproject.domain.Doctor;
+import com.springproject.springproject.domain.Specialisation;
 import com.springproject.springproject.exception.DoctorNotFoundException;
 import com.springproject.springproject.service.DoctorDAO;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -23,14 +25,21 @@ public class DoctorController {
         return dao.findAll();
     }
 
-    @PostMapping("")
-    Doctor newDoctor(@RequestBody Doctor newDoctor) {
-        return dao.save(newDoctor);
+    @PostMapping("/{specialisation}")
+    Doctor newDoctor(@RequestBody Doctor doctor, @PathVariable String specialisation) {
+        // TODO : handle enum not found
+        doctor.setSpecialisation(Specialisation.valueOf(specialisation));
+        return dao.save(doctor);
     }
 
     @GetMapping("/{id}")
     Doctor one(@PathVariable Long id) throws DoctorNotFoundException {
         return dao.findById(id).orElseThrow(() -> new DoctorNotFoundException(id));
+    }
+
+    @GetMapping("/{specialisation}")
+    List<Doctor> getAllDoctorsWithSpeciality(@PathVariable String specialisation) throws DoctorNotFoundException {
+        return dao.getAllBySpecialities(Specialisation.valueOf(specialisation));
     }
 
     @PutMapping("/{id}")
