@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Optional;
 
 @Entity
 public class Appointment {
@@ -18,6 +19,14 @@ public class Appointment {
     private Patient patient;
     @NotNull
     private Date date;
+
+    public Appointment(Doctor doctor, Patient patient, Date date) {
+        this.doctor = doctor;
+        this.patient = patient;
+        this.date = date;
+    }
+
+    public Appointment() {}
 
     public Long getId() {
         return id;
