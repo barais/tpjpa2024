@@ -21,12 +21,12 @@ public class Doctor extends Person implements Serializable {
         super(firstName, lastName);
     }
 
-
-    @ManyToOne
+    @Enumerated(EnumType.ORDINAL)
     public Specialisation getSpecialisation() {
         return spe;
     }
 
+    @Enumerated(EnumType.ORDINAL)
     public void setSpecialisation(Specialisation spe) {
         this.spe = spe;
     }
