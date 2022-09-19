@@ -8,6 +8,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/doctors")
 public class DoctorController {
 
     private final DoctorDAO dao;
@@ -16,22 +17,22 @@ public class DoctorController {
         this.dao = dao;
     }
 
-    @GetMapping("/doctors")
+    @GetMapping("")
     List<Doctor> all() {
         return dao.findAll();
     }
 
-    @PostMapping("/doctors")
+    @PostMapping("")
     Doctor newDoctor(@RequestBody Doctor newDoctor) {
         return dao.save(newDoctor);
     }
 
-    @GetMapping("/doctors/{id}")
+    @GetMapping("/{id}")
     Doctor one(@PathVariable Long id) {
         return dao.findById(id).orElseThrow();
     }
 
-    @PutMapping("/doctors/{id}")
+    @PutMapping("/{id}")
     Doctor replaceDoctor(@RequestBody Doctor newDoctor, @PathVariable Long id) {
         return dao.findById(id)
                 .map(doctor -> {
@@ -46,7 +47,7 @@ public class DoctorController {
                 });
     }
 
-    @DeleteMapping("/doctors/{id}")
+    @DeleteMapping("/{id}")
     void deleteDoctor(@PathVariable Long id) {
         dao.deleteById(id);
     }
