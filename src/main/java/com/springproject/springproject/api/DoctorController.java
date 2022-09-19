@@ -1,6 +1,7 @@
 package com.springproject.springproject.api;
 
 import com.springproject.springproject.domain.Doctor;
+import com.springproject.springproject.exception.DoctorNotFoundException;
 import com.springproject.springproject.service.DoctorDAO;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +29,8 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}")
-    Doctor one(@PathVariable Long id) {
-        return dao.findById(id).orElseThrow();
+    Doctor one(@PathVariable Long id) throws DoctorNotFoundException {
+        return dao.findById(id).orElseThrow(() -> new DoctorNotFoundException(id));
     }
 
     @PutMapping("/{id}")
