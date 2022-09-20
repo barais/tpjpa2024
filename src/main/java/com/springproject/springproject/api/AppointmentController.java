@@ -1,6 +1,7 @@
 package com.springproject.springproject.api;
 
 import com.springproject.springproject.domain.Appointment;
+import com.springproject.springproject.domain.AppointmentDTO;
 import com.springproject.springproject.exception.AppointmentNotFoundException;
 import com.springproject.springproject.exception.DoctorNotFoundException;
 import com.springproject.springproject.exception.PatientNotFoundException;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequestMapping("/appointment")
 public class AppointmentController {
 
+    private final ModelMapper modelMapper;
     private final AppointmentDAO appointmentDAO;
     private final DoctorDAO doctorDAO;
     private final PatientDAO patientDAO;
@@ -31,8 +33,9 @@ public class AppointmentController {
         return appointmentDAO.findAll();
     }
 
-    @PostMapping("/patient/{patientId}/doctor/{doctorId}")
-    Appointment newAppointment(@RequestBody Date date, @PathVariable Long doctorId, @PathVariable Long patientId) throws DoctorNotFoundException, PatientNotFoundException {
+    @PostMapping("")
+    Appointment newAppointment(@RequestBody AppointmentDTO appointmentDTO, @PathVariable Long doctorId, @PathVariable Long patientId) throws DoctorNotFoundException, PatientNotFoundException {
+        Appointment modelMapper = modelMapper.map()
         Appointment newAppointment = new Appointment(
                 doctorDAO.findById(doctorId).orElseThrow(() -> new DoctorNotFoundException(doctorId)),
                 patientDAO.findById(patientId).orElseThrow(() -> new PatientNotFoundException(patientId)),
