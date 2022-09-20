@@ -1,12 +1,14 @@
 package com.springproject.springproject.api;
 
+import org.modelmapper.ModelMapper;
 import com.springproject.springproject.domain.Doctor;
+import com.springproject.springproject.domain.DoctorDTO;
 import com.springproject.springproject.domain.Specialisation;
 import com.springproject.springproject.exception.DoctorNotFoundException;
 import com.springproject.springproject.service.DoctorDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -15,6 +17,9 @@ import java.util.List;
 public class DoctorController {
 
     private final DoctorDAO dao;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     DoctorController(DoctorDAO dao) {
         this.dao = dao;
@@ -33,11 +38,16 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}")
-    Doctor one(@PathVariable Long id) throws DoctorNotFoundException {
-        return dao.findById(id).orElseThrow(() -> new DoctorNotFoundException(id));
+    DoctorDTO one(@PathVariable Long id) throws DoctorNotFoundException {
+        Doctor doctor = dao.findById(id).orElseThrow(() -> new DoctorNotFoundException(id));
+
+        //Convert entity to DTO
+        DoctorDTO doctorDTO = modelMapper.map(doctor, DoctorDTO.class);
+
+        return doctorDTO;
     }
 
-    @GetMapping("/{specialisation}")
+    @GetMapping("/specialisation/{specialisation}")
     List<Doctor> getAllDoctorsWithSpeciality(@PathVariable String specialisation) throws DoctorNotFoundException {
         return dao.getAllBySpecialities(Specialisation.valueOf(specialisation));
     }

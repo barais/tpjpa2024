@@ -47,7 +47,6 @@ public class AppointmentController {
 
     @PutMapping("{id}")
     Appointment replacePatient(@RequestBody Appointment newAppointment, @PathVariable Long id) {
-
         return appointmentDAO.findById(id)
                 .map(Appointment -> {
                     Appointment.setPatient(newAppointment.getPatient());
