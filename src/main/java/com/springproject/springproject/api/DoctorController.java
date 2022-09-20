@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -26,35 +27,49 @@ public class DoctorController {
     }
 
     @GetMapping("")
-    List<Doctor> all() {
-        return dao.findAll();
+    List<DoctorDTO> all() {
+        List<Doctor> listDoctors = dao.findAll();
+
+        return listDoctors
+                .stream()
+                .map(doctor -> modelMapper.map(doctor, DoctorDTO.class))
+                .collect(Collectors.toList());
     }
 
-    @PostMapping("/{specialisation}")
-    Doctor newDoctor(@RequestBody Doctor doctor, @PathVariable String specialisation) {
+    @PostMapping("/specialisation/{specialisation}")
+    DoctorDTO newDoctor(@RequestBody Doctor doctorDTO, @PathVariable String specialisation) {
+        //Convert DTO to entity
+        Doctor doctorEntity = modelMapper.map(doctorDTO, Doctor.class);
+
+        //We set the specialisation to the doctor
         // TODO : handle enum not found
-        doctor.setSpecialisation(Specialisation.valueOf(specialisation));
-        return dao.save(doctor);
+        doctorEntity.setSpecialisation(Specialisation.valueOf(specialisation));
+        Doctor savedDoctor = dao.save(doctorEntity);
+
+        return modelMapper.map(savedDoctor, DoctorDTO.class);
     }
 
     @GetMapping("/{id}")
     DoctorDTO one(@PathVariable Long id) throws DoctorNotFoundException {
         Doctor doctor = dao.findById(id).orElseThrow(() -> new DoctorNotFoundException(id));
 
-        //Convert entity to DTO
-        DoctorDTO doctorDTO = modelMapper.map(doctor, DoctorDTO.class);
-
-        return doctorDTO;
+        //Convert entity to DTO and return it
+        return modelMapper.map(doctor, DoctorDTO.class);
     }
 
     @GetMapping("/specialisation/{specialisation}")
-    List<Doctor> getAllDoctorsWithSpeciality(@PathVariable String specialisation) throws DoctorNotFoundException {
-        return dao.getAllBySpecialities(Specialisation.valueOf(specialisation));
+    List<DoctorDTO> getAllDoctorsWithSpeciality(@PathVariable String specialisation) {
+        List<Doctor> listDoctors = dao.getAllBySpecialities(Specialisation.valueOf(specialisation));
+
+        return listDoctors
+                .stream()
+                .map(doctor -> modelMapper.map(doctor, DoctorDTO.class))
+                .collect(Collectors.toList());
     }
 
     @PutMapping("/{id}")
-    Doctor replaceDoctor(@RequestBody Doctor newDoctor, @PathVariable Long id) {
-        return dao.findById(id)
+    DoctorDTO replaceDoctor(@RequestBody Doctor newDoctor, @PathVariable Long id) {
+        Doctor updatedDoctor = dao.findById(id)
                 .map(doctor -> {
                     doctor.setFirstName(newDoctor.getFirstName());
                     doctor.setLastName(newDoctor.getLastName());
@@ -65,6 +80,8 @@ public class DoctorController {
                     newDoctor.setId(id);
                     return dao.save(newDoctor);
                 });
+
+        return modelMapper.map(updatedDoctor, DoctorDTO.class);
     }
 
     @DeleteMapping("/{id}")
