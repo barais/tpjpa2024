@@ -12,6 +12,6 @@ import java.util.List;
 public interface DoctorDAO extends JpaRepository<Doctor, Long> {
 
     @Query("select d from Doctor as d where d.specialisation = ?1")
-    List<Doctor> getAllBySpecialities(Specialisation spe);
+    List<Doctor> getAllBySpecialities(Specialisation specialisation);
 
 }

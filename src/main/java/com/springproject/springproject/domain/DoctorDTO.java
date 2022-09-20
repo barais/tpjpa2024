@@ -6,6 +6,6 @@ import lombok.Data;
 public class DoctorDTO extends Person {
 
     private Long id;
-    private Specialisation spe;
+    private Specialisation specialisation;
 
 }

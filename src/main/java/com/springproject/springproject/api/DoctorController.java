@@ -36,16 +36,14 @@ public class DoctorController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/specialisation/{specialisation}")
-    DoctorDTO newDoctor(@RequestBody Doctor doctorDTO, @PathVariable String specialisation) {
+    @PostMapping("")
+    DoctorDTO newDoctor(@RequestBody Doctor doctorDTO) {
         //Convert DTO to entity
         Doctor doctorEntity = modelMapper.map(doctorDTO, Doctor.class);
 
-        //We set the specialisation to the doctor
-        // TODO : handle enum not found
-        doctorEntity.setSpecialisation(Specialisation.valueOf(specialisation));
         Doctor savedDoctor = dao.save(doctorEntity);
 
+        //Convert saved entity to a DTO
         return modelMapper.map(savedDoctor, DoctorDTO.class);
     }
 
