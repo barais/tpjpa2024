@@ -11,9 +11,11 @@ import java.util.TimeZone;
 public class AppointmentDTO {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    private long doctor;
-    private long patient;
+    private Long doctor;
+    private Long patient;
     private String date;
+
+    public AppointmentDTO(){};
 
     public Date getSubmissionDateConverted(String timezone) throws ParseException {
         dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));

@@ -6,9 +6,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Doctor extends Person implements Serializable {
+public class Doctor extends Person {
 
-    @NotNull
+
     private Specialisation specialisation;
 
     public Doctor() {}
@@ -22,11 +22,11 @@ public class Doctor extends Person implements Serializable {
     }
 
     @Enumerated(EnumType.ORDINAL)
+    @NotNull
     public Specialisation getSpecialisation() {
         return specialisation;
     }
 
-    @Enumerated(EnumType.ORDINAL)
     public void setSpecialisation(Specialisation specialisation) {
         this.specialisation = specialisation;
     }

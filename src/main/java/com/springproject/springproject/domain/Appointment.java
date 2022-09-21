@@ -9,15 +9,10 @@ import java.util.Optional;
 @Entity
 public class Appointment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
     private Doctor doctor;
-    @NotNull
     private Patient patient;
-    @NotNull
     private Date date;
 
     public Appointment(Doctor doctor, Patient patient, Date date) {
@@ -28,6 +23,8 @@ public class Appointment {
 
     public Appointment() {}
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
