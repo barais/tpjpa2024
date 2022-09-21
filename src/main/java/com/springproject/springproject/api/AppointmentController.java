@@ -8,6 +8,10 @@ import com.springproject.springproject.exception.PatientNotFoundException;
 import com.springproject.springproject.service.AppointmentDAO;
 import com.springproject.springproject.service.DoctorDAO;
 import com.springproject.springproject.service.PatientDAO;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -17,7 +21,9 @@ import java.util.List;
 @RequestMapping("/appointment")
 public class AppointmentController {
 
-    private final ModelMapper modelMapper;
+
+    @Autowired
+    private ModelMapper modelMapper;
     private final AppointmentDAO appointmentDAO;
     private final DoctorDAO doctorDAO;
     private final PatientDAO patientDAO;
@@ -34,13 +40,15 @@ public class AppointmentController {
     }
 
     @PostMapping("")
-    Appointment newAppointment(@RequestBody AppointmentDTO appointmentDTO, @PathVariable Long doctorId, @PathVariable Long patientId) throws DoctorNotFoundException, PatientNotFoundException {
-        Appointment modelMapper = modelMapper.map()
-        Appointment newAppointment = new Appointment(
-                doctorDAO.findById(doctorId).orElseThrow(() -> new DoctorNotFoundException(doctorId)),
-                patientDAO.findById(patientId).orElseThrow(() -> new PatientNotFoundException(patientId)),
-                date);
-        return appointmentDAO.save(newAppointment);
+    ResponseEntity newAppointment(@RequestBody AppointmentDTO appointmentDTO) throws DoctorNotFoundException, PatientNotFoundException {
+        Appointment appointment = modelMapper.map(appointmentDTO, Appointment.class);
+//        Appointment newAppointment = new Appointment(
+//                doctorDAO.findById(doctorId).orElseThrow(() -> new DoctorNotFoundException(doctorId)),
+//                patientDAO.findById(patientId).orElseThrow(() -> new PatientNotFoundException(patientId)),
+//                date);
+        Appointment savedAppointment = appointmentDAO.save(appointment);
+        AppointmentDTO ret = modelMapper.map(savedAppointment, AppointmentDTO.class);
+        return new ResponseEntity<AppointmentDTO>(ret, HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
