@@ -10,7 +10,7 @@
 - exemple de requête (ou fournir export de la confid postman)
 - si front, expliquer comment le lancer et l'utiliser
 - config KeyClock
-- co,fig ResponseEntity pour chaque methode du controller
+- config ResponseEntity pour chaque methode du controller
 
 *RAPPORT A RENDRE LE : 09/10*
 
@@ -22,7 +22,7 @@ jdbc:hsqldb:hsql://localhost/
 ---
 
 Access the API documentation :
-
+http://localhost:8080/swagger-ui.html
 
 ---
 
