@@ -10,6 +10,7 @@
 - exemple de requête (ou fournir export de la confid postman)
 - si front, expliquer comment le lancer et l'utiliser
 - config KeyClock
+- co,fig ResponseEntity pour chaque methode du controller
 
 *RAPPORT A RENDRE LE : 09/10*
 
@@ -17,6 +18,11 @@
 
 Connect to DB :
 jdbc:hsqldb:hsql://localhost/
+
+---
+
+Access the API documentation :
+
 
 ---
 

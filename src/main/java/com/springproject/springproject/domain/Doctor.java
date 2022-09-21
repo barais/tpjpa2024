@@ -9,13 +9,13 @@ import java.io.Serializable;
 public class Doctor extends Person implements Serializable {
 
     @NotNull
-    private Specialisation spe;
+    private Specialisation specialisation;
 
     public Doctor() {}
 
     public Doctor(String firstName, String lastName, Specialisation spe) {
         super(firstName, lastName);
-        this.spe = spe; }
+        this.specialisation = spe; }
 
     public Doctor(String firstName, String lastName) {
         super(firstName, lastName);
@@ -23,17 +23,17 @@ public class Doctor extends Person implements Serializable {
 
     @Enumerated(EnumType.ORDINAL)
     public Specialisation getSpecialisation() {
-        return spe;
+        return specialisation;
     }
 
     @Enumerated(EnumType.ORDINAL)
-    public void setSpecialisation(Specialisation spe) {
-        this.spe = spe;
+    public void setSpecialisation(Specialisation specialisation) {
+        this.specialisation = specialisation;
     }
 
     @Override
     public String toString() {
-        return "Medecin [id=" + id + ", first name=" + firstName + ", last name=" + lastName + ", specialisation=" + spe;
+        return "Medecin [id=" + id + ", first name=" + firstName + ", last name=" + lastName + ", specialisation=" + specialisation.toString();
     }
 }
 
