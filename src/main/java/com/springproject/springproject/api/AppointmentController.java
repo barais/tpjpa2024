@@ -61,7 +61,7 @@ public class AppointmentController {
                 .map(Appointment -> {
                     Appointment.setPatient(newAppointment.getPatient());
                     Appointment.setDoctor(newAppointment.getDoctor());
-                    Appointment.setDate(newAppointment.getDate());
+                    Appointment.setTimeSlot(newAppointment.getTimeSlot());
                     return appointmentDAO.save(Appointment);
                 })
                 .orElseGet(() -> {
@@ -72,7 +72,7 @@ public class AppointmentController {
         return appointmentMapper.toDTO(updatedAppointment);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     void deleteAppointment(@PathVariable Long id) {
         appointmentDAO.deleteById(id);
     }

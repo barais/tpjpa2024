@@ -9,16 +9,6 @@ import javax.persistence.Inheritance;
 @Inheritance
 public class Person {
 
-    @Id
-    @GeneratedValue
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long id;
 
     public String firstName;
@@ -32,6 +22,16 @@ public class Person {
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {

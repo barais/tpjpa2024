@@ -1,10 +1,6 @@
 package com.springproject.springproject.domain;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Optional;
 
 @Entity
 public class Appointment {
@@ -13,12 +9,12 @@ public class Appointment {
 
     private Doctor doctor;
     private Patient patient;
-    private Date date;
+    private String timeSlot;
 
-    public Appointment(Doctor doctor, Patient patient, Date date) {
+    public Appointment(Doctor doctor, Patient patient, String timeSlot) {
         this.doctor = doctor;
         this.patient = patient;
-        this.date = date;
+        this.timeSlot = timeSlot;
     }
 
     public Appointment() {}
@@ -51,18 +47,12 @@ public class Appointment {
         this.patient = patient;
     }
 
-    public Date getDate() {
-        return date;
+    public String getTimeSlot() {
+        return timeSlot;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTimeSlot(String timeSlot) {
+        this.timeSlot = timeSlot;
     }
-
-
-
-
-
-
 
 }

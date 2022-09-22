@@ -25,7 +25,8 @@ public class AppointmentMapper {
 
         appointmentDTO.setDoctor(appointment.getDoctor().getId());
         appointmentDTO.setPatient(appointment.getPatient().getId());
-        appointmentDTO.setDate(null);
+        appointmentDTO.setTimeSlot(appointment.getTimeSlot());
+        appointment.getDoctor().book(appointment.getTimeSlot());
 
         return appointmentDTO;
     }
@@ -40,6 +41,9 @@ public class AppointmentMapper {
         //We find the patient in DB (return error if not found)
         Patient patient = patientDAO.findById(appointmentDTO.getPatient()).orElseThrow(() -> new PatientNotFoundException(appointmentDTO.getPatient()));
         appointment.setPatient(patient);
+
+        appointment.setTimeSlot(appointmentDTO.getTimeSlot());
+        appointment.getDoctor().book(appointmentDTO.getTimeSlot());
 
         return appointment;
     }
