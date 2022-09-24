@@ -1,6 +1,10 @@
 package com.springproject.springproject.domain;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 public class TimeSlot {
@@ -9,12 +13,12 @@ public class TimeSlot {
 
     private Doctor doctor;
     private Patient patient;
-    private String timeSlot;
+    private Date date;
 
-    public TimeSlot(Doctor doctor, Patient patient, String timeSlot) {
+    public TimeSlot(Doctor doctor, Patient patient, Date date) {
         this.doctor = doctor;
         this.patient = patient;
-        this.timeSlot = timeSlot;
+        this.date = date;
     }
 
     public TimeSlot() {}
@@ -30,6 +34,7 @@ public class TimeSlot {
     }
 
     @ManyToOne
+    @NotNull
     public Doctor getDoctor() {
         return doctor;
     }
@@ -39,6 +44,7 @@ public class TimeSlot {
     }
 
     @ManyToOne
+    @Nullable
     public Patient getPatient() {
         return patient;
     }
@@ -47,12 +53,12 @@ public class TimeSlot {
         this.patient = patient;
     }
 
-    public String getTimeSlot() {
-        return timeSlot;
+    public Date getDate() {
+        return date;
     }
 
-    public void setTimeSlot(String timeSlot) {
-        this.timeSlot = timeSlot;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
 }

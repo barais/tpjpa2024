@@ -12,6 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Objects;
+
 @Component
 public class TimeSlotMapper {
 
@@ -20,32 +25,37 @@ public class TimeSlotMapper {
     @Autowired
     PatientDAO patientDAO;
 
-    public TimeSlotDTO toDTO(TimeSlot appointment) {
-        TimeSlotDTO TImeSlotDTO = new TimeSlotDTO();
+    public static final SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss" );
 
-        TImeSlotDTO.setDoctor(appointment.getDoctor().getId());
-        TImeSlotDTO.setPatient(appointment.getPatient().getId());
-        TImeSlotDTO.setTimeSlot(appointment.getTimeSlot());
-        appointment.getDoctor().book(appointment.getTimeSlot());
 
-        return TImeSlotDTO;
+    public TimeSlotDTO toDTO(TimeSlot timeSlot) {
+        TimeSlotDTO timeSlotDTO = new TimeSlotDTO();
+
+        timeSlotDTO.setDoctor(timeSlot.getDoctor().getId());
+        if (!Objects.isNull(timeSlot.getPatient())) { timeSlotDTO.setPatient(timeSlot.getPatient().getId()); }
+        timeSlotDTO.setDate(sd.format(timeSlot.getDate()));
+        timeSlotDTO.setId(timeSlot.getId());
+
+        return timeSlotDTO;
     }
 
-    public TimeSlot toEntity(TimeSlotDTO TImeSlotDTO) throws PatientNotFoundException, DoctorNotFoundException {
-        TimeSlot appointment = new TimeSlot();
+    public TimeSlot toEntity(TimeSlotDTO timeSlotDTO) throws PatientNotFoundException, DoctorNotFoundException, ParseException {
+        TimeSlot timeSlot = new TimeSlot();
+
+        timeSlot.setId(timeSlotDTO.getId());
+
 
         //We find the doctor in DB (return error if not found)
-        Doctor doctor = doctorDAO.findById(TImeSlotDTO.getDoctor()).orElseThrow(() -> new DoctorNotFoundException(TImeSlotDTO.getDoctor()));
-        appointment.setDoctor(doctor);
+        Doctor doctor = doctorDAO.findById(timeSlotDTO.getDoctor()).orElseThrow(() -> new DoctorNotFoundException(timeSlotDTO.getDoctor()));
+        timeSlot.setDoctor(doctor);
 
         //We find the patient in DB (return error if not found)
-        Patient patient = patientDAO.findById(TImeSlotDTO.getPatient()).orElseThrow(() -> new PatientNotFoundException(TImeSlotDTO.getPatient()));
-        appointment.setPatient(patient);
+        //Patient patient = patientDAO.findById(timeSlotDTO.getPatient()).orElseThrow(() -> new PatientNotFoundException(timeSlotDTO.getPatient()));
+        //timeSlot.setPatient(patient);
 
-        appointment.setTimeSlot(TImeSlotDTO.getTimeSlot());
-        appointment.getDoctor().book(TImeSlotDTO.getTimeSlot());
+        timeSlot.setDate(sd.parse(timeSlotDTO.getDate()));
 
-        return appointment;
+        return timeSlot;
     }
 
 }
