@@ -20,8 +20,9 @@ public class Doctor extends Person {
 
     private List<String> freeTimeSlots;
 
-    private static String START_OF_DAY = "09:00";
-    private static String END_OF_DAY = "18:00";
+    private final static String START_OF_DAY = "09:00";
+    private final static String END_OF_DAY = "18:00";
+    private final static int DURATION_TIME_SLOT = 30;
 
     public Doctor() { this.freeTimeSlots = setFreeTimeSlots(); }
 
@@ -67,7 +68,7 @@ public class Doctor extends Person {
         LocalTime timeSlot = LocalTime.parse(START_OF_DAY);
         rep.add(timeSlot.toString());
         while(timeSlot.isBefore(LocalTime.parse(END_OF_DAY))) {
-            LocalTime newTimeSlot = timeSlot.plusMinutes(30);
+            LocalTime newTimeSlot = timeSlot.plusMinutes(DURATION_TIME_SLOT);
             rep.add(newTimeSlot.toString());
             timeSlot = newTimeSlot;
         }
