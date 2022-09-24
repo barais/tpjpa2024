@@ -134,7 +134,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/doctors/2",
+					"raw": "http://localhost:8080/doctors/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -142,7 +142,7 @@
 					"port": "8080",
 					"path": [
 						"doctors",
-						"2"
+						"5"
 					]
 				}
 			},
@@ -163,6 +163,91 @@
 					"path": [
 						"patients",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add doctor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Toto\",\n    \"lastName\": \"Dupond\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/doctors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"doctors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add slot",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"doctor\": 2,\n    \"patient\": 1,\n    \"date\": \"2022-08-22T21:00:54\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/slot",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"slot"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add slots",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startTime\": \"2022-09-26T09:00:00\",\n    \"endTime\": \"2022-09-26T12:30:00\",\n    \"idDoctor\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/slot/setfreetimeslot",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"slot",
+						"setfreetimeslot"
 					]
 				}
 			},
