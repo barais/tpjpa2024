@@ -2,7 +2,7 @@ package com.springproject.springproject.api;
 
 import org.modelmapper.ModelMapper;
 import com.springproject.springproject.domain.Doctor;
-import com.springproject.springproject.domain.DoctorDTO;
+import com.springproject.springproject.dto.DoctorDTO;
 import com.springproject.springproject.domain.Specialisation;
 import com.springproject.springproject.exception.DoctorNotFoundException;
 import com.springproject.springproject.service.DoctorDAO;

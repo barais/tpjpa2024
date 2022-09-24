@@ -1,7 +1,7 @@
 package com.springproject.springproject.api;
 
 import com.springproject.springproject.domain.Appointment;
-import com.springproject.springproject.domain.AppointmentDTO;
+import com.springproject.springproject.dto.AppointmentDTO;
 import com.springproject.springproject.exception.AppointmentNotFoundException;
 import com.springproject.springproject.exception.DoctorNotFoundException;
 import com.springproject.springproject.exception.PatientNotFoundException;

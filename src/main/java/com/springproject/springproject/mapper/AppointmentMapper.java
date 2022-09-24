@@ -1,7 +1,7 @@
 package com.springproject.springproject.mapper;
 
 import com.springproject.springproject.domain.Appointment;
-import com.springproject.springproject.domain.AppointmentDTO;
+import com.springproject.springproject.dto.AppointmentDTO;
 import com.springproject.springproject.domain.Doctor;
 import com.springproject.springproject.domain.Patient;
 import com.springproject.springproject.exception.DoctorNotFoundException;

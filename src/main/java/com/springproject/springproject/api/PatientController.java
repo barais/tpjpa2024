@@ -2,7 +2,7 @@ package com.springproject.springproject.api;
 
 import org.modelmapper.ModelMapper;
 import com.springproject.springproject.domain.Patient;
-import com.springproject.springproject.domain.PatientDTO;
+import com.springproject.springproject.dto.PatientDTO;
 import com.springproject.springproject.exception.PatientNotFoundException;
 import com.springproject.springproject.service.PatientDAO;
 import org.springframework.beans.factory.annotation.Autowired;

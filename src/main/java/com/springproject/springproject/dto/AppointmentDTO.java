@@ -1,4 +1,4 @@
-package com.springproject.springproject.domain;
+package com.springproject.springproject.dto;
 
 import lombok.Data;
 

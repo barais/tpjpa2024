@@ -1,5 +1,6 @@
-package com.springproject.springproject.domain;
+package com.springproject.springproject.dto;
 
+import com.springproject.springproject.domain.Person;
 import lombok.Data;
 
 @Data
