@@ -3,7 +3,7 @@ package com.springproject.springproject.domain;
 import javax.persistence.*;
 
 @Entity
-public class Appointment {
+public class TimeSlot {
 
     private Long id;
 
@@ -11,13 +11,13 @@ public class Appointment {
     private Patient patient;
     private String timeSlot;
 
-    public Appointment(Doctor doctor, Patient patient, String timeSlot) {
+    public TimeSlot(Doctor doctor, Patient patient, String timeSlot) {
         this.doctor = doctor;
         this.patient = patient;
         this.timeSlot = timeSlot;
     }
 
-    public Appointment() {}
+    public TimeSlot() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

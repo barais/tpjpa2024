@@ -1,7 +1,7 @@
 package com.springproject.springproject.exception;
 
-public class AppointmentNotFoundException extends Exception {
-    public AppointmentNotFoundException(Long id) {
+public class TimeSlotNotFoundException extends Exception {
+    public TimeSlotNotFoundException(Long id) {
         super("Appointment with id " + id + " not found.");
     }
 }
