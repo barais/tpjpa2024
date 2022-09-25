@@ -8,9 +8,10 @@ The goal of this lab was to create a small back-end application with "Models" an
 
 You can see a representation of our models and the links between them in the image (1).
 
-![2022-09-25-09-03-36-image](https://user-images.githubusercontent.com/50889372/192132459-506adbd7-9ce6-4dbd-9bbd-9fb547950f59.png)
+![image](https://user-images.githubusercontent.com/50889372/192132477-9ab58e95-0b87-4bc7-9d03-ea11c18d57e3.png)
 
 *Image (1) : Class diagram*
+
 
 For the DAOs we created a generic DAO with the basic methods from which the other DAOs inherited. Requests were written in JAP.
 
