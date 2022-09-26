@@ -13,6 +13,7 @@ import com.springproject.springproject.service.PatientDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -52,25 +53,35 @@ public class TimeSlotController {
     }
 
     @PostMapping("")
-    TimeSlotDTO newTimeSlot(@RequestBody TimeSlotDTO appointmentDTO) throws DoctorNotFoundException, PatientNotFoundException, ParseException {
-        TimeSlot appointment = timeSlotMapper.toEntity(appointmentDTO);
-        TimeSlot savedTimeSlot = timeSlotDAO.save(appointment);
+    TimeSlotDTO newTimeSlot(@RequestBody TimeSlotDTO timeSlotDTO) throws DoctorNotFoundException, PatientNotFoundException, ParseException, TimeSlotNotFoundException {
+        TimeSlot newTimeSlot = timeSlotMapper.toEntity(timeSlotDTO);
 
-        return timeSlotMapper.toDTO(savedTimeSlot);
+        // We look if we find an appointment that match the date and the doctor provided, we "update" this time slot by adding the patient
+        // or else we throw an error telling us that this time slot could not be found
+        TimeSlot updatedTimeSlot = timeSlotDAO.getTimeSlotByDate(newTimeSlot.getDate(), newTimeSlot.getDoctor())
+                .map(TimeSlot -> {
+                    TimeSlot.setPatient(newTimeSlot.getPatient());
+                    TimeSlot.setDoctor(newTimeSlot.getDoctor());
+                    TimeSlot.setDate(newTimeSlot.getDate());
+                    return timeSlotDAO.save(TimeSlot);
+                })
+                .orElseThrow(TimeSlotNotFoundException::new);
+
+        return timeSlotMapper.toDTO(updatedTimeSlot);
     }
 
     /**
      * This method will setup a list of 30min free time slot between 2 date
-     * @param timeRange contains startDate, endDate, and idDoctor
+     * @param timeRangeDTO contains startDate, endDate, and idDoctor
      * @return the list of free time slots
      */
-    @PostMapping("/setfreetimeslot")
-    List<TimeSlotDTO> setNewTimeSlot(@RequestBody TimeRangeDTO timeRange) throws ParseException, DoctorNotFoundException, PatientNotFoundException {
+    @PostMapping("/setNewTimeSlots")
+    List<TimeSlotDTO> setNewTimeSlots(@RequestBody TimeRangeDTO timeRangeDTO) throws ParseException, DoctorNotFoundException, PatientNotFoundException {
         List<TimeSlotDTO> ret = new ArrayList<>();
 
 
-        Date start = TimeSlotMapper.sd.parse(timeRange.getStartTime());
-        Date end = TimeSlotMapper.sd.parse(timeRange.getEndTime());
+        Date start = TimeSlotMapper.sd.parse(timeRangeDTO.getStartTime());
+        Date end = TimeSlotMapper.sd.parse(timeRangeDTO.getEndTime());
 
         LocalDateTime startDate = LocalDateTime.ofInstant(start.toInstant(), ZoneId.systemDefault());
         LocalDateTime endDate = LocalDateTime.ofInstant(end.toInstant(), ZoneId.systemDefault());
@@ -86,7 +97,7 @@ public class TimeSlotController {
             ZonedDateTime zdt = currentSlot.atZone(ZoneId.systemDefault());
             Date timeSlotDate = Date.from(zdt.toInstant());
             // Add in a new TimeSlot Object
-            TimeSlotDTO newSlot = new TimeSlotDTO(timeRange.getIdDoctor(), null, TimeSlotMapper.sd.format(timeSlotDate));
+            TimeSlotDTO newSlot = new TimeSlotDTO(timeRangeDTO.getIdDoctor(), null, TimeSlotMapper.sd.format(timeSlotDate));
         
             TimeSlot saved = timeSlotDAO.save(timeSlotMapper.toEntity(newSlot));
             ret.add(timeSlotMapper.toDTO(saved));
@@ -99,12 +110,12 @@ public class TimeSlotController {
 
     @GetMapping("/{id}")
     TimeSlotDTO one(@PathVariable Long id) throws TimeSlotNotFoundException {
-        TimeSlot appointment = timeSlotDAO.findById(id).orElseThrow(() -> new TimeSlotNotFoundException(id));
-        return timeSlotMapper.toDTO(appointment);
+        TimeSlot timeSlot = timeSlotDAO.findById(id).orElseThrow(() -> new TimeSlotNotFoundException(id));
+        return timeSlotMapper.toDTO(timeSlot);
     }
 
     @PutMapping("/{id}")
-    TimeSlotDTO replacePatient(@RequestBody TimeSlot newTimeSlot, @PathVariable Long id) {
+    TimeSlotDTO replaceTimeSlot(@RequestBody TimeSlot newTimeSlot, @PathVariable Long id) {
         TimeSlot updatedTimeSlot = timeSlotDAO.findById(id)
                 .map(TimeSlot -> {
                     TimeSlot.setPatient(newTimeSlot.getPatient());
