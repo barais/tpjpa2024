@@ -7,14 +7,17 @@ import com.springproject.springproject.domain.Specialisation;
 import com.springproject.springproject.exception.DoctorNotFoundException;
 import com.springproject.springproject.service.DoctorDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 @RestController
 @RequestMapping("/doctors")
+@Valid
 public class DoctorController {
 
     private final DoctorDAO dao;
@@ -36,8 +39,9 @@ public class DoctorController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("")
-    DoctorDTO newDoctor(@RequestBody Doctor doctorDTO) {
+    @PostMapping(path = "", consumes = "application/json", produces = "application/json")
+    @ResponseStatus(code= HttpStatus.CREATED)
+    DoctorDTO newDoctor(@Valid @RequestBody DoctorDTO doctorDTO) {
         //Convert DTO to entity
         Doctor doctorEntity = modelMapper.map(doctorDTO, Doctor.class);
 
@@ -66,17 +70,17 @@ public class DoctorController {
     }
 
     @PutMapping("/{id}")
-    DoctorDTO replaceDoctor(@RequestBody Doctor newDoctor, @PathVariable Long id) {
+    DoctorDTO replaceDoctor(@RequestBody DoctorDTO newDoctorDTO, @PathVariable Long id) {
         Doctor updatedDoctor = dao.findById(id)
                 .map(doctor -> {
-                    doctor.setFirstName(newDoctor.getFirstName());
-                    doctor.setLastName(newDoctor.getLastName());
-                    doctor.setSpecialisation(newDoctor.getSpecialisation());
+                    doctor.setFirstName(newDoctorDTO.getFirstName());
+                    doctor.setLastName(newDoctorDTO.getLastName());
+                    doctor.setSpecialisation(newDoctorDTO.getSpecialisation());
                     return dao.save(doctor);
                 })
                 .orElseGet(() -> {
-                    newDoctor.setId(id);
-                    return dao.save(newDoctor);
+                    newDoctorDTO.setId(id);
+                    return dao.save(modelMapper.map(newDoctorDTO, Doctor.class));
                 });
 
         return modelMapper.map(updatedDoctor, DoctorDTO.class);
