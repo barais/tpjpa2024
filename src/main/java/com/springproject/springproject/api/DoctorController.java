@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/doctors")
 @Valid
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 public class DoctorController {
 
     private final DoctorDAO doctorDAO;

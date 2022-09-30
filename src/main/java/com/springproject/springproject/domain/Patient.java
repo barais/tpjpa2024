@@ -1,8 +1,8 @@
 package com.springproject.springproject.domain;
 
-import com.sun.istack.NotNull;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Patient extends Person {
