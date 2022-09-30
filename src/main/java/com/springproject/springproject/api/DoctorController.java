@@ -2,6 +2,12 @@ package com.springproject.springproject.api;
 
 import com.springproject.springproject.domain.TimeSlot;
 import com.springproject.springproject.service.TimeSlotDAO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.modelmapper.ModelMapper;
 import com.springproject.springproject.domain.Doctor;
 import com.springproject.springproject.dto.DoctorDTO;
@@ -14,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,8 +66,19 @@ public class DoctorController {
                 .body(modelMapper.map(savedDoctor, DoctorDTO.class));
     }
 
+
+    @Operation(summary = "Allow to get doctor by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the doctor",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Doctor.class)) }),
+            @ApiResponse(responseCode = "404", description = "Doctor not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error server",
+                    content = @Content),
+             })
     @GetMapping("/{id}")
-    ResponseEntity<DoctorDTO> one(@PathVariable Long id) {
+    ResponseEntity<DoctorDTO> one(@Parameter(description = "id of doctor to be searched") @PathVariable Long id) {
         Optional<Doctor> doctor = doctorDAO.findById(id);
 
         if(doctor.isEmpty()) return ResponseEntity.notFound().build();
@@ -82,6 +100,7 @@ public class DoctorController {
     }
 
     @PutMapping("/{id}")
+//    @ResponseStatus(code= HttpStatus.)
     ResponseEntity<DoctorDTO> replaceDoctor(@RequestBody DoctorDTO newDoctorDTO, @PathVariable Long id) {
         Doctor updatedDoctor = doctorDAO.findById(id)
                 .map(doctor -> {
@@ -91,8 +110,8 @@ public class DoctorController {
                     return doctorDAO.save(doctor);
                 })
                 .orElseGet(() -> {
-                    newDoctorDTO.setId(id);
-                    return doctorDAO.save(modelMapper.map(newDoctorDTO, Doctor.class));
+                    return null;
+                    //throw  new DoctorNotFoundException(id);
                 });
 
         return ResponseEntity.status(HttpStatus.OK)
