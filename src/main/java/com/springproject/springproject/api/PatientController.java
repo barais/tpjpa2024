@@ -8,6 +8,7 @@ import com.springproject.springproject.dto.PatientDTO;
 import com.springproject.springproject.exception.PatientNotFoundException;
 import com.springproject.springproject.service.PatientDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +31,7 @@ class PatientController {
     }
 
     @GetMapping("")
+    @ResponseStatus(code= HttpStatus.OK)
     List<PatientDTO> all() {
         //Get all patients in a list
         List<Patient> listPatients = patientDAO.findAll();
@@ -42,6 +44,7 @@ class PatientController {
     }
 
     @PostMapping("")
+    @ResponseStatus(code= HttpStatus.CREATED)
     PatientDTO newPatient(@RequestBody Patient newPatientDTO) {
         Patient patientEntity = modelMapper.map(newPatientDTO, Patient.class);
 
@@ -51,6 +54,7 @@ class PatientController {
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(code= HttpStatus.OK)
     PatientDTO one(@PathVariable Long id) throws PatientNotFoundException {
         Patient patient = patientDAO.findById(id).orElseThrow(() -> new PatientNotFoundException(id));
 
@@ -58,7 +62,8 @@ class PatientController {
     }
 
     @PutMapping("/{id}")
-    PatientDTO replacePatient(@RequestBody Patient newPatient, @PathVariable Long id) {
+    @ResponseStatus(code= HttpStatus.OK)
+    PatientDTO replacePatient(@RequestBody Patient newPatient, @PathVariable Long id) throws PatientNotFoundException {
         Patient updatedPatient = patientDAO.findById(id)
                 .map(Patient -> {
                     Patient.setFirstName(newPatient.getFirstName());
@@ -66,15 +71,13 @@ class PatientController {
                     Patient.setNumSS(newPatient.getNumSS());
                     return patientDAO.save(Patient);
                 })
-                .orElseGet(() -> {
-                    newPatient.setId(id);
-                    return patientDAO.save(newPatient);
-                });
+                .orElseThrow(() -> new PatientNotFoundException(id));
 
         return modelMapper.map(updatedPatient, PatientDTO.class);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(code= HttpStatus.OK)
     void deletePatient(@PathVariable Long id) throws PatientNotFoundException {
         Patient patient = patientDAO.findById(id).orElseThrow(() -> new PatientNotFoundException(id));
         Optional<List<TimeSlot>> timeSlot = timeSlotDAO.getTimeSlotByPatient(patient);
