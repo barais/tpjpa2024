@@ -1,5 +1,7 @@
 package com.springproject.springproject.api;
 
+import com.springproject.springproject.domain.TimeSlot;
+import com.springproject.springproject.service.TimeSlotDAO;
 import org.modelmapper.ModelMapper;
 import com.springproject.springproject.domain.Patient;
 import com.springproject.springproject.dto.PatientDTO;
@@ -8,7 +10,9 @@ import com.springproject.springproject.service.PatientDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -16,12 +20,14 @@ import java.util.stream.Collectors;
 class PatientController {
 
     private final PatientDAO patientDAO;
+    private final TimeSlotDAO timeSlotDAO;
 
     @Autowired
     private ModelMapper modelMapper;
 
-    PatientController(PatientDAO patientDAO) {
+    PatientController(PatientDAO patientDAO, TimeSlotDAO timeSlotDAO) {
         this.patientDAO = patientDAO;
+        this.timeSlotDAO = timeSlotDAO;
     }
 
     @GetMapping("")
@@ -70,7 +76,15 @@ class PatientController {
     }
 
     @DeleteMapping("/{id}")
-    void deletePatient(@PathVariable Long id) {
-        patientDAO.deleteById(id);
+    void deletePatient(@PathVariable Long id) throws PatientNotFoundException {
+        Patient patient = patientDAO.findById(id).orElseThrow(() -> new PatientNotFoundException(id));
+        Optional<List<TimeSlot>> timeSlot = timeSlotDAO.getTimeSlotByPatient(patient);
+        if(timeSlot.isPresent()) {
+            for(TimeSlot timeSlotToUpdate : timeSlot.get()) {
+                timeSlotToUpdate.setPatient(null);
+                timeSlotDAO.save(timeSlotToUpdate);
+            }
+        }
+        patientDAO.delete(patient);
     }
 }

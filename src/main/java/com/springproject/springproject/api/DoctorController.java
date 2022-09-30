@@ -1,5 +1,7 @@
 package com.springproject.springproject.api;
 
+import com.springproject.springproject.domain.TimeSlot;
+import com.springproject.springproject.service.TimeSlotDAO;
 import org.modelmapper.ModelMapper;
 import com.springproject.springproject.domain.Doctor;
 import com.springproject.springproject.dto.DoctorDTO;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -20,18 +23,20 @@ import java.util.stream.Collectors;
 @Valid
 public class DoctorController {
 
-    private final DoctorDAO dao;
+    private final DoctorDAO doctorDAO;
+    private final TimeSlotDAO timeSlotDAO;
 
     @Autowired
     private ModelMapper modelMapper;
 
-    DoctorController(DoctorDAO dao) {
-        this.dao = dao;
+    DoctorController(DoctorDAO doctorDAO, TimeSlotDAO timeSlotDAO) {
+        this.doctorDAO = doctorDAO;
+        this.timeSlotDAO = timeSlotDAO;
     }
 
     @GetMapping("")
     List<DoctorDTO> all() {
-        List<Doctor> listDoctors = dao.findAll();
+        List<Doctor> listDoctors = doctorDAO.findAll();
 
         return listDoctors
                 .stream()
@@ -45,7 +50,7 @@ public class DoctorController {
         //Convert DTO to entity
         Doctor doctorEntity = modelMapper.map(doctorDTO, Doctor.class);
 
-        Doctor savedDoctor = dao.save(doctorEntity);
+        Doctor savedDoctor = doctorDAO.save(doctorEntity);
 
         //Convert saved entity to a DTO
         return modelMapper.map(savedDoctor, DoctorDTO.class);
@@ -53,7 +58,7 @@ public class DoctorController {
 
     @GetMapping("/{id}")
     DoctorDTO one(@PathVariable Long id) throws DoctorNotFoundException {
-        Doctor doctor = dao.findById(id).orElseThrow(() -> new DoctorNotFoundException(id));
+        Doctor doctor = doctorDAO.findById(id).orElseThrow(() -> new DoctorNotFoundException(id));
 
         //Convert entity to DTO and return it
         return modelMapper.map(doctor, DoctorDTO.class);
@@ -61,7 +66,7 @@ public class DoctorController {
 
     @GetMapping("/specialisation/{specialisation}")
     List<DoctorDTO> getAllDoctorsWithSpeciality(@PathVariable String specialisation) {
-        List<Doctor> listDoctors = dao.getAllBySpecialities(Specialisation.valueOf(specialisation));
+        List<Doctor> listDoctors = doctorDAO.getAllBySpecialities(Specialisation.valueOf(specialisation));
 
         return listDoctors
                 .stream()
@@ -71,23 +76,26 @@ public class DoctorController {
 
     @PutMapping("/{id}")
     DoctorDTO replaceDoctor(@RequestBody DoctorDTO newDoctorDTO, @PathVariable Long id) {
-        Doctor updatedDoctor = dao.findById(id)
+        Doctor updatedDoctor = doctorDAO.findById(id)
                 .map(doctor -> {
                     doctor.setFirstName(newDoctorDTO.getFirstName());
                     doctor.setLastName(newDoctorDTO.getLastName());
                     doctor.setSpecialisation(newDoctorDTO.getSpecialisation());
-                    return dao.save(doctor);
+                    return doctorDAO.save(doctor);
                 })
                 .orElseGet(() -> {
                     newDoctorDTO.setId(id);
-                    return dao.save(modelMapper.map(newDoctorDTO, Doctor.class));
+                    return doctorDAO.save(modelMapper.map(newDoctorDTO, Doctor.class));
                 });
 
         return modelMapper.map(updatedDoctor, DoctorDTO.class);
     }
 
     @DeleteMapping("/{id}")
-    void deleteDoctor(@PathVariable Long id) {
-        dao.deleteById(id);
+    void deleteDoctor(@PathVariable Long id) throws DoctorNotFoundException {
+        Doctor doctor = doctorDAO.findById(id).orElseThrow(() -> new DoctorNotFoundException(id));
+        Optional<List<TimeSlot>> timeSlot = timeSlotDAO.getTimeSlotByDoctor(doctor);
+        timeSlot.ifPresent(timeSlotDAO::deleteAll);
+        doctorDAO.delete(doctor);
     }
 }

@@ -50,8 +50,10 @@ public class TimeSlotMapper {
         timeSlot.setDoctor(doctor);
 
         //We find the patient in DB (return error if not found)
-        Patient patient = patientDAO.findById(timeSlotDTO.getPatient()).orElseThrow(() -> new PatientNotFoundException(timeSlotDTO.getPatient()));
-        timeSlot.setPatient(patient);
+        if(!Objects.isNull(timeSlotDTO.getPatient())) {
+            Patient patient = patientDAO.findById(timeSlotDTO.getPatient()).orElseThrow(() -> new PatientNotFoundException(timeSlotDTO.getPatient()));
+            timeSlot.setPatient(patient);
+        }
 
         timeSlot.setDate(sd.parse(timeSlotDTO.getDate()));
 

@@ -7,7 +7,7 @@
 - ajouter l'archi UML
 - description rapide des classes et des choix spécifiques
 - description de l'API (sauf si swagger bien annoté)
-- exemple de requête (ou fournir export de la confid postman)
+- exemple de requête (ou fournir export de la config postman)
 - si front, expliquer comment le lancer et l'utiliser
 - config KeyClock
 - config ResponseEntity pour chaque methode du controller
