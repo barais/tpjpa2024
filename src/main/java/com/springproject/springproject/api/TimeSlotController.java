@@ -10,16 +10,11 @@ import com.springproject.springproject.mapper.TimeSlotMapper;
 import com.springproject.springproject.service.TimeSlotDAO;
 import com.springproject.springproject.service.DoctorDAO;
 import com.springproject.springproject.service.PatientDAO;
+import com.springproject.springproject.utils.SetNewTimeSlots;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Time;
 import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,8 +26,6 @@ public class TimeSlotController {
     private final DoctorDAO doctorDAO;
     private final PatientDAO patientDAO;
 
-    private final static int DURATION_TIME_SLOT = 30;
-
     @Autowired
     private TimeSlotMapper timeSlotMapper;
 
@@ -42,6 +35,10 @@ public class TimeSlotController {
         this.patientDAO = patientDAO;
     }
 
+    /**
+     * This method will get all the time slots in data base
+     * @return list of time slot DTO
+     */
     @GetMapping("")
     List<TimeSlotDTO> all() {
         List<TimeSlot> listTimeSlots = timeSlotDAO.findAll();
@@ -52,6 +49,15 @@ public class TimeSlotController {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * this method will create a new time slot
+     * @param timeSlotDTO contains a date, a doctor and a patient
+     * @return TimeSlotDTO the new time slot created
+     * @throws DoctorNotFoundException
+     * @throws PatientNotFoundException
+     * @throws ParseException
+     * @throws TimeSlotNotFoundException
+     */
     @PostMapping("")
     TimeSlotDTO newTimeSlot(@RequestBody TimeSlotDTO timeSlotDTO) throws DoctorNotFoundException, PatientNotFoundException, ParseException, TimeSlotNotFoundException {
         TimeSlot newTimeSlot = timeSlotMapper.toEntity(timeSlotDTO);
@@ -77,51 +83,35 @@ public class TimeSlotController {
      */
     @PostMapping("/setNewTimeSlots")
     List<TimeSlotDTO> setNewTimeSlots(@RequestBody TimeRangeDTO timeRangeDTO) throws ParseException, DoctorNotFoundException, PatientNotFoundException {
-        List<TimeSlotDTO> ret = new ArrayList<>();
-
-
-        Date start = TimeSlotMapper.sd.parse(timeRangeDTO.getStartTime());
-        Date end = TimeSlotMapper.sd.parse(timeRangeDTO.getEndTime());
-
-        LocalDateTime startDate = LocalDateTime.ofInstant(start.toInstant(), ZoneId.systemDefault());
-        LocalDateTime endDate = LocalDateTime.ofInstant(end.toInstant(), ZoneId.systemDefault());
-
-        int nbSlots = 0;
-
-        LocalDateTime currentSlot = startDate;
-
-        while(currentSlot.isBefore(endDate)) {
-            currentSlot = startDate.plusMinutes(DURATION_TIME_SLOT * nbSlots);
-
-            // Convert to Date object
-            ZonedDateTime zdt = currentSlot.atZone(ZoneId.systemDefault());
-            Date timeSlotDate = Date.from(zdt.toInstant());
-            // Add in a new TimeSlot Object
-            TimeSlotDTO newSlot = new TimeSlotDTO(timeRangeDTO.getIdDoctor(), null, TimeSlotMapper.sd.format(timeSlotDate));
-        
-            TimeSlot saved = timeSlotDAO.save(timeSlotMapper.toEntity(newSlot));
-            ret.add(timeSlotMapper.toDTO(saved));
-            nbSlots++;
-        }
-
-        return ret;
+        return SetNewTimeSlots.setNewTimeSlots(timeRangeDTO, timeSlotDAO, timeSlotMapper);
     }
 
-
+    /**
+     * get only one time slot by its ID
+     * @param id of the time slot
+     * @return a time slot
+     * @throws TimeSlotNotFoundException
+     */
     @GetMapping("/{id}")
     TimeSlotDTO one(@PathVariable Long id) throws TimeSlotNotFoundException {
         TimeSlot timeSlot = timeSlotDAO.findById(id).orElseThrow(() -> new TimeSlotNotFoundException(id));
         return timeSlotMapper.toDTO(timeSlot);
     }
 
+    /**
+     *
+     * @param newTimeSlot
+     * @param id
+     * @return
+     */
     @PutMapping("/{id}")
     TimeSlotDTO replaceTimeSlot(@RequestBody TimeSlot newTimeSlot, @PathVariable Long id) {
         TimeSlot updatedTimeSlot = timeSlotDAO.findById(id)
-                .map(TimeSlot -> {
-                    TimeSlot.setPatient(newTimeSlot.getPatient());
-                    TimeSlot.setDoctor(newTimeSlot.getDoctor());
-                    TimeSlot.setDate(newTimeSlot.getDate());
-                    return timeSlotDAO.save(TimeSlot);
+                .map(timeSlot -> {
+                    timeSlot.setPatient(newTimeSlot.getPatient());
+                    timeSlot.setDoctor(newTimeSlot.getDoctor());
+                    timeSlot.setDate(newTimeSlot.getDate());
+                    return timeSlotDAO.save(timeSlot);
                 })
                 .orElseGet(() -> {
                     newTimeSlot.setId(id);
