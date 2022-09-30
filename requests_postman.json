@@ -6,45 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Get all doctors",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/doctors",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"doctors"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get all patients",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/patients",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"patients"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Add patient",
+			"name": "Add patient 1",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -100,6 +62,25 @@
 			"response": []
 		},
 		{
+			"name": "Get all patients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/patients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"patients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Update patient",
 			"request": {
 				"method": "PUT",
@@ -113,46 +94,6 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "http://localhost:8080/patients/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"patients",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete doctor",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/doctors/5",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"doctors",
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete patient",
-			"request": {
-				"method": "DELETE",
-				"header": [],
 				"url": {
 					"raw": "http://localhost:8080/patients/1",
 					"protocol": "http",
@@ -169,13 +110,13 @@
 			"response": []
 		},
 		{
-			"name": "Add doctor",
+			"name": "Add doctor 1",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"firstName\": \"Toto\",\n    \"lastName\": \"Dupond\"\n}",
+					"raw": "{\n    \"firstName\": \"Toto\",\n    \"lastName\": \"Dupond\",\n    \"specialisation\": \"CARDIOLOGIST\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -197,13 +138,118 @@
 			"response": []
 		},
 		{
+			"name": "Add doctor 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Titi\",\n    \"lastName\": \"Dupond\",\n    \"specialisation\": \"DENTIST\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/doctors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"doctors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update doctor",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Toto\",\n    \"lastName\": \"Dupont\",\n    \"specialisation\": \"NEUROLOGIST\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/doctors/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"doctors",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all doctors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/doctors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"doctors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add slots",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startTime\": \"2022-10-20T09:00:00\",\n    \"endTime\": \"2022-10-20T12:30:00\",\n    \"idDoctor\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/slot/setNewTimeSlots",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"slot",
+						"setNewTimeSlots"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Add slot",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"doctor\": 2,\n    \"patient\": 1,\n    \"date\": \"2022-08-22T21:00:54\"\n\n}",
+					"raw": "{\n    \"doctor\": 3,\n    \"patient\": 1,\n    \"date\": \"2022-10-20T10:00:00\"\n\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -225,21 +271,52 @@
 			"response": []
 		},
 		{
-			"name": "Add slots",
+			"name": "Delete doctor",
 			"request": {
-				"method": "POST",
+				"method": "DELETE",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"startTime\": \"2022-09-26T09:00:00\",\n    \"endTime\": \"2022-09-26T12:30:00\",\n    \"idDoctor\": 2\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "http://localhost:8080/slot/setfreetimeslot",
+					"raw": "http://localhost:8080/doctors/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"doctors",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete patient",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/patients/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"patients",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete time slot",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/slot/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -247,7 +324,26 @@
 					"port": "8080",
 					"path": [
 						"slot",
-						"setfreetimeslot"
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all time slots",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/slot",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"slot"
 					]
 				}
 			},
