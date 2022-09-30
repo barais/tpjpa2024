@@ -1,8 +1,5 @@
 # Template de projet pour le TP JPA 2021 UniR
 
-**TODO**
-- Ajouter profs au git
-
 **Pour le rapport** :
 - ajouter l'archi UML
 - description rapide des classes et des choix spécifiques
@@ -30,36 +27,40 @@ Diagram (work in progress) :
 
 ```mermaid
 classDiagram
-    Patient "1" <--> "0..*" Appointment  
-    Appointment "0..*" <--> "1" Doctor
+    Patient "1" <--> "0..*" TimeSlot  
+    TimeSlot "0..*" <--> "1" Doctor
     Doctor "*" *-- "1" Specialisation
     Person <|-- Patient
     Person <|-- Doctor
 
     class Person {
+       Long id
        String firstName    
        String lastName
     }
 
     class Patient {
-        Long id
         Long numSS
     }
 
     class Specialisation {
-        Long id
-        String name
+        <<enumeration>>
+        DENTIST
+        NEUROLOGIST
+        GENERALIST
+        CARDIOLOGIST
     }
 
     class Doctor {
-        Long id
+        Specialisation specialisation
     }
 
-    class Appointment {
+    class TimeSlot {
         Long id
         Date date
+        Doctor doctor
+        Patient patient
     }
-
 ```
 
 Edited on Mermaid :
