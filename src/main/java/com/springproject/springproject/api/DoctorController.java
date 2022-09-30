@@ -10,6 +10,7 @@ import com.springproject.springproject.exception.DoctorNotFoundException;
 import com.springproject.springproject.service.DoctorDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,47 +37,52 @@ public class DoctorController {
     }
 
     @GetMapping("")
-    List<DoctorDTO> all() {
+    ResponseEntity<List<DoctorDTO>> all() {
         List<Doctor> listDoctors = doctorDAO.findAll();
-
-        return listDoctors
+        List<DoctorDTO> listDoctorsDTO = listDoctors
                 .stream()
                 .map(doctor -> modelMapper.map(doctor, DoctorDTO.class))
                 .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).header("GET ALL DOCTORS IN DATABASE").body(listDoctorsDTO);
     }
 
     @PostMapping(path = "", consumes = "application/json", produces = "application/json")
     @ResponseStatus(code= HttpStatus.CREATED)
-    DoctorDTO newDoctor(@Valid @RequestBody DoctorDTO doctorDTO) {
+    ResponseEntity<DoctorDTO> newDoctor(@Valid @RequestBody DoctorDTO doctorDTO) {
         //Convert DTO to entity
         Doctor doctorEntity = modelMapper.map(doctorDTO, Doctor.class);
 
         Doctor savedDoctor = doctorDAO.save(doctorEntity);
 
         //Convert saved entity to a DTO
-        return modelMapper.map(savedDoctor, DoctorDTO.class);
+        return ResponseEntity.ok()
+                .body(modelMapper.map(savedDoctor, DoctorDTO.class));
     }
 
     @GetMapping("/{id}")
-    DoctorDTO one(@PathVariable Long id) throws DoctorNotFoundException {
-        Doctor doctor = doctorDAO.findById(id).orElseThrow(() -> new DoctorNotFoundException(id));
+    ResponseEntity<DoctorDTO> one(@PathVariable Long id) {
+        Optional<Doctor> doctor = doctorDAO.findById(id);
+
+        if(doctor.isEmpty()) return ResponseEntity.notFound().build();
 
         //Convert entity to DTO and return it
-        return modelMapper.map(doctor, DoctorDTO.class);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(modelMapper.map(doctor.get(), DoctorDTO.class));
     }
 
     @GetMapping("/specialisation/{specialisation}")
-    List<DoctorDTO> getAllDoctorsWithSpeciality(@PathVariable String specialisation) {
+    ResponseEntity<List<DoctorDTO>> getAllDoctorsWithSpeciality(@PathVariable String specialisation) {
         List<Doctor> listDoctors = doctorDAO.getAllBySpecialities(Specialisation.valueOf(specialisation));
 
-        return listDoctors
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(listDoctors
                 .stream()
                 .map(doctor -> modelMapper.map(doctor, DoctorDTO.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     @PutMapping("/{id}")
-    DoctorDTO replaceDoctor(@RequestBody DoctorDTO newDoctorDTO, @PathVariable Long id) {
+    ResponseEntity<DoctorDTO> replaceDoctor(@RequestBody DoctorDTO newDoctorDTO, @PathVariable Long id) {
         Doctor updatedDoctor = doctorDAO.findById(id)
                 .map(doctor -> {
                     doctor.setFirstName(newDoctorDTO.getFirstName());
@@ -89,14 +95,20 @@ public class DoctorController {
                     return doctorDAO.save(modelMapper.map(newDoctorDTO, Doctor.class));
                 });
 
-        return modelMapper.map(updatedDoctor, DoctorDTO.class);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(modelMapper.map(updatedDoctor, DoctorDTO.class));
     }
 
     @DeleteMapping("/{id}")
-    void deleteDoctor(@PathVariable Long id) throws DoctorNotFoundException {
-        Doctor doctor = doctorDAO.findById(id).orElseThrow(() -> new DoctorNotFoundException(id));
-        Optional<List<TimeSlot>> timeSlot = timeSlotDAO.getTimeSlotByDoctor(doctor);
+    ResponseEntity<String> deleteDoctor(@PathVariable Long id) {
+        Optional<Doctor> doctor = doctorDAO.findById(id);
+
+        if(doctor.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Doctor "+id+" not found");
+
+        Optional<List<TimeSlot>> timeSlot = timeSlotDAO.getTimeSlotByDoctor(doctor.get());
         timeSlot.ifPresent(timeSlotDAO::deleteAll);
-        doctorDAO.delete(doctor);
+        doctorDAO.delete(doctor.get());
+
+        return ResponseEntity.status(HttpStatus.OK).body("Doctor "+id+" deleted.");
     }
 }
