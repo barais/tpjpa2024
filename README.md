@@ -1,8 +1,5 @@
 # Template de projet pour le TP JPA 2021 UniR
 
-**TODO**
-- Ajouter profs au git
-
 **Pour le rapport** :
 - ajouter l'archi UML
 - description rapide des classes et des choix spécifiques
