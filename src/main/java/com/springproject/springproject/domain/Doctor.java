@@ -29,7 +29,6 @@ public class Doctor extends Person {
     public Doctor() {
         Date oldDate = new Date();
         Date newDate = DateUtils.addHours(oldDate, 3);
-        //this.timeSlots.addAll(setFreeTimeSlots(oldDate, newDate));
     }
 
     public Doctor(String firstName, String lastName, Specialisation spe) {
@@ -51,49 +50,9 @@ public class Doctor extends Person {
         this.specialisation = specialisation;
     }
 
-//    @ElementCollection
-//    public List<TimeSlot> getFreeTimeSlots() {
-//        return timeSlots;
-//    }
-//
-//    public void setFreeTimeSlots(List<TimeSlot> timeSlot) {
-//        this.timeSlots = timeSlot;
-//    }
-
     @Override
     public String toString() {
         return "Medecin [id=" + id + ", first name=" + firstName + ", last name=" + lastName + ", specialisation=" + specialisation.toString();
     }
-
-//    /**
-//     * This method will setup the list of free time for each doctors created
-//     * @return the list of free time slots
-//     */
-//    public List<TimeSlot> setFreeTimeSlots(Date begin, Date end) {
-//        List<TimeSlot> ret = new ArrayList<>();
-//
-//        LocalDateTime startDate = LocalDateTime.ofInstant(begin.toInstant(), ZoneId.systemDefault());
-//        LocalDateTime endDate = LocalDateTime.ofInstant(begin.toInstant(), ZoneId.systemDefault());
-//
-//        int nbSlots = 0;
-//
-//        LocalDateTime currentSlot = startDate;
-//
-//        while(currentSlot.isBefore(endDate)) {
-//            currentSlot = startDate.plusMinutes(DURATION_TIME_SLOT * nbSlots);
-//
-//            // Convert to Date object
-//            ZonedDateTime zdt = currentSlot.atZone(ZoneId.systemDefault());
-//            Date timeSlotDate = Date.from(zdt.toInstant());
-//            // Add in a new TimeSlot Object
-//            TimeSlot newSlot = new TimeSlot(this, null, timeSlotDate);
-//
-//            ret.add(newSlot);
-//        }
-//
-//        return ret;
-//    }
-
-
 }
 
