@@ -1,5 +1,6 @@
 package com.springproject.springproject.api;
 
+import com.springproject.springproject.domain.Doctor;
 import com.springproject.springproject.domain.TimeSlot;
 import com.springproject.springproject.dto.TimeRangeDTO;
 import com.springproject.springproject.dto.TimeSlotDTO;
@@ -11,6 +12,11 @@ import com.springproject.springproject.service.TimeSlotDAO;
 import com.springproject.springproject.service.DoctorDAO;
 import com.springproject.springproject.service.PatientDAO;
 import com.springproject.springproject.utils.SetNewTimeSlots;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,10 +41,14 @@ public class TimeSlotController {
         this.patientDAO = patientDAO;
     }
 
-    /**
-     * This method will get all the time slots in data base
-     * @return list of time slot DTO
-     */
+    @Operation(summary = "Get all time slots")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found time slots",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TimeSlot.class)) }),
+            @ApiResponse(responseCode = "500", description = "Error server",
+                    content = @Content),
+    })
     @GetMapping("")
     List<TimeSlotDTO> all() {
         List<TimeSlot> listTimeSlots = timeSlotDAO.findAll();
@@ -49,15 +59,16 @@ public class TimeSlotController {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * this method will create a new time slot
-     * @param timeSlotDTO contains a date, a doctor and a patient
-     * @return TimeSlotDTO the new time slot created
-     * @throws DoctorNotFoundException
-     * @throws PatientNotFoundException
-     * @throws ParseException
-     * @throws TimeSlotNotFoundException
-     */
+    @Operation(summary = "Create a new time slot")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Time slot successfully created",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TimeSlot.class)) }),
+            @ApiResponse(responseCode = "404", description = "Doctor, Patient or Time slot not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error server",
+                    content = @Content),
+    })
     @PostMapping("")
     TimeSlotDTO newTimeSlot(@RequestBody TimeSlotDTO timeSlotDTO) throws DoctorNotFoundException, PatientNotFoundException, ParseException, TimeSlotNotFoundException {
         TimeSlot newTimeSlot = timeSlotMapper.toEntity(timeSlotDTO);
@@ -76,36 +87,49 @@ public class TimeSlotController {
         return timeSlotMapper.toDTO(updatedTimeSlot);
     }
 
-    /**
-     * This method will setup a list of 30min free time slot between 2 date
-     * @param timeRangeDTO contains startDate, endDate, and idDoctor
-     * @return the list of free time slots
-     */
+    @Operation(summary = "Create new time slots for a specific doctor, put the patient to null")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "New time slots successfully created",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TimeSlot.class)) }),
+            @ApiResponse(responseCode = "404", description = "Doctor not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error server",
+                    content = @Content),
+    })
     @PostMapping("/setNewTimeSlots")
     List<TimeSlotDTO> setNewTimeSlots(@RequestBody TimeRangeDTO timeRangeDTO) throws ParseException, DoctorNotFoundException, PatientNotFoundException {
         return SetNewTimeSlots.setNewTimeSlots(timeRangeDTO, timeSlotDAO, timeSlotMapper);
     }
 
-    /**
-     * get only one time slot by its ID
-     * @param id of the time slot
-     * @return a time slot
-     * @throws TimeSlotNotFoundException
-     */
+    @Operation(summary = "Get a time slot by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Time slot found",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TimeSlot.class)) }),
+            @ApiResponse(responseCode = "404", description = "Time slot not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error server",
+                    content = @Content),
+    })
     @GetMapping("/{id}")
     TimeSlotDTO one(@PathVariable Long id) throws TimeSlotNotFoundException {
         TimeSlot timeSlot = timeSlotDAO.findById(id).orElseThrow(() -> new TimeSlotNotFoundException(id));
         return timeSlotMapper.toDTO(timeSlot);
     }
 
-    /**
-     *
-     * @param newTimeSlot
-     * @param id
-     * @return
-     */
+    @Operation(summary = "Update time slot by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Time slots successfully updated",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TimeSlot.class)) }),
+            @ApiResponse(responseCode = "404", description = "Time slot not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error server",
+                    content = @Content),
+    })
     @PutMapping("/{id}")
-    TimeSlotDTO replaceTimeSlot(@RequestBody TimeSlot newTimeSlot, @PathVariable Long id) {
+    TimeSlotDTO replaceTimeSlot(@RequestBody TimeSlot newTimeSlot, @PathVariable Long id) throws TimeSlotNotFoundException {
         TimeSlot updatedTimeSlot = timeSlotDAO.findById(id)
                 .map(timeSlot -> {
                     timeSlot.setPatient(newTimeSlot.getPatient());
@@ -113,16 +137,24 @@ public class TimeSlotController {
                     timeSlot.setDate(newTimeSlot.getDate());
                     return timeSlotDAO.save(timeSlot);
                 })
-                .orElseGet(() -> {
-                    newTimeSlot.setId(id);
-                    return timeSlotDAO.save(newTimeSlot);
-                });
+                .orElseThrow(() -> new TimeSlotNotFoundException(id));
 
         return timeSlotMapper.toDTO(updatedTimeSlot);
     }
 
+    @Operation(summary = "Delete a time slot by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Time slot successfully deleted",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TimeSlot.class)) }),
+            @ApiResponse(responseCode = "404", description = "Time slot not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error server",
+                    content = @Content),
+    })
     @DeleteMapping("/{id}")
-    void deleteTimeSlot(@PathVariable Long id) {
-        timeSlotDAO.deleteById(id);
+    void deleteTimeSlot(@PathVariable Long id) throws TimeSlotNotFoundException {
+        TimeSlot timeSlot = timeSlotDAO.findById(id).orElseThrow(() -> new TimeSlotNotFoundException(id));
+        timeSlotDAO.delete(timeSlot);
     }
 }
