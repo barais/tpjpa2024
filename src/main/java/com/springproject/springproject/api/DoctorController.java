@@ -1,6 +1,7 @@
 package com.springproject.springproject.api;
 
 import com.springproject.springproject.domain.TimeSlot;
+import com.springproject.springproject.exception.PatientNotFoundException;
 import com.springproject.springproject.service.TimeSlotDAO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import com.springproject.springproject.domain.Doctor;
 import com.springproject.springproject.dto.DoctorDTO;
 import com.springproject.springproject.domain.Specialisation;
-import com.springproject.springproject.exception.DoctorNotFoundException;
 import com.springproject.springproject.service.DoctorDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -100,8 +100,8 @@ public class DoctorController {
     }
 
     @PutMapping("/{id}")
-//    @ResponseStatus(code= HttpStatus.)
-    ResponseEntity<DoctorDTO> replaceDoctor(@RequestBody DoctorDTO newDoctorDTO, @PathVariable Long id) {
+    @ResponseStatus(code= HttpStatus.OK)
+    ResponseEntity<DoctorDTO> replaceDoctor(@RequestBody DoctorDTO newDoctorDTO, @PathVariable Long id) throws PatientNotFoundException {
         Doctor updatedDoctor = doctorDAO.findById(id)
                 .map(doctor -> {
                     doctor.setFirstName(newDoctorDTO.getFirstName());
@@ -109,10 +109,7 @@ public class DoctorController {
                     doctor.setSpecialisation(newDoctorDTO.getSpecialisation());
                     return doctorDAO.save(doctor);
                 })
-                .orElseGet(() -> {
-                    return null;
-                    //throw  new DoctorNotFoundException(id);
-                });
+                .orElseThrow(() -> new PatientNotFoundException(id));
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(modelMapper.map(updatedDoctor, DoctorDTO.class));
