@@ -66,7 +66,7 @@ public class TimeSlotController {
             @ApiResponse(responseCode = "201", description = "Time slot successfully created",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = TimeSlot.class)) }),
-            @ApiResponse(responseCode = "404", description = "Doctor, Patient or Time slot not found",
+            @ApiResponse(responseCode = "404", description = "Doctor or Patient not found",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Error server",
                     content = @Content),
@@ -75,19 +75,9 @@ public class TimeSlotController {
     @ResponseStatus(code= HttpStatus.CREATED)
     TimeSlotDTO newTimeSlot(@RequestBody TimeSlotDTO timeSlotDTO) throws DoctorNotFoundException, PatientNotFoundException, ParseException, TimeSlotNotFoundException {
         TimeSlot newTimeSlot = timeSlotMapper.toEntity(timeSlotDTO);
+        timeSlotDAO.save(newTimeSlot);
 
-        // We look if we find an appointment that match the date and the doctor provided, we "update" this time slot by adding the patient
-        // or else we throw an error telling us that this time slot could not be found
-        TimeSlot updatedTimeSlot = timeSlotDAO.getTimeSlotByDate(newTimeSlot.getDate(), newTimeSlot.getDoctor())
-                .map(TimeSlot -> {
-                    TimeSlot.setPatient(newTimeSlot.getPatient());
-                    TimeSlot.setDoctor(newTimeSlot.getDoctor());
-                    TimeSlot.setDate(newTimeSlot.getDate());
-                    return timeSlotDAO.save(TimeSlot);
-                })
-                .orElseThrow(TimeSlotNotFoundException::new);
-
-        return timeSlotMapper.toDTO(updatedTimeSlot);
+        return timeSlotMapper.toDTO(newTimeSlot);
     }
 
     @Operation(summary = "Create new time slots for a specific doctor, put the patient to null")
