@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/patients")
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 class PatientController {
 
     private final PatientDAO patientDAO;
