@@ -2,6 +2,11 @@ package com.springproject.springproject.api;
 
 import com.springproject.springproject.domain.TimeSlot;
 import com.springproject.springproject.service.TimeSlotDAO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.modelmapper.ModelMapper;
 import com.springproject.springproject.domain.Patient;
 import com.springproject.springproject.dto.PatientDTO;
@@ -30,6 +35,14 @@ class PatientController {
         this.timeSlotDAO = timeSlotDAO;
     }
 
+    @Operation(summary = "Get all patients")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the patient",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Patient.class)) }),
+            @ApiResponse(responseCode = "500", description = "Error server",
+                    content = @Content),
+    })
     @GetMapping("")
     @ResponseStatus(code= HttpStatus.OK)
     List<PatientDTO> all() {
@@ -43,6 +56,14 @@ class PatientController {
                 .collect(Collectors.toList());
     }
 
+    @Operation(summary = "Post a new patient in data base")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "patient successfully created",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Patient.class)) }),
+            @ApiResponse(responseCode = "500", description = "Error server",
+                    content = @Content),
+    })
     @PostMapping("")
     @ResponseStatus(code= HttpStatus.CREATED)
     PatientDTO newPatient(@RequestBody Patient newPatientDTO) {
@@ -53,6 +74,16 @@ class PatientController {
         return modelMapper.map(savedPatient, PatientDTO.class);
     }
 
+    @Operation(summary = "Get patient by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the patient",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Patient.class)) }),
+            @ApiResponse(responseCode = "404", description = "Patient not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error server",
+                    content = @Content),
+    })
     @GetMapping("/{id}")
     @ResponseStatus(code= HttpStatus.OK)
     PatientDTO one(@PathVariable Long id) throws PatientNotFoundException {
@@ -61,6 +92,16 @@ class PatientController {
         return modelMapper.map(patient, PatientDTO.class);
     }
 
+    @Operation(summary = "Update a specific patient")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Patient successfully updated",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Patient.class)) }),
+            @ApiResponse(responseCode = "404", description = "Patient not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error server",
+                    content = @Content),
+    })
     @PutMapping("/{id}")
     @ResponseStatus(code= HttpStatus.OK)
     PatientDTO replacePatient(@RequestBody Patient newPatient, @PathVariable Long id) throws PatientNotFoundException {
@@ -76,6 +117,16 @@ class PatientController {
         return modelMapper.map(updatedPatient, PatientDTO.class);
     }
 
+    @Operation(summary = "Delete a patient by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Patient successfully deleted",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Patient.class)) }),
+            @ApiResponse(responseCode = "404", description = "Patient not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error server",
+                    content = @Content),
+    })
     @DeleteMapping("/{id}")
     @ResponseStatus(code= HttpStatus.OK)
     void deletePatient(@PathVariable Long id) throws PatientNotFoundException {
