@@ -125,14 +125,11 @@ public class TimeSlotController {
     })
     @PutMapping("/{id}")
     @ResponseStatus(code= HttpStatus.OK)
-    TimeSlotDTO replaceTimeSlot(@RequestBody TimeSlot newTimeSlot, @PathVariable Long id) throws TimeSlotNotFoundException {
+    TimeSlotDTO replaceTimeSlot(@RequestBody TimeSlotDTO newTimeSlotDTO, @PathVariable Long id) throws TimeSlotNotFoundException, DoctorNotFoundException, PatientNotFoundException, ParseException {
+        newTimeSlotDTO.setId(id);
+        TimeSlot newTimeSlot = timeSlotMapper.toEntity(newTimeSlotDTO);
         TimeSlot updatedTimeSlot = timeSlotDAO.findById(id)
-                .map(timeSlot -> {
-                    timeSlot.setPatient(newTimeSlot.getPatient());
-                    timeSlot.setDoctor(newTimeSlot.getDoctor());
-                    timeSlot.setDate(newTimeSlot.getDate());
-                    return timeSlotDAO.save(timeSlot);
-                })
+                .map(timeSlot -> timeSlotDAO.save(newTimeSlot))
                 .orElseThrow(() -> new TimeSlotNotFoundException(id));
 
         return timeSlotMapper.toDTO(updatedTimeSlot);
