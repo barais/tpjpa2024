@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -50,6 +51,7 @@ public class TimeSlotController {
                     content = @Content),
     })
     @GetMapping("")
+    @ResponseStatus(code= HttpStatus.OK)
     List<TimeSlotDTO> all() {
         List<TimeSlot> listTimeSlots = timeSlotDAO.findAll();
 
@@ -70,6 +72,7 @@ public class TimeSlotController {
                     content = @Content),
     })
     @PostMapping("")
+    @ResponseStatus(code= HttpStatus.CREATED)
     TimeSlotDTO newTimeSlot(@RequestBody TimeSlotDTO timeSlotDTO) throws DoctorNotFoundException, PatientNotFoundException, ParseException, TimeSlotNotFoundException {
         TimeSlot newTimeSlot = timeSlotMapper.toEntity(timeSlotDTO);
 
@@ -98,6 +101,7 @@ public class TimeSlotController {
                     content = @Content),
     })
     @PostMapping("/setNewTimeSlots")
+    @ResponseStatus(code= HttpStatus.OK)
     List<TimeSlotDTO> setNewTimeSlots(@RequestBody TimeRangeDTO timeRangeDTO) throws ParseException, DoctorNotFoundException, PatientNotFoundException {
         return SetNewTimeSlots.setNewTimeSlots(timeRangeDTO, timeSlotDAO, timeSlotMapper);
     }
@@ -113,6 +117,7 @@ public class TimeSlotController {
                     content = @Content),
     })
     @GetMapping("/{id}")
+    @ResponseStatus(code= HttpStatus.OK)
     TimeSlotDTO one(@PathVariable Long id) throws TimeSlotNotFoundException {
         TimeSlot timeSlot = timeSlotDAO.findById(id).orElseThrow(() -> new TimeSlotNotFoundException(id));
         return timeSlotMapper.toDTO(timeSlot);
@@ -129,6 +134,7 @@ public class TimeSlotController {
                     content = @Content),
     })
     @PutMapping("/{id}")
+    @ResponseStatus(code= HttpStatus.OK)
     TimeSlotDTO replaceTimeSlot(@RequestBody TimeSlot newTimeSlot, @PathVariable Long id) throws TimeSlotNotFoundException {
         TimeSlot updatedTimeSlot = timeSlotDAO.findById(id)
                 .map(timeSlot -> {
@@ -153,6 +159,7 @@ public class TimeSlotController {
                     content = @Content),
     })
     @DeleteMapping("/{id}")
+    @ResponseStatus(code= HttpStatus.OK)
     void deleteTimeSlot(@PathVariable Long id) throws TimeSlotNotFoundException {
         TimeSlot timeSlot = timeSlotDAO.findById(id).orElseThrow(() -> new TimeSlotNotFoundException(id));
         timeSlotDAO.delete(timeSlot);
