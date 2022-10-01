@@ -12,7 +12,8 @@ export default class LogInDoctor extends React.Component {
             doctorChoice: "",
             newDoctor: {
                 firstName: "",
-                lastName: ""
+                lastName: "",
+                specialisation: ""
             },
             specialities: []
         }
@@ -28,17 +29,17 @@ export default class LogInDoctor extends React.Component {
 
         axios.get(constantes.url_back + "/doctors")
             .then((res) => {
-                console.log(res)
                 const resData = res.data
                 this.setState(prevState => ({ ...prevState, doctors: resData }))
             })
 
 
-        //   axios.get(constantes.url_back + "/specialities")
-        //   .then((res) => {
-        //       const resData = res.data
-        //       this.setState({resData})
-        //   })
+           axios.get(constantes.url_back + "/specialisation")
+           .then((res) => {
+               console.log((res.data))
+               const resData = res.data
+               this.setState(prevState => ({ ...prevState, specialities: resData }))
+           })
     }
 
     handleInputChange(event) {
@@ -113,9 +114,9 @@ export default class LogInDoctor extends React.Component {
                         onChange={this.handleInputChange} />
 
                     <label>Spécialité</label>
-                    <select value={this.state.newDoctor.speciality} onChange={this.onChange}>
-                        {this.state.doctors.map((option) => (
-                            <option key={option.id} value={option.value}>{option.name}</option>
+                    <select value={this.state.newDoctor.specialisation} onChange={this.onChange}>
+                        {this.state.specialities.map(({key, value}) => (
+                            <option key={key+1} value={value}>{value}</option>
                         ))}
                     </select>
                     <input type="submit" value="Submit" onClick={this.sendForm}></input>
