@@ -33,7 +33,7 @@ public class TimeSlot {
         this.id = id;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
     public Doctor getDoctor() {
         return doctor;
@@ -43,7 +43,7 @@ public class TimeSlot {
         this.doctor = doctor;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @Nullable
     public Patient getPatient() {
         return patient;

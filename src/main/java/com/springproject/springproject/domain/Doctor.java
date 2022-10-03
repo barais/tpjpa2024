@@ -24,7 +24,10 @@ public class Doctor extends Person {
     private Specialisation specialisation;
 
 
-    private final static int DURATION_TIME_SLOT = 30;
+
+    private List<TimeSlot> timeSlot;
+
+
 
     public Doctor() {
         Date oldDate = new Date();
@@ -53,6 +56,15 @@ public class Doctor extends Person {
     @Override
     public String toString() {
         return "Medecin [id=" + id + ", first name=" + firstName + ", last name=" + lastName + ", specialisation=" + specialisation.toString();
+    }
+
+    @OneToMany(mappedBy = "doctor")
+    public List<TimeSlot> getTimeSlot() {
+        return timeSlot;
+    }
+
+    public void setTimeSlot(List<TimeSlot> timeSlot) {
+        this.timeSlot = timeSlot;
     }
 }
 

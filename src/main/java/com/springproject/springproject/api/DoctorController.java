@@ -97,7 +97,6 @@ public class DoctorController {
     @GetMapping("/{id}")
     ResponseEntity<DoctorDTO> one(@Parameter(description = "id of doctor to be searched") @PathVariable Long id) {
         Optional<Doctor> doctor = doctorDAO.findById(id);
-
         if(doctor.isEmpty()) return ResponseEntity.notFound().build();
 
         //Convert entity to DTO and return it
