@@ -31,16 +31,12 @@ import java.util.stream.Collectors;
 public class TimeSlotController {
 
     private final TimeSlotDAO timeSlotDAO;
-    private final DoctorDAO doctorDAO;
-    private final PatientDAO patientDAO;
 
     @Autowired
     private TimeSlotMapper timeSlotMapper;
 
-    TimeSlotController(TimeSlotDAO dao, DoctorDAO doctorDAO, PatientDAO patientDAO) {
+    TimeSlotController(TimeSlotDAO dao) {
         this.timeSlotDAO = dao;
-        this.doctorDAO = doctorDAO;
-        this.patientDAO = patientDAO;
     }
 
     @Operation(summary = "Get all time slots")
