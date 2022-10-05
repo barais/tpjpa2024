@@ -13,9 +13,10 @@ export default class LogInDoctor extends React.Component {
             newDoctor: {
                 firstName: "",
                 lastName: "",
-                specialisation: ""
+                specialisation: 0
             },
-            specialities: []
+            specialities: ["DENTIST", "NEUROLOGY"]
+    
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -52,6 +53,8 @@ export default class LogInDoctor extends React.Component {
                 ...oldState.newDoctor, [name]: value
             }
         }));
+
+        console.log(this.state)
     }
 
 
@@ -114,9 +117,9 @@ export default class LogInDoctor extends React.Component {
                         onChange={this.handleInputChange} />
 
                     <label>Spécialité</label>
-                    <select value={this.state.newDoctor.specialisation} onChange={this.onChange}>
-                        {this.state.specialities.map(({key, value}) => (
-                            <option key={key+1} value={value}>{value}</option>
+                    <select name="specialisation" value={this.state.newDoctor.specialisation} onChange={this.handleInputChange}>
+                        {this.state.specialities.map((value, key) => (
+                            <option key={key} value={value}>{value}</option>
                         ))}
                     </select>
                     <input type="submit" value="Submit" onClick={this.sendForm}></input>
