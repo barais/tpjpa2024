@@ -1,38 +1,17 @@
 package com.springproject.springproject.domain;
 
 import com.sun.istack.NotNull;
-import net.bytebuddy.asm.Advice;
-import org.apache.commons.lang3.time.DateUtils;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 public class Doctor extends Person {
 
     private Specialisation specialisation;
-
-
-
     private List<TimeSlot> timeSlot;
 
-
-
-    public Doctor() {
-        Date oldDate = new Date();
-        Date newDate = DateUtils.addHours(oldDate, 3);
-    }
+    public Doctor() {}
 
     public Doctor(String firstName, String lastName, Specialisation spe) {
         super(firstName, lastName);
