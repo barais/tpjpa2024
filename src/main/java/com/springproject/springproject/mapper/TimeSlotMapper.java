@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 
 @Component
@@ -26,7 +25,6 @@ public class TimeSlotMapper {
     PatientDAO patientDAO;
 
     public static final SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss" );
-
 
     public TimeSlotDTO toDTO(TimeSlot timeSlot) {
         TimeSlotDTO timeSlotDTO = new TimeSlotDTO();
@@ -41,9 +39,7 @@ public class TimeSlotMapper {
 
     public TimeSlot toEntity(TimeSlotDTO timeSlotDTO) throws PatientNotFoundException, DoctorNotFoundException, ParseException {
         TimeSlot timeSlot = new TimeSlot();
-
         timeSlot.setId(timeSlotDTO.getId());
-
 
         //We find the doctor in DB (return error if not found)
         Doctor doctor = doctorDAO.findById(timeSlotDTO.getDoctor()).orElseThrow(() -> new DoctorNotFoundException(timeSlotDTO.getDoctor()));

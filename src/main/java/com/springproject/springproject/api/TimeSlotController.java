@@ -1,6 +1,5 @@
 package com.springproject.springproject.api;
 
-import com.springproject.springproject.domain.Doctor;
 import com.springproject.springproject.domain.TimeSlot;
 import com.springproject.springproject.dto.TimeRangeDTO;
 import com.springproject.springproject.dto.TimeSlotDTO;
@@ -9,8 +8,6 @@ import com.springproject.springproject.exception.DoctorNotFoundException;
 import com.springproject.springproject.exception.PatientNotFoundException;
 import com.springproject.springproject.mapper.TimeSlotMapper;
 import com.springproject.springproject.service.TimeSlotDAO;
-import com.springproject.springproject.service.DoctorDAO;
-import com.springproject.springproject.service.PatientDAO;
 import com.springproject.springproject.utils.SetNewTimeSlots;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

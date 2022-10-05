@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 @Data
 public class DoctorDTO extends Person {
 
-
     private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)

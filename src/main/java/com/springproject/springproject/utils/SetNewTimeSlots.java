@@ -23,7 +23,6 @@ public class SetNewTimeSlots {
     public static List<TimeSlotDTO> setNewTimeSlots(TimeRangeDTO timeRangeDTO, TimeSlotDAO timeSlotDAO, TimeSlotMapper timeSlotMapper) throws DoctorNotFoundException, PatientNotFoundException, ParseException {
         List<TimeSlotDTO> ret = new ArrayList<>();
 
-
         Date start = TimeSlotMapper.sd.parse(timeRangeDTO.getStartTime());
         Date end = TimeSlotMapper.sd.parse(timeRangeDTO.getEndTime());
 

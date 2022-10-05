@@ -10,14 +10,10 @@ import javax.persistence.Inheritance;
 public class Person {
 
     public Long id;
-
     public String firstName;
-
     public String lastName;
 
-    public Person() {
-
-    }
+    public Person() {}
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;

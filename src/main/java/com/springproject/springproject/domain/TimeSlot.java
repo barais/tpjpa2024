@@ -1,7 +1,6 @@
 package com.springproject.springproject.domain;
 
 import org.springframework.lang.Nullable;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -10,7 +9,6 @@ import java.util.Date;
 public class TimeSlot {
 
     private Long id;
-
     private Doctor doctor;
     private Patient patient;
     private Date date;

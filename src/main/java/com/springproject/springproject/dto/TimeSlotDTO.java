@@ -6,7 +6,6 @@ import lombok.Data;
 public class TimeSlotDTO {
 
     private Long id;
-
     private Long doctor;
     private Long patient;
     private String date;
