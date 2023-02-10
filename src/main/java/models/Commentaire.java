@@ -1,11 +1,14 @@
 package models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Calendar;
 
 @Entity
-public class Commentaire {
+public class Commentaire implements Serializable {
     private Long id;
+
+    private String commmentaire;
     private Calendar createdAt;
     private Calendar updateAt;
     private Ticket ticket;
@@ -55,5 +58,13 @@ public class Commentaire {
 
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
+    }
+
+    public String getCommmentaire() {
+        return commmentaire;
+    }
+
+    public void setCommmentaire(String commmentaire) {
+        this.commmentaire = commmentaire;
     }
 }

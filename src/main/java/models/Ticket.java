@@ -1,24 +1,26 @@
 package models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-public class Ticket {
+public class Ticket implements Serializable {
     private Long id;
     private String numero;
     private String titre;
     private Calendar createdAt;
     private Integer etat;
-    private Set<Label> labels;
+    private List<Label> labels;
     private Utilisateur utilisateur;
     private Gestionnaire gestionnaire;
     private Set<Commentaire> commentaires;
 
     public Ticket() {}
 
-    public Ticket(String numero, String titre, Calendar createdAt, Integer etat, Set<Label> labels, Utilisateur user, Gestionnaire gestionnaire) {
+    public Ticket(String numero, String titre, Calendar createdAt, Integer etat, List<Label> labels, Utilisateur user, Gestionnaire gestionnaire) {
         this.numero = numero;
         this.titre = titre;
         this.createdAt = createdAt;
@@ -73,11 +75,11 @@ public class Ticket {
     }
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    public Set<Label> getLabels() {
+    public List<Label> getLabels() {
         return labels;
     }
 
-    public void setLabels(Set<Label> labels) {
+    public void setLabels(List<Label> labels) {
         this.labels = labels;
     }
 
@@ -99,7 +101,7 @@ public class Ticket {
         this.gestionnaire = gestionnaire;
     }
 
-    @OneToMany(mappedBy = "ticket")
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.REMOVE)
     public Set<Commentaire> getCommentaires() {
         return commentaires;
     }

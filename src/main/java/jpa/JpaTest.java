@@ -4,10 +4,7 @@ import models.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -49,7 +46,7 @@ public class JpaTest {
         int numOfTickets = manager.createQuery("Select t From Ticket t", Ticket.class).getResultList().size();
         if (numOfTickets == 0) {
             Label label = new Label("Bug", "Les bugs", "#0000000");
-            Set<Label> labels = new HashSet<>();
+            List<Label> labels = new ArrayList<>();
             labels.add(label);
             Utilisateur utilisateur = new Utilisateur("Daté", "Arnaud", "adate", "12345", Calendar.getInstance());
             Ticket t = new Ticket("123", "Ticket 1", Calendar.getInstance(), EtatTicket.NOUVEAU,labels, null, null);

@@ -1,12 +1,13 @@
 package models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
 
 @Entity
 @Inheritance
-public class Utilisateur {
+public class Utilisateur implements Serializable {
     protected Long id;
     protected String nom;
     protected String prenoms;
@@ -76,7 +77,7 @@ public class Utilisateur {
         this.password = password;
     }
 
-    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.REMOVE)
     public Set<Ticket> getTickets() {
         return tickets;
     }

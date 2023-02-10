@@ -1,16 +1,18 @@
 package models;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-public class Label {
+public class Label implements Serializable {
 
     private Long id;
     private String nom;
     private String description;
     private String couleur;
-    private Set<Ticket> tickets;
+    private List<Ticket> tickets;
 
     public Label() {}
 
@@ -56,11 +58,11 @@ public class Label {
     }
 
     @ManyToMany(mappedBy = "labels", cascade = CascadeType.PERSIST)
-    public Set<Ticket> getTickets() {
+    public List<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(Set<Ticket> tickets) {
+    public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }
 }

@@ -4,12 +4,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.OneToMany;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 public class Gestionnaire extends Utilisateur {
     private String role;
-    private Set<Ticket> ticketsAttribues;
+    private List<Ticket> ticketsAttribues;
 
     public Gestionnaire() {
         super();
@@ -24,11 +25,11 @@ public class Gestionnaire extends Utilisateur {
     }
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "gestionnaire")
-    public Set<Ticket> getTicketsAttribues() {
+    public List<Ticket> getTicketsAttribues() {
         return ticketsAttribues;
     }
 
-    public void setTicketsAttribues(Set<Ticket> tickets) {
+    public void setTicketsAttribues(List<Ticket> tickets) {
         this.ticketsAttribues = tickets;
     }
 }
