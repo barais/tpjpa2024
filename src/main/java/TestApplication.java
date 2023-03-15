@@ -1,4 +1,5 @@
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
+import rest.LabelResource;
 import rest.TicketResource;
 
 import javax.ws.rs.core.Application;
@@ -14,6 +15,7 @@ public class TestApplication extends Application {
         final Set<Class<?>> clazzes = new HashSet<>();
 
         clazzes.add(TicketResource.class);
+        clazzes.add(LabelResource.class);
         clazzes.add(OpenApiResource.class);
 
 

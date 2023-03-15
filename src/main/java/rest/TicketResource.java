@@ -7,7 +7,6 @@ import javax.ws.rs.*;
 @Path("/tickets")
 
 @Produces({"application/json"})
-@Consumes({"application/json"})
 public class TicketResource {
 
     @GET

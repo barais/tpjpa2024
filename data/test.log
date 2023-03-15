@@ -1,4 +1,113 @@
+/*C6*/SET SCHEMA PUBLIC
+drop table if exists Commentaire CASCADE 
+drop table if exists Label CASCADE 
+drop table if exists Ticket CASCADE 
+drop table if exists Ticket_Label CASCADE 
+drop table if exists Utilisateur CASCADE 
+drop sequence hibernate_sequence if exists
+create sequence hibernate_sequence start with 1 increment by 1
+create table Commentaire (id bigint not null, commmentaire varchar(255), createdAt timestamp, updateAt timestamp, ticket_id bigint, utilisateur_id bigint, primary key (id))
+create table Label (id bigint not null, couleur varchar(255), description varchar(255), nom varchar(255), primary key (id))
+create table Ticket (id bigint not null, createdAt timestamp, etat integer, numero varchar(255), titre varchar(255), gestionnaire_id bigint, utilisateur_id bigint, primary key (id))
+create table Ticket_Label (tickets_id bigint not null, labels_id bigint not null)
+create table Utilisateur (DTYPE varchar(31) not null, id bigint not null, createdAt timestamp, nom varchar(255), password varchar(255), prenoms varchar(255), username varchar(255), role varchar(255), primary key (id))
+alter table Label add constraint UK_r3cvs4stbomsv7niju0bqevgx unique (nom)
+alter table Ticket add constraint UK_dxj6b29w8pr0nagqbrx8wyyss unique (numero)
+alter table Commentaire add constraint FKma1ry2q314mgkv8q8u5lrafdl foreign key (ticket_id) references Ticket
+alter table Commentaire add constraint FKb7i29ppss6dbhwjihif0x2sg6 foreign key (utilisateur_id) references Utilisateur
+alter table Ticket add constraint FKr8i58e336w1y9051642jke1nk foreign key (gestionnaire_id) references Utilisateur
+alter table Ticket add constraint FKlx6owqa2xjndkbo1ystv5rwkb foreign key (utilisateur_id) references Utilisateur
+alter table Ticket_Label add constraint FKk5jw88n9c7hnc0ktgf7870bb3 foreign key (labels_id) references Label
+alter table Ticket_Label add constraint FKmb428eyyg2avmk9knd7q7lpl4 foreign key (tickets_id) references Ticket
+INSERT INTO LABEL VALUES(1,NULL,NULL,NULL)
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 2
+COMMIT
+/*C4*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C5*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C7*/SET SCHEMA PUBLIC
+DROP TABLE PUBLIC.PUBLIC.COMMENTAIRE
+DROP TABLE PUBLIC.PUBLIC.TICKET_LABEL
+DROP TABLE PUBLIC.PUBLIC.TICKET
+DROP TABLE PUBLIC.PUBLIC.LABEL
+DROP TABLE PUBLIC.PUBLIC.UTILISATEUR
+/*C6*/DISCONNECT
 /*C9*/SET SCHEMA PUBLIC
+create table Commentaire (id bigint not null, commmentaire varchar(255), createdAt timestamp, updateAt timestamp, ticket_id bigint, utilisateur_id bigint, primary key (id))
+create table Label (id bigint not null, couleur varchar(255), description varchar(255), nom varchar(255) not null, primary key (id))
+create table Ticket (id bigint not null, createdAt timestamp, etat integer, numero varchar(255), titre varchar(255), gestionnaire_id bigint, utilisateur_id bigint, primary key (id))
+create table Ticket_Label (tickets_id bigint not null, labels_id bigint not null)
+create table Utilisateur (DTYPE varchar(31) not null, id bigint not null, createdAt timestamp, nom varchar(255), password varchar(255), prenoms varchar(255), username varchar(255), role varchar(255), primary key (id))
+alter table Label add constraint UK_r3cvs4stbomsv7niju0bqevgx unique (nom)
+alter table Ticket add constraint UK_dxj6b29w8pr0nagqbrx8wyyss unique (numero)
+alter table Commentaire add constraint FKma1ry2q314mgkv8q8u5lrafdl foreign key (ticket_id) references Ticket
+alter table Commentaire add constraint FKb7i29ppss6dbhwjihif0x2sg6 foreign key (utilisateur_id) references Utilisateur
+alter table Ticket add constraint FKr8i58e336w1y9051642jke1nk foreign key (gestionnaire_id) references Utilisateur
+alter table Ticket add constraint FKlx6owqa2xjndkbo1ystv5rwkb foreign key (utilisateur_id) references Utilisateur
+alter table Ticket_Label add constraint FKk5jw88n9c7hnc0ktgf7870bb3 foreign key (labels_id) references Label
+alter table Ticket_Label add constraint FKmb428eyyg2avmk9knd7q7lpl4 foreign key (tickets_id) references Ticket
 DISCONNECT
 /*C10*/SET SCHEMA PUBLIC
 DISCONNECT
+/*C12*/SET SCHEMA PUBLIC
+INSERT INTO LABEL VALUES(5,NULL,NULL,'Les bugs')
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 6
+COMMIT
+/*C11*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C12*/DISCONNECT
+/*C13*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C14*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C15*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C17*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C16*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C18*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C20*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C19*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C7*/DISCONNECT
+/*C8*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C23*/SET SCHEMA PUBLIC
+INSERT INTO LABEL VALUES(12,'Rouge','description du deuxieme','Je teste le deuxieme')
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 13
+COMMIT
+/*C24*/SET SCHEMA PUBLIC
+DELETE FROM LABEL WHERE ID=5
+COMMIT
+/*C23*/DISCONNECT
+/*C24*/DISCONNECT
+/*C21*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C22*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C25*/SET SCHEMA PUBLIC
+INSERT INTO LABEL VALUES(13,'Bleu','description du deuxieme','Je teste ')
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 14
+COMMIT
+DISCONNECT
+/*C26*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C27*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C28*/SET SCHEMA PUBLIC
+DELETE FROM LABEL WHERE ID=12
+INSERT INTO LABEL VALUES(12,'Rouge','description du deuxieme','Je test ieme')
+COMMIT
+DISCONNECT
+/*C29*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C30*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C31*/SET SCHEMA PUBLIC
+DELETE FROM LABEL WHERE ID=12
+INSERT INTO LABEL VALUES(12,'verts','description du deuxieme','Je test ieme')
+COMMIT

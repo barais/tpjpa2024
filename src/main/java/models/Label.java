@@ -48,7 +48,7 @@ public class Label implements Serializable {
         this.couleur = couleur;
     }
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     public String getNom() {
         return nom;
     }
@@ -64,5 +64,13 @@ public class Label implements Serializable {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    @Override
+    public String toString() {
+        return "Label{nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
+                ", couleur='" + couleur + '\'' +
+                '}';
     }
 }

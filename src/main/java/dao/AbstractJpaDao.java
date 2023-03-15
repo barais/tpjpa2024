@@ -34,7 +34,6 @@ public abstract class AbstractJpaDao<K, T extends Serializable> implements IGene
         t.begin();
         entityManager.persist(entity);
         t.commit();
-
     }
 
     public T update(final T entity) {
@@ -43,7 +42,6 @@ public abstract class AbstractJpaDao<K, T extends Serializable> implements IGene
         T res = entityManager.merge(entity);
         t.commit();
         return res;
-
     }
 
     public void delete(T entity) {
@@ -51,7 +49,6 @@ public abstract class AbstractJpaDao<K, T extends Serializable> implements IGene
         t.begin();
         entityManager.remove(entity);
         t.commit();
-
     }
 
     public void deleteById(K entityId) {
