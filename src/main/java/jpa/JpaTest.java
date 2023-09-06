@@ -1,12 +1,8 @@
 package jpa;
 
 
-import domain.Department;
-import domain.Employee;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-
-import java.util.List;
 
 public class JpaTest {
 
@@ -22,7 +18,7 @@ public class JpaTest {
 	public static void main(String[] args) {
 		EntityManager manager = EntityManagerHelper.getEntityManager();
 
-		JpaCRUD crud = new JpaCRUD(manager);
+		EmployeeCRUD crud = new EmployeeCRUD(manager);
 
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
