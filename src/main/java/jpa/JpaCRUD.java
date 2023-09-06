@@ -3,6 +3,7 @@ package jpa;
 import domain.Department;
 import domain.Employee;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class JpaCRUD {
     private EntityManager manager;
+
     public JpaCRUD(EntityManager manager) {
         this.manager = manager;
     }

@@ -52,4 +52,9 @@ public class Department {
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
+
+    @Override
+    public String toString() {
+        return "Department [id=" + id + ", name=" + name + ", employees=" + employees + "]";
+    }
 }
