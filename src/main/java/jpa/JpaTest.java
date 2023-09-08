@@ -3,6 +3,7 @@ package jpa;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jpa.CRUD.EmployeeCRUD;
 
 public class JpaTest {
 

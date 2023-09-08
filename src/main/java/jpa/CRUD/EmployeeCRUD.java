@@ -1,4 +1,4 @@
-package jpa;
+package jpa.CRUD;
 
 import domain.Department;
 import domain.Employee;
