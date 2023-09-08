@@ -140,7 +140,7 @@ public class RDVManager {
                     try {
                         roomCRUD.assignOffice(officeNumber, currentUser);
                     } catch (Exception e) {
-                        System.out.println("Office does not exist");
+                        System.out.println(e.getMessage());
                     }
                     break;
                 default :
@@ -150,6 +150,28 @@ public class RDVManager {
     }
 
     private void scheduleManager(){
-        //TODO
+        int choice = 0;
+        while (choice != 5){
+            System.out.println("1. Create meeting\n2. Delete meeting\n3. List meetings\n4. Join meeting\n5. Back");
+            choice = sc.nextInt();
+            switch (choice){
+                case 1 :
+                    // TODO : create meeting
+                    break;
+                case 2 :
+                    // TODO : delete meeting
+                    break;
+                case 3 :
+                    // TODO : list meetings
+                    break;
+                case 4 :
+                    // TODO : join meeting
+                    break;
+                case 5 :
+                    break;
+                default :
+                    System.out.println("Wrong choice");
+            }
+        }
     }
 }

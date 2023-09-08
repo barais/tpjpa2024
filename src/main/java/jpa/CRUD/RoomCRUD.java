@@ -21,6 +21,15 @@ public class RoomCRUD {
         return selectAvailableOffices.getResultList();
     }
 
+    public Office getOfficeFromOccupant(User occupant){
+        TypedQuery<Office> selectOffice =  manager.createQuery("Select a From Office a WHERE a.occupant = ?1", Office.class);
+        selectOffice.setParameter(1, occupant);
+        if(selectOffice.getResultList().isEmpty()) {
+            return null;
+        }
+        return selectOffice.getSingleResult();
+    }
+
     public void assignOffice(int roomNumber, User occupant) {
         if(selectRoom(roomNumber) == null) {
             throw new IllegalArgumentException("Room does not exist");
@@ -28,12 +37,21 @@ public class RoomCRUD {
         TypedQuery<Office> selectOffice =  manager.createQuery("Select a From Office a WHERE a.roomNumber = ?1", Office.class);
         selectOffice.setParameter(1, roomNumber);
         Office office = selectOffice.getSingleResult();
+        if(office.getOccupant() != null) {
+            throw new IllegalArgumentException("Office already occupied");
+        }
+        if(getOfficeFromOccupant(occupant) != null) {
+            throw new IllegalArgumentException("User already has an office");
+        }
         office.setOccupant(occupant);
     }
 
     public Room selectRoom(int roomNumber) {
         TypedQuery<Room> selectRoom =  manager.createQuery("Select room From MeetingRoom, Office room WHERE room.roomNumber = ?1", Room.class);
         selectRoom.setParameter(1, roomNumber);
+        if (selectRoom.getResultList().isEmpty()) {
+            return null;
+        }
         return selectRoom.getSingleResult();
     }
 
@@ -49,5 +67,12 @@ public class RoomCRUD {
             throw new IllegalArgumentException("Room already exists");
         }
         manager.persist(new domain.MeetingRoom(capacity, roomNumber, name));
+    }
+
+    public List<Room> selectAvailableMeetingRooms(){
+        return null;
+    }
+    public List<Room> selectAvailableRooms(User occupant){
+        return null;
     }
 }

@@ -1,11 +1,13 @@
 package domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("2")
 public class MeetingRoom extends Room{
+    @Column(nullable = false)
     private String name;
 
     public MeetingRoom() {

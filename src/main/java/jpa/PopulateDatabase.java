@@ -30,9 +30,9 @@ public class PopulateDatabase {
             // Ajoute des salle de réunion
             roomCRUD.createMeetingRoom(10, 1, "Salle 1");
             roomCRUD.createMeetingRoom(10, 2, "Salle 2");
-            roomCRUD.createMeetingRoom(10, 3, "Salle 3");
-            roomCRUD.createMeetingRoom(10, 4, "Salle 4");
-            roomCRUD.createMeetingRoom(10, 5, "Salle 5");
+            roomCRUD.createMeetingRoom(7, 3, "Salle 3");
+            roomCRUD.createMeetingRoom(3, 4, "Salle 4");
+            roomCRUD.createMeetingRoom(5, 5, "Salle 5");
 
             // Ajoute des bureaux
             roomCRUD.createOffice(1, 6);
@@ -44,7 +44,6 @@ public class PopulateDatabase {
             // Assignation des bureaux
             roomCRUD.assignOffice(6, userCRUD.getUser("jdoe", "password"));
             roomCRUD.assignOffice(7, userCRUD.getUser("jane", "password"));
-            roomCRUD.assignOffice(8, userCRUD.getUser("jane", "password"));
         } catch (Exception e) {
             e.printStackTrace();
         }

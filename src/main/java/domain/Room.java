@@ -1,11 +1,13 @@
 package domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
+import org.hibernate.annotations.DiscriminatorFormula;
 
-@MappedSuperclass
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorFormula("CASE WHEN NAME IS NOT NULL THEN 1 ELSE 2 END")
 public abstract class Room {
     protected Long id;
     protected int capacity;
