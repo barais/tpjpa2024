@@ -1,5 +1,6 @@
 package jpa.CRUD;
 
+import domain.MeetingRoom;
 import domain.Office;
 import domain.Room;
 import domain.User;
@@ -31,8 +32,22 @@ public class RoomCRUD {
     }
 
     public Room selectRoom(int roomNumber) {
-        TypedQuery<Room> selectRoom =  manager.createQuery("Select a From Room a WHERE a.roomNumber = ?1", Room.class);
+        TypedQuery<Room> selectRoom =  manager.createQuery("Select room From MeetingRoom, Office room WHERE room.roomNumber = ?1", Room.class);
         selectRoom.setParameter(1, roomNumber);
         return selectRoom.getSingleResult();
+    }
+
+    public void createOffice(int capacity, int roomNumber) {
+        if(selectRoom(roomNumber) != null) {
+            throw new IllegalArgumentException("Room already exists");
+        }
+        manager.persist(new Office(capacity, roomNumber, null));
+    }
+
+    public void createMeetingRoom(int capacity, int roomNumber, String name) {
+        if(selectRoom(roomNumber) != null) {
+            throw new IllegalArgumentException("Room already exists");
+        }
+        manager.persist(new domain.MeetingRoom(capacity, roomNumber, name));
     }
 }
