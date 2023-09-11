@@ -17,7 +17,7 @@ public class EmployeeCRUD {
     }
 
     public void createEmployee(String name, String departmentName, boolean persist) {
-        TypedQuery<Employee> selectByName =  manager.createQuery("Select a From Employee a WHERE a.name = ?1", Employee.class);
+        TypedQuery<Employee> selectByName = manager.createQuery("Select a From Employee a WHERE a.name = ?1", Employee.class);
         selectByName.setParameter(1, name);
         int count = selectByName.getResultList().size();
         if (count > 0) {
@@ -25,7 +25,7 @@ public class EmployeeCRUD {
             return;
         }
 
-        TypedQuery<Department> selectDepartmentByName =  manager.createQuery("Select a From Department a WHERE a.name = ?1", Department.class);
+        TypedQuery<Department> selectDepartmentByName = manager.createQuery("Select a From Department a WHERE a.name = ?1", Department.class);
         selectDepartmentByName.setParameter(1, departmentName);
         count = selectDepartmentByName.getResultList().size();
         if (count == 0) {
@@ -35,7 +35,7 @@ public class EmployeeCRUD {
 
         Department department = selectDepartmentByName.getSingleResult();
         Employee employee = new Employee(name, department);
-        if(persist) {
+        if (persist) {
             manager.persist(employee);
         }
     }
@@ -54,12 +54,12 @@ public class EmployeeCRUD {
     }
 
     public List<Employee> listEmployees() {
-        TypedQuery<Employee> selectAll =  manager.createQuery("Select a From Employee a", Employee.class);
+        TypedQuery<Employee> selectAll = manager.createQuery("Select a From Employee a", Employee.class);
         return selectAll.getResultList();
     }
 
     public void createDepartment(String name, boolean persist) {
-        TypedQuery<Department> selectByName =  manager.createQuery("Select a From Department a WHERE a.name = ?1", Department.class);
+        TypedQuery<Department> selectByName = manager.createQuery("Select a From Department a WHERE a.name = ?1", Department.class);
         selectByName.setParameter(1, name);
         int count = selectByName.getResultList().size();
         if (count > 0) {
@@ -68,7 +68,7 @@ public class EmployeeCRUD {
         }
 
         Department department = new Department(name);
-        if(persist) {
+        if (persist) {
             manager.persist(department);
         }
     }
@@ -87,7 +87,7 @@ public class EmployeeCRUD {
     }
 
     public List<Department> listDepartments() {
-        TypedQuery<Department> selectAll =  manager.createQuery("Select a From Department a", Department.class);
+        TypedQuery<Department> selectAll = manager.createQuery("Select a From Department a", Department.class);
         return new ArrayList<>(selectAll.getResultList());
     }
 

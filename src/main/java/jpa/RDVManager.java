@@ -30,6 +30,7 @@ public class RDVManager {
         roomCRUD = new RoomCRUD(manager);
         meetingCRUD = new MeetingCRUD(manager);
     }
+
     public static void main(String[] args) {
         EntityManager manager = EntityManagerHelper.getEntityManager();
         RDVManager rdvManager = new RDVManager(manager);
@@ -37,7 +38,7 @@ public class RDVManager {
         EntityTransaction tx = manager.getTransaction();
 
         tx.begin();
-        try{
+        try {
 
             // Connection ou inscription d'un utilisateur
             rdvManager.connectUser();
@@ -45,7 +46,7 @@ public class RDVManager {
             // Menu principal
             rdvManager.mainMenu();
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         tx.commit();
@@ -55,7 +56,7 @@ public class RDVManager {
         System.out.println(".. done");
     }
 
-    private void connectUser(){
+    private void connectUser() {
         // Connection ou inscription d'un utilisateur
         while (currentUser == null) {
             String username;
@@ -63,8 +64,8 @@ public class RDVManager {
             System.out.println("Login or register :");
             System.out.println("1. Login\n2. Register\n");
             int choice = sc.nextInt();
-            switch (choice){
-                case 1 :
+            switch (choice) {
+                case 1:
                     System.out.println("Username :");
                     username = sc.next();
                     System.out.println("Password :");
@@ -75,7 +76,7 @@ public class RDVManager {
                         System.out.println("Wrong username or password");
                     }
                     break;
-                case 2 :
+                case 2:
                     System.out.println("First name :");
                     String firstName = sc.next();
                     System.out.println("Last name :");
@@ -91,57 +92,57 @@ public class RDVManager {
                         System.out.println("User already exists");
                     }
                     break;
-                default :
+                default:
                     System.out.println("Wrong choice");
             }
         }
     }
 
-    private void mainMenu(){
+    private void mainMenu() {
         int choice = 0;
-        while (choice != 3){
+        while (choice != 3) {
             System.out.println("1. Schedule manager\n2. Your Account\n3. Exit");
             choice = sc.nextInt();
-            switch (choice){
-                case 1 :
+            switch (choice) {
+                case 1:
                     scheduleManager();
                     break;
-                case 2 :
+                case 2:
                     accountManager();
                     break;
-                case 3 :
+                case 3:
                     break;
-                default :
+                default:
                     System.out.println("Wrong choice");
             }
         }
     }
 
-    private void accountManager(){
+    private void accountManager() {
         int choice = 0;
-        while (choice != 4){
+        while (choice != 4) {
             System.out.println("1. Change password\n2. Delete account\n3. Select office \n4. Back");
             choice = sc.nextInt();
-            switch (choice){
-                case 1 :
+            switch (choice) {
+                case 1:
                     System.out.println("New password :");
                     String password = sc.next();
                     userCRUD.updatePassword(currentUser.getUsername(), password);
                     break;
-                case 2 :
+                case 2:
                     userCRUD.deleteUser(currentUser.getUsername(), currentUser.getPassword());
                     currentUser = null;
                     connectUser();
                     break;
-                case 3 :
+                case 3:
                     List<Office> availableOffices = roomCRUD.selectAvailableOffices();
                     System.out.println("Available offices :");
-                    for (Office office : availableOffices){
+                    for (Office office : availableOffices) {
                         System.out.println(office.getRoomNumber());
                     }
                     System.out.println("Select office (-1 to quit) :");
                     int officeNumber = sc.nextInt();
-                    if(officeNumber == -1){
+                    if (officeNumber == -1) {
                         break;
                     }
                     try {
@@ -150,19 +151,19 @@ public class RDVManager {
                         System.out.println(e.getMessage());
                     }
                     break;
-                default :
+                default:
                     System.out.println("Wrong choice");
             }
         }
     }
 
-    private void scheduleManager(){
+    private void scheduleManager() {
         int choice = 0;
-        while (choice != 5){
+        while (choice != 5) {
             System.out.println("1. Create meeting\n2. Delete meeting\n3. Join meeting\n4. Back");
             choice = sc.nextInt();
-            switch (choice){
-                case 1 :
+            switch (choice) {
+                case 1:
                     System.out.println("Select start date (dd/MM/yyyy hh:mm) :");
                     String startDateString = sc.next();
                     LocalDateTime startDate = LocalDateTime.parse(startDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm"));
@@ -171,12 +172,12 @@ public class RDVManager {
                     LocalDateTime endDate = LocalDateTime.parse(endDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm"));
                     System.out.println("Available rooms :");
                     List<Room> availableRooms = meetingCRUD.selectAvailableRooms(endDate);
-                    for (Room room : availableRooms){
+                    for (Room room : availableRooms) {
                         System.out.println(room.getRoomNumber());
                     }
                     System.out.println("Select room (-1 to quit) :");
                     int roomNumber = sc.nextInt();
-                    if(roomNumber == -1){
+                    if (roomNumber == -1) {
                         break;
                     }
                     System.out.println("Label :");
@@ -187,18 +188,18 @@ public class RDVManager {
                         System.out.println(e.getMessage());
                     }
                     break;
-                case 2 :
+                case 2:
                     List<Meeting> meetings = meetingCRUD.selectMeetingByUser(currentUser);
-                    if(meetings.isEmpty()){
+                    if (meetings.isEmpty()) {
                         System.out.println("No meetings");
                         break;
                     }
                     System.out.println("Select meeting to delete (-1 to quit) :");
-                    for (Meeting meeting : meetings){
+                    for (Meeting meeting : meetings) {
                         System.out.println(meeting.getLabel());
                     }
                     int meetingNumber = sc.nextInt();
-                    if(meetingNumber == -1){
+                    if (meetingNumber == -1) {
                         break;
                     }
                     try {
@@ -207,18 +208,18 @@ public class RDVManager {
                         System.out.println(e.getMessage());
                     }
                     break;
-                case 3 :
+                case 3:
                     meetings = meetingCRUD.selectMeetings();
-                    if(meetings.isEmpty()){
+                    if (meetings.isEmpty()) {
                         System.out.println("No meetings");
                         break;
                     }
-                    for (Meeting meeting : meetings){
+                    for (Meeting meeting : meetings) {
                         System.out.println(meeting.getLabel());
                     }
                     System.out.println("Select meeting to join (-1 to quit) :");
                     meetingNumber = sc.nextInt();
-                    if(meetingNumber == -1){
+                    if (meetingNumber == -1) {
                         break;
                     }
                     try {
@@ -227,9 +228,9 @@ public class RDVManager {
                         System.out.println(e.getMessage());
                     }
                     break;
-                case 4 :
+                case 4:
                     break;
-                default :
+                default:
                     System.out.println("Wrong choice");
             }
         }

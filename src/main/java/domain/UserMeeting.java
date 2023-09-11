@@ -50,7 +50,7 @@ public class UserMeeting {
     @Override
     public String toString() {
         return "User " + guest.getUsername() +
-               " is invited to meeting " + meeting.getLabel() +
+                " is invited to meeting " + meeting.getLabel() +
                 " hosted by " + meeting.getHost().getUsername() +
                 " from " + meeting.getTimeSlotStart() +
                 " to " + meeting.getTimeSlotEnd() + ".";

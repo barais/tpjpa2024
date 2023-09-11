@@ -6,9 +6,9 @@ import org.hibernate.annotations.DiscriminatorFormula;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "room_type", discriminatorType = DiscriminatorType.INTEGER, columnDefinition = "integer default 1" )
+@DiscriminatorColumn(name = "room_type", discriminatorType = DiscriminatorType.INTEGER, columnDefinition = "integer default 1")
 @DiscriminatorFormula("case when name is null then 1 else 2 end")
-public abstract class Room {
+public class Room {
     protected Long id;
     protected int capacity;
 

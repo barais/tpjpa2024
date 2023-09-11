@@ -6,7 +6,7 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("1")
-public class Office extends Room{
+public class Office extends Room {
     private User occupant;
 
     public Office() {

@@ -21,7 +21,7 @@ public class UserCRUD {
     }
 
     public void register(String firstName, String lastName, String username, String password) {
-        if(login(username, password)) {
+        if (login(username, password)) {
             throw new IllegalArgumentException("User already exists");
         }
         manager.persist(new domain.User(firstName, lastName, username, password));
@@ -31,7 +31,7 @@ public class UserCRUD {
         loginQuery.setParameter("username", username);
         loginQuery.setParameter("password", password);
         User user = loginQuery.getSingleResult();
-        if(user == null) {
+        if (user == null) {
             throw new IllegalArgumentException("User does not exist");
         }
         return user;
@@ -44,7 +44,7 @@ public class UserCRUD {
         updateQuery.executeUpdate();
     }
 
-    public void deleteUser(String username, String password){
+    public void deleteUser(String username, String password) {
         Query deleteQuery = manager.createQuery("DELETE FROM User u WHERE u.username = ?1 AND u.password = ?2");
         deleteQuery.setParameter(1, username);
         deleteQuery.setParameter(2, password);

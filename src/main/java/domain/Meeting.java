@@ -1,7 +1,6 @@
 package domain;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ManyToAny;
 
 import java.time.LocalDateTime;
 
@@ -16,6 +15,7 @@ public class Meeting {
     private LocalDateTime timeSlotEnd;
     private User host;
     private Room room;
+
     public Meeting() {
     }
 

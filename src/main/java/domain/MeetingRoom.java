@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("2")
-public class MeetingRoom extends Room{
+public class MeetingRoom extends Room {
     @Column(nullable = false)
     private String name;
 
