@@ -1,12 +1,17 @@
 package jpa;
 
+import domain.Meeting;
 import domain.Office;
+import domain.Room;
 import domain.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jpa.CRUD.MeetingCRUD;
 import jpa.CRUD.RoomCRUD;
 import jpa.CRUD.UserCRUD;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,12 +21,14 @@ public class RDVManager {
     private User currentUser;
     private UserCRUD userCRUD;
     private RoomCRUD roomCRUD;
+    private MeetingCRUD meetingCRUD;
 
     public RDVManager(EntityManager manager) {
         this.manager = manager;
         sc = new Scanner(System.in);
         userCRUD = new UserCRUD(manager);
         roomCRUD = new RoomCRUD(manager);
+        meetingCRUD = new MeetingCRUD(manager);
     }
     public static void main(String[] args) {
         EntityManager manager = EntityManagerHelper.getEntityManager();
@@ -152,22 +159,75 @@ public class RDVManager {
     private void scheduleManager(){
         int choice = 0;
         while (choice != 5){
-            System.out.println("1. Create meeting\n2. Delete meeting\n3. List meetings\n4. Join meeting\n5. Back");
+            System.out.println("1. Create meeting\n2. Delete meeting\n3. Join meeting\n4. Back");
             choice = sc.nextInt();
             switch (choice){
                 case 1 :
-                    // TODO : create meeting
+                    System.out.println("Select start date (dd/MM/yyyy hh:mm) :");
+                    String startDateString = sc.next();
+                    LocalDateTime startDate = LocalDateTime.parse(startDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm"));
+                    System.out.println("Select end date (dd/MM/yyyy hh:mm) :");
+                    String endDateString = sc.next();
+                    LocalDateTime endDate = LocalDateTime.parse(endDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm"));
+                    System.out.println("Available rooms :");
+                    List<Room> availableRooms = meetingCRUD.selectAvailableRooms(endDate);
+                    for (Room room : availableRooms){
+                        System.out.println(room.getRoomNumber());
+                    }
+                    System.out.println("Select room (-1 to quit) :");
+                    int roomNumber = sc.nextInt();
+                    if(roomNumber == -1){
+                        break;
+                    }
+                    System.out.println("Label :");
+                    String label = sc.next();
+                    try {
+                        meetingCRUD.createMeeting(label, startDate, endDate, currentUser, roomCRUD.selectRoom(roomNumber));
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 2 :
-                    // TODO : delete meeting
+                    List<Meeting> meetings = meetingCRUD.selectMeetingByUser(currentUser);
+                    if(meetings.isEmpty()){
+                        System.out.println("No meetings");
+                        break;
+                    }
+                    System.out.println("Select meeting to delete (-1 to quit) :");
+                    for (Meeting meeting : meetings){
+                        System.out.println(meeting.getLabel());
+                    }
+                    int meetingNumber = sc.nextInt();
+                    if(meetingNumber == -1){
+                        break;
+                    }
+                    try {
+                        meetingCRUD.deleteMeeting(meetings.get(meetingNumber));
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 3 :
-                    // TODO : list meetings
+                    meetings = meetingCRUD.selectMeetings();
+                    if(meetings.isEmpty()){
+                        System.out.println("No meetings");
+                        break;
+                    }
+                    for (Meeting meeting : meetings){
+                        System.out.println(meeting.getLabel());
+                    }
+                    System.out.println("Select meeting to join (-1 to quit) :");
+                    meetingNumber = sc.nextInt();
+                    if(meetingNumber == -1){
+                        break;
+                    }
+                    try {
+                        meetingCRUD.joinMeeting(currentUser, meetings.get(meetingNumber));
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 4 :
-                    // TODO : join meeting
-                    break;
-                case 5 :
                     break;
                 default :
                     System.out.println("Wrong choice");

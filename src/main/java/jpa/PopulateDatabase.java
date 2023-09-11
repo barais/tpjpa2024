@@ -1,9 +1,14 @@
 package jpa;
 
+import domain.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jpa.CRUD.MeetingCRUD;
 import jpa.CRUD.RoomCRUD;
 import jpa.CRUD.UserCRUD;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class PopulateDatabase {
 
@@ -11,6 +16,7 @@ public class PopulateDatabase {
         EntityManager manager = EntityManagerHelper.getEntityManager();
         UserCRUD userCRUD = new UserCRUD(manager);
         RoomCRUD roomCRUD = new RoomCRUD(manager);
+        MeetingCRUD meetingCRUD = new MeetingCRUD(manager);
         EntityTransaction tx = manager.getTransaction();
 
         tx.begin();
@@ -44,6 +50,14 @@ public class PopulateDatabase {
             // Assignation des bureaux
             roomCRUD.assignOffice(6, userCRUD.getUser("jdoe", "password"));
             roomCRUD.assignOffice(7, userCRUD.getUser("jane", "password"));
+
+            // Ajoute des réunions
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime start = LocalDateTime.parse("2021-01-01 10:00", formatter);
+            LocalDateTime end = LocalDateTime.parse("2021-01-01 11:00", formatter);
+            User host = userCRUD.getUser("jdoe", "password");
+            roomCRUD.createMeeting("Réunion 1", start, end, host, roomCRUD.selectRoom(1));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
