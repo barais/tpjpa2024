@@ -68,11 +68,4 @@ public class RoomCRUD {
         }
         manager.persist(new domain.MeetingRoom(capacity, roomNumber, name));
     }
-
-    public List<Room> selectAvailableMeetingRooms(){
-        return null;
-    }
-    public List<Room> selectAvailableRooms(User occupant){
-        return null;
-    }
 }
