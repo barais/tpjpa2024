@@ -56,7 +56,12 @@ public class PopulateDatabase {
             LocalDateTime start = LocalDateTime.parse("2021-01-01 10:00", formatter);
             LocalDateTime end = LocalDateTime.parse("2021-01-01 11:00", formatter);
             User host = userCRUD.getUser("jdoe", "password");
-            roomCRUD.createMeeting("Réunion 1", start, end, host, roomCRUD.selectRoom(1));
+            meetingCRUD.createMeeting("Réunion 1", start, end, host, roomCRUD.selectRoom(1));
+
+            start = LocalDateTime.parse("2021-01-01 11:00", formatter);
+            end = LocalDateTime.parse("2021-01-01 12:00", formatter);
+            host = userCRUD.getUser("jane", "password");
+            meetingCRUD.createMeeting("Réunion 2", start, end, host, roomCRUD.selectRoom(2));
 
         } catch (Exception e) {
             e.printStackTrace();
