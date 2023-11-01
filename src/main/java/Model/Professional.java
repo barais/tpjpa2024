@@ -27,4 +27,9 @@ public class Professional extends User {
     public void addSlot(Slot slot) { this.SlotList.add(slot); }
 
     public void removeSlot(Slot slot) { this.SlotList.remove(slot); }
+
+    @Override
+    public String toString() {
+        return "Professiopnal [SlotList=" + SlotList + "]";
+    }
 }

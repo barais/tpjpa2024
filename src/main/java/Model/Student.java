@@ -1,7 +1,6 @@
 package Model;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 public class Student extends User {
@@ -27,4 +26,9 @@ public class Student extends User {
     public void addRdv(Rdv rdv) { this.RdvList.add(rdv); }
 
     public void removeRdv(Rdv rdv) { this.RdvList.remove(rdv); }
+
+    @Override
+    public String toString() {
+        return "Student [RdvList=" + RdvList + "]";
+    }
 }
