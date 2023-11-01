@@ -11,13 +11,12 @@ public class ProfessionalDAOimpl implements ProfessionalDao {
     List<Slot> SlotList;
     Slot slot;
 
-    @Override
-    public void insert(Professional professional) {
+    public ProfessionalDAOimpl() {
 
     }
 
     @Override
-    public void update(Professional professional) {
+    public void insert(Professional professional) {
 
     }
 
@@ -33,7 +32,7 @@ public class ProfessionalDAOimpl implements ProfessionalDao {
     }
 
     @Override
-    public void setTimeSlot(Slot timeSlot) {
+    public void setTimeSlot (Slot timeSlot) {
         pro.addSlot(timeSlot);
     }
 

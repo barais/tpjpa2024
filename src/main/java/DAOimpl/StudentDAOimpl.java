@@ -10,16 +10,13 @@ import java.util.List;
 public class StudentDAOimpl implements StudentDao {
 
     Student stu;
-    List<Rdv> RdvList;
-    Rdv rdv;
 
-    @Override
-    public void insert(Student student) {
+    public StudentDAOimpl() {
 
     }
 
     @Override
-    public void update(Student student) {
+    public void insert(Student student) {
 
     }
 
@@ -34,7 +31,7 @@ public class StudentDAOimpl implements StudentDao {
     }
 
     @Override
-    public void bookedSlot(Rdv rdv) {
+    public void bookedSlot (Rdv rdv) {
         stu.addRdv(rdv);
     }
 }

@@ -2,8 +2,16 @@ package DAOimpl;
 
 import DAO.SlotDao;
 import Model.Slot;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SlotDAOimpl implements SlotDao {
+
+    List<Slot> SlotList = new ArrayList<Slot>();
+
+    public SlotDAOimpl() {
+
+    }
 
     @Override
     public void insert(Slot slot) {

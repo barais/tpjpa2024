@@ -1,5 +1,7 @@
 package Model;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 
 public class Student extends User {
@@ -13,6 +15,7 @@ public class Student extends User {
         this.RdvList = RdvList;
     }
 
+    @OneToMany(mappedBy="student", cascade= CascadeType.ALL)
     public List<Rdv> getRdvList() {
         return RdvList;
     }

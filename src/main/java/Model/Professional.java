@@ -1,5 +1,7 @@
 package Model;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 
 public class Professional extends User {
@@ -13,6 +15,7 @@ public class Professional extends User {
         this.SlotList = SlotList;
     }
 
+    @OneToMany(mappedBy="professional", cascade= CascadeType.ALL)
     public List<Slot> getSlotList() {
         return SlotList;
     }
