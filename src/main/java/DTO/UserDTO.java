@@ -3,8 +3,6 @@ package DTO;
 import java.io.Serializable;
 
 public class UserDTO implements Serializable {
-
-    private Long id;
     private String name;
     private String password;
 
@@ -15,14 +13,6 @@ public class UserDTO implements Serializable {
     public UserDTO(String name, String password) {
         this.name = name;
         this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

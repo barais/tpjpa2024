@@ -16,8 +16,10 @@ public class StudentDAOimpl implements StudentDao {
     }
 
     @Override
-    public Student getById(Student student) {
-        return null;
+    public Student getById(Long studentId) { return null; }
+
+    public Student createStudent(Student stu) {
+        return stu;
     }
 
     @Override

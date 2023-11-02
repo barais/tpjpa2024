@@ -1,7 +1,7 @@
-package Service;
+package ServiceCriteriaQuery;
 
 import java.util.List;
-import Model.Slot;
+import Model.Rdv;
 import jakarta.persistence.criteria.Root;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -10,14 +10,14 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 
-public class CriteriaSlot {
+public class CriteriaQRdv {
     public static void main(String[] args) {
 
         EntityManagerFactory em = Persistence.createEntityManagerFactory( "dev" );
         EntityManager entitymanager = em.createEntityManager( );
         CriteriaBuilder criteriaBuilder = entitymanager.getCriteriaBuilder();
         CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
-        Root<Slot> from = criteriaQuery.from(Slot.class);
+        Root<Rdv> from = criteriaQuery.from(Rdv.class);
 
         //select all records
         CriteriaQuery<Object> select = criteriaQuery.select(from);
@@ -25,9 +25,9 @@ public class CriteriaSlot {
         List<Object> resultlist = typedQuery.getResultList();
 
         for(Object o:resultlist) {
-            Slot s = (Slot)o;
-            System.out.println("Id : " + s.getId() + " TimeStart : "
-                    + s.getTimeStart() + " TimeEnd : " + s.getTimeEnd() + " Professional : " + s.getProfessional());
+            Rdv r = (Rdv)o;
+            System.out.println("Id : " + r.getId() + " Titled : "
+                    + r.getTitled() + " Student : " + r.getStudent());
         }
 
         //Ordering the records
@@ -36,15 +36,13 @@ public class CriteriaSlot {
         TypedQuery<Object> typedQueryBis = entitymanager.createQuery(select);
         List<Object> resultlistBis = typedQueryBis.getResultList();
 
-        for(Object o:resultlistBis){
-            Slot s =(Slot)o;
-            System.out.println("Id : " + s.getId() + " TimeStart : "
-                    + s.getTimeStart() + " TimeEnd : " + s.getTimeEnd() + " Professional : " + s.getProfessional());
+        for(Object o:resultlistBis) {
+            Rdv r =(Rdv)o;
+            System.out.println("Id : " + r.getId() + " Titled : "
+                    + r.getTitled() + " Student : " + r.getStudent());
         }
 
         entitymanager.close( );
         em.close( );
     }
 }
-
-

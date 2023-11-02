@@ -3,8 +3,6 @@ package DTO;
 import java.io.Serializable;
 
 public class SlotDTO implements Serializable {
-
-    private Long id;
     protected Long timeStart;
     protected Long timeEnd;
     private ProfessionalDTO pro;
@@ -16,14 +14,6 @@ public class SlotDTO implements Serializable {
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.pro = pro;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getTimeStart() { return timeStart; }

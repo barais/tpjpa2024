@@ -10,6 +10,8 @@ public interface StudentDao extends DAO<Student> {
 
     List<Rdv> getAllRdv();
 
+    Student createStudent(Student stu);
+
     List<Slot> consultSlots(Professional pro);
 
     boolean bookedSlot(Rdv rdv);

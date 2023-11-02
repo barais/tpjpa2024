@@ -1,12 +1,8 @@
 package DAO;
 
-import Model.Rdv;
-
-import java.util.List;
-
 public interface DAO<T> {
 
-	public T getById(T t);
+	T getById(Long t);
 
 	void insert(T t);
 

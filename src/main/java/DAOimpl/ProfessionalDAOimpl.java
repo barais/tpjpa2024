@@ -8,17 +8,13 @@ import java.util.List;
 public class ProfessionalDAOimpl implements ProfessionalDao {
 
     Professional pro;
-    List<Slot> SlotList;
-    Slot slot;
 
     public ProfessionalDAOimpl() {
 
     }
 
     @Override
-    public Professional getById(Professional professional) {
-        return null;
-    }
+    public Professional getById(Long professionalId) { return null; }
 
     @Override
     public void insert(Professional professional) {
@@ -34,11 +30,16 @@ public class ProfessionalDAOimpl implements ProfessionalDao {
     public List<Slot> getAllSlots() { return pro.getSlotList(); }
 
     @Override
-    public void setNewSlots(List<Slot> newSlots) { this.SlotList = newSlots; }
+    public Professional createProfessional(Professional pro) {
+        return pro;
+    }
 
     @Override
-    public void setTimeStart(Long timeStart) { this.slot.setTimeStart(timeStart); }
+    public void setNewSlots(List<Slot> newSlots) { pro.setSlotList(newSlots); }
 
     @Override
-    public void setTimeSlot (Long timeSlot) { this.slot.setTimeEnd(timeSlot); }
+    public void setTimeStart(Slot slot, Long timeStart) { slot.setTimeStart(timeStart); }
+
+    @Override
+    public void setTimeEnd (Slot slot, Long timeEnd) { slot.setTimeEnd(timeEnd); }
 }

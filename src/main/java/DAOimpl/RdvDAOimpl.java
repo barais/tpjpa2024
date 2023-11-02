@@ -14,14 +14,10 @@ public class RdvDAOimpl implements RdvDao {
     }
 
     @Override
-    public Rdv getById(Rdv rdv) {
-        return null;
-    }
+    public Rdv getById(Long id) { return null; }
 
     @Override
-    public void insert(Rdv rdv) {
-        RdvList.add(rdv);
-    }
+    public void insert(Rdv rdv) { RdvList.add(rdv); }
 
     @Override
     public void delete(Rdv rdv) {

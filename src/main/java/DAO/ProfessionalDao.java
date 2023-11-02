@@ -8,9 +8,11 @@ public interface ProfessionalDao extends DAO<Professional> {
 
     List<Slot> getAllSlots();
 
+    Professional createProfessional(Professional pro);
+
     void setNewSlots(List<Slot> newSlots);
 
-    void setTimeStart(Long timeStart);
+    void setTimeStart(Slot slot,Long timeStart);
 
-    void setTimeSlot(Long timeSlot);
+    void setTimeEnd(Slot slot, Long timeEnd);
 }

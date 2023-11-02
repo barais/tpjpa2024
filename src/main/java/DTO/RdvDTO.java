@@ -3,8 +3,6 @@ package DTO;
 import java.io.Serializable;
 
 public class RdvDTO extends SlotDTO implements Serializable {
-
-    private Long id;
     private String titled;
 
     private StudentDTO stu;
@@ -16,14 +14,6 @@ public class RdvDTO extends SlotDTO implements Serializable {
         super(timeStart, timeEnd, pro);
         this.titled = titled;
         this.stu = stu;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitled() {

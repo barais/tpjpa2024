@@ -14,7 +14,7 @@ public class SlotDAOimpl implements SlotDao {
     }
 
     @Override
-    public Slot getById(Slot slot) {
+    public Slot getById(Long t) {
         return null;
     }
 

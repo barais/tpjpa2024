@@ -1,4 +1,4 @@
-package Service;
+package ServiceCriteriaQuery;
 
 import java.util.List;
 import Model.User;
@@ -10,7 +10,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 
-public class CriteriaUser {
+public class CriteriaQUser {
     public static void main(String[] args) {
 
         EntityManagerFactory em = Persistence.createEntityManagerFactory( "dev" );
