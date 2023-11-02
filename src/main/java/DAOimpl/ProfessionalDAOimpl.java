@@ -1,6 +1,7 @@
 package DAOimpl;
 
 import DAO.ProfessionalDao;
+import DAO.StudentDao;
 import Model.Professional;
 import Model.Slot;
 import java.util.List;
@@ -16,8 +17,9 @@ public class ProfessionalDAOimpl implements ProfessionalDao {
     }
 
     @Override
-    public Professional getById(Professional professional) {
-        return null;
+    public Professional getById(Long professionalId) {
+        ProfessionalDao professionalDao = new ProfessionalDAOimpl();
+        return pro = professionalDao.getById(professionalId);
     }
 
     @Override
@@ -32,6 +34,11 @@ public class ProfessionalDAOimpl implements ProfessionalDao {
 
     @Override
     public List<Slot> getAllSlots() { return pro.getSlotList(); }
+
+    @Override
+    public Professional createProfessional(Professional pro) {
+        return pro;
+    }
 
     @Override
     public void setNewSlots(List<Slot> newSlots) { this.SlotList = newSlots; }

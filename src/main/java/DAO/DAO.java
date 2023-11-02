@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DAO<T> {
 
-	public T getById(T t);
+	public T getById(Long t);
 
 	void insert(T t);
 
