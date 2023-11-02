@@ -14,6 +14,11 @@ public class SlotDAOimpl implements SlotDao {
     }
 
     @Override
+    public Slot getById(Slot slot) {
+        return null;
+    }
+
+    @Override
     public void insert(Slot slot) {
         SlotList.add(slot);
     }

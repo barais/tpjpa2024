@@ -10,7 +10,8 @@ public class Professional extends User {
     public Professional() {
     }
 
-    public Professional(List<Slot> SlotList) {
+    public Professional(String name, String password, List<Slot> SlotList) {
+        super(name, password);
         this.SlotList = SlotList;
     }
 

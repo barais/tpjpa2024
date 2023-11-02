@@ -16,6 +16,11 @@ public class ProfessionalDAOimpl implements ProfessionalDao {
     }
 
     @Override
+    public Professional getById(Professional professional) {
+        return null;
+    }
+
+    @Override
     public void insert(Professional professional) {
 
     }

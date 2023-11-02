@@ -8,9 +8,9 @@ public class Slot {
 
     private Long id;
 
-    public Long timeStart;
+    protected Long timeStart;
 
-    public Long timeEnd;
+    protected Long timeEnd;
 
     private Professional pro;
 

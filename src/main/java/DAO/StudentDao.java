@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface StudentDao extends DAO<Student> {
 
+    List<Rdv> getAllRdv();
+
     List<Slot> consultSlots(Professional pro);
+
     boolean bookedSlot(Rdv rdv);
 }

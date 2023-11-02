@@ -10,11 +10,12 @@ public class Student extends User {
     public Student() {
     }
 
-    public Student(List<Rdv> RdvList) {
+    public Student(String name, String password, List<Rdv> RdvList) {
+        super(name, password);
         this.RdvList = RdvList;
     }
 
-    @OneToMany(mappedBy="user", cascade= CascadeType.ALL)
+    @OneToMany(mappedBy="student", cascade= CascadeType.ALL)
     public List<Rdv> getRdvList() {
         return RdvList;
     }

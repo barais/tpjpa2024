@@ -16,6 +16,11 @@ public class StudentDAOimpl implements StudentDao {
     }
 
     @Override
+    public Student getById(Student student) {
+        return null;
+    }
+
+    @Override
     public void insert(Student student) {
 
     }
@@ -24,6 +29,9 @@ public class StudentDAOimpl implements StudentDao {
     public void delete(Student student) {
 
     }
+
+    @Override
+    public List<Rdv> getAllRdv() { return stu.getRdvList(); }
 
     @Override
     public List<Slot> consultSlots(Professional pro) { return pro.getSlotList(); }
@@ -36,11 +44,11 @@ public class StudentDAOimpl implements StudentDao {
             if (!slot.contain(rdv)) {
                 continue;
             }
-            if (slot.timeStart < rdv.timeStart) {
-                pro.addSlot(new Slot(slot.timeStart, rdv.timeStart, pro));
+            if (slot.getTimeStart() < rdv.getTimeStart()) {
+                pro.addSlot(new Slot(slot.getTimeStart(), rdv.getTimeStart(), pro));
             }
-            if (slot.timeEnd < rdv.timeEnd) {
-                pro.addSlot(new Slot(slot.timeEnd, rdv.timeEnd, pro));
+            if (slot.getTimeEnd() < rdv.getTimeEnd()) {
+                pro.addSlot(new Slot(slot.getTimeEnd(), rdv.getTimeEnd(), pro));
             }
             pro.removeSlot(slot);
             return true;

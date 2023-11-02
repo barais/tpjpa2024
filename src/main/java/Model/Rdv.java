@@ -15,7 +15,8 @@ public class Rdv extends Slot {
 	public Rdv() {
 	}
 
-	public Rdv(String titled, Student stu) {
+	public Rdv(Long timeStart, Long timeEnd, Professional pro, String titled, Student stu) {
+		super(timeStart, timeEnd, pro);
 		this.titled = titled;
 		this.stu = stu;
 	}
