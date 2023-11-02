@@ -26,12 +26,25 @@ public class StudentDAOimpl implements StudentDao {
     }
 
     @Override
-    public List<Slot> consultSlots(Professional pro) {
-        return pro.getSlotList();
-    }
+    public List<Slot> consultSlots(Professional pro) { return pro.getSlotList(); }
 
     @Override
-    public void bookedSlot (Rdv rdv) {
-        stu.addRdv(rdv);
+    public boolean bookedSlot (Rdv rdv) {
+        List<Slot> ls = rdv.getProfessional().getSlotList();
+        for (Slot slot: ls) {
+            Professional pro = slot.getProfessional();
+            if (!slot.contain(rdv)) {
+                continue;
+            }
+            if (slot.timeStart < rdv.timeStart) {
+                pro.addSlot(new Slot(slot.timeStart, rdv.timeStart, pro));
+            }
+            if (slot.timeEnd < rdv.timeEnd) {
+                pro.addSlot(new Slot(slot.timeEnd, rdv.timeEnd, pro));
+            }
+            pro.removeSlot(slot);
+            return true;
+        }
+        return false;
     }
 }

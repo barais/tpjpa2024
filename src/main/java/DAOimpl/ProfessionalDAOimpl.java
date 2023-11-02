@@ -26,18 +26,14 @@ public class ProfessionalDAOimpl implements ProfessionalDao {
     }
 
     @Override
-    public List<Slot> setSlotsAvailable(List<Slot> newSlotsAvailable) {
-        this.SlotList = newSlotsAvailable;
-        return newSlotsAvailable;
-    }
+    public List<Slot> getAllSlots() { return pro.getSlotList(); }
 
     @Override
-    public void setTimeSlot (Slot timeSlot) {
-        pro.addSlot(timeSlot);
-    }
+    public void setNewSlots(List<Slot> newSlots) { this.SlotList = newSlots; }
 
     @Override
-    public void setTitledSlot(String titledSlot) {
-        slot.setTitledSlot(titledSlot);
-    }
+    public void setTimeStart(Long timeStart) { this.slot.setTimeStart(timeStart); }
+
+    @Override
+    public void setTimeSlot (Long timeSlot) { this.slot.setTimeEnd(timeSlot); }
 }

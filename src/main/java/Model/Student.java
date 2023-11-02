@@ -14,7 +14,7 @@ public class Student extends User {
         this.RdvList = RdvList;
     }
 
-    @OneToMany(mappedBy="student", cascade= CascadeType.ALL)
+    @OneToMany(mappedBy="user", cascade= CascadeType.ALL)
     public List<Rdv> getRdvList() {
         return RdvList;
     }

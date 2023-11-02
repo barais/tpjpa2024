@@ -9,5 +9,5 @@ import java.util.List;
 public interface StudentDao extends DAO<Student> {
 
     List<Slot> consultSlots(Professional pro);
-    void bookedSlot(Rdv rdv);
+    boolean bookedSlot(Rdv rdv);
 }

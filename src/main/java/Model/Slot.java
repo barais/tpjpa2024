@@ -4,40 +4,47 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="slot")
-public class Slot extends Rdv {
+public class Slot {
 
-    @Column(name="time_slot")
-    public Integer timeSlot;
+    private Long id;
 
-    @Column(name="titled_slot")
-    public String titledSlot;
+    public Long timeStart;
 
-    @Column(name="professional")
+    public Long timeEnd;
+
     private Professional pro;
 
     public Slot() {
     }
 
-    public Slot(Integer timeSlot, String titledSlot, Professional pro) {
-        this.timeSlot = timeSlot;
-        this.titledSlot = titledSlot;
+    public Slot(Long timeStart, Long timeEnd, Professional pro) {
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
         this.pro = pro;
     }
 
-    public Slot(Integer timeSlot) {
-        this.timeSlot = timeSlot;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    public Long getId() {
+        return id;
     }
 
-    public Integer getSlot() { return timeSlot; }
-
-    public void setSlot(Integer timeSlot) {
-        this.timeSlot = timeSlot;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getTitled() { return titledSlot; }
+    @Column(name="time_start")
+    public Long getTimeStart() { return timeStart; }
 
-    public void setTitledSlot(String titledSlot) {
-        this.titledSlot = titledSlot;
+    public void setTimeStart(Long timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    @Column(name="time_end")
+    public Long getTimeEnd() { return timeEnd; }
+
+    public void setTimeEnd(Long timeEnd) {
+        this.timeEnd = timeEnd;
     }
 
     @ManyToOne
@@ -49,8 +56,12 @@ public class Slot extends Rdv {
         this.pro = pro;
     }
 
+    public boolean contain(Slot slot) {
+        return this.timeStart <= slot.timeStart & this.timeEnd <= slot.timeEnd;
+    }
+
     @Override
     public String toString() {
-        return "Slot [timeSlot=" + timeSlot + ", titledSlot=" + titledSlot + ", professional=" + pro + "]";
+        return "Slot [id=" + id + ", timeStart=" + timeStart + ", timeEnd=" + timeEnd + ", professional=" + pro + "]";
     }
 }
