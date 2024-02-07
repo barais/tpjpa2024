@@ -33,5 +33,6 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<version>8.1.0</version>
 		</dependency>
+
 	</dependencies>
 </project>
