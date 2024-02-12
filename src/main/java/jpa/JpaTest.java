@@ -25,6 +25,7 @@ public class JpaTest {
 		try {
 
 			// TODO create and persist entity
+			test.createUtilisateurs();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,6 +37,15 @@ public class JpaTest {
 		System.out.println(".. done");
 	}
 
+	private void createUtilisateurs() {
+		int numOfUtilisateurs = manager.createQuery("Select a From Utilisateur a", Utilisateur.class).getResultList().size();
+		if (numOfUtilisateurs == 0) {
+
+			manager.persist(new Utilisateur("user1", "Jakab Gipsz", Role.DEVELOPER));
+			manager.persist(new Utilisateur("user2","Captain Nemo", Role.MAINTENER));
+
+		}
+	}
 
 
 
