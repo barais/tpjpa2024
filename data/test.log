@@ -1,77 +1,8 @@
-/*C7*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C8*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C9*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C10*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C12*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C13*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C14*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C15*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C16*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C17*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C18*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C19*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C20*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C21*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C22*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C23*/SET SCHEMA PUBLIC
-DISCONNECT
 /*C24*/SET SCHEMA PUBLIC
-create sequence Comments_SEQ start with 1 increment by 50
-create sequence Projects_SEQ start with 1 increment by 50
-create sequence Tags_SEQ start with 1 increment by 50
-create sequence Tickets_SEQ start with 1 increment by 50
-create sequence Utilisateur_SEQ start with 1 increment by 50
-create table Comments (created_at date, updated_at date, created_by_id bigint unique, id bigint not null, tickets_id bigint unique, content varchar(255), primary key (id))
-create table Projects (id bigint not null, name varchar(255), primary key (id))
-create table Tags (created_at date, created_by_id bigint unique, id bigint not null, description varchar(255), name varchar(255), primary key (id))
-create table Tags_Tickets (Tags_id bigint not null, tickets_id bigint not null)
-create table Tickets (created_at date, milistone date, updated_at date, created_by_id bigint unique, id bigint not null, project_id bigint unique, content varchar(255), state varchar(255) check (state in ('OPEN','DOING','CLOSE')), title varchar(255), primary key (id))
-create table Tickets_Tags (Tickets_id bigint not null, tags_id bigint not null)
-create table Tickets_Utilisateur (Tickets_id bigint not null, assign_to_id bigint not null)
-create table Utilisateur (id bigint not null, name varchar(255), role varchar(255) check (role in ('REPORTER','DEVELOPER','MAINTENER','OWNER')), username varchar(255), primary key (id))
-create table Utilisateur_Tickets (Utilisateur_id bigint not null, tickets_id bigint not null)
-alter table Comments add constraint FK5q4deijmvapj9b3uf18j5cfsy foreign key (created_by_id) references Utilisateur
-alter table Comments add constraint FKmllr3g1b4732ic8tvqrif4c8k foreign key (tickets_id) references Tickets
-alter table Tags add constraint FKsuv0rbwtdjj89rgegmkbxkp17 foreign key (created_by_id) references Utilisateur
-alter table Tags_Tickets add constraint FK2v94lbai9hehyqnuhbanmj8fw foreign key (tickets_id) references Tickets
-alter table Tags_Tickets add constraint FKew7i4r1jtmej5umalos0xj5uq foreign key (Tags_id) references Tags
-alter table Tickets add constraint FKlb10ekid1rvvw5fabnmgde4t2 foreign key (created_by_id) references Utilisateur
-alter table Tickets add constraint FKpna0a7xh2k4e151qm2xlvnn foreign key (project_id) references Projects
-alter table Tickets_Tags add constraint FKe8hrx7rishmb5awtywfrx7l0h foreign key (tags_id) references Tags
-alter table Tickets_Tags add constraint FKredve2t4vj1hqkbswe18d8f9b foreign key (Tickets_id) references Tickets
-alter table Tickets_Utilisateur add constraint FK81vxv5itukowpfraqvag8bub3 foreign key (assign_to_id) references Utilisateur
-alter table Tickets_Utilisateur add constraint FK8j9gk4janfhrgfqrnxex8xks1 foreign key (Tickets_id) references Tickets
-alter table Utilisateur_Tickets add constraint FKbhp7cbpvej1acptknrug384pb foreign key (tickets_id) references Tickets
-alter table Utilisateur_Tickets add constraint FK96hbk6nbx76k7776v8neypr3y foreign key (Utilisateur_id) references Utilisateur
-INSERT INTO UTILISATEUR VALUES(1,'Jakab Gipsz','DEVELOPER','user1')
-INSERT INTO UTILISATEUR VALUES(2,'Captain Nemo','MAINTENER','user2')
-ALTER SEQUENCE PUBLIC.UTILISATEUR_SEQ RESTART WITH 101
+INSERT INTO UTILISATEUR VALUES(52,'Jakab Owner','OWNER','user3')
+INSERT INTO UTILISATEUR VALUES(53,'Captain Reporter','REPORTER','user4')
+INSERT INTO UTILISATEUR VALUES(54,'Jakab DEV2','DEVELOPER','user5')
+INSERT INTO UTILISATEUR VALUES(55,'Captain DEV2','DEVELOPER','user6')
+ALTER SEQUENCE PUBLIC.UTILISATEUR_SEQ RESTART WITH 151
 COMMIT
-DISCONNECT
-/*C25*/SET SCHEMA PUBLIC
-create table Projects_Tickets (Projects_id bigint not null, ticketsList_id bigint not null unique)
-create table Tickets_Comments (Tickets_id bigint not null, comments_id bigint not null unique)
-alter table Projects_Tickets add constraint FKnsuvuke5n0p526ko6b71xn6sp foreign key (ticketsList_id) references Tickets
-alter table Projects_Tickets add constraint FKicq81pew0uxtvwl9fp0ihmtyf foreign key (Projects_id) references Projects
-alter table Tickets_Comments add constraint FKmu7a9hieksy0qfsnc9pp0bc9u foreign key (comments_id) references Comments
-alter table Tickets_Comments add constraint FKcw6xnjiog83ffg9uc3kd6fi6n foreign key (Tickets_id) references Tickets
-DISCONNECT
-/*C26*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C27*/SET SCHEMA PUBLIC
 DISCONNECT
