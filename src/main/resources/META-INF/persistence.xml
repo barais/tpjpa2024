@@ -8,11 +8,11 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<properties>
 			<property name="jakarta.persistence.jdbc.driver"
-				value="org.hsqldb.jdbcDriver" />
+				value="com.mysql.jdbc.Driver" />
 			<property name="jakarta.persistence.jdbc.url"
-				value="jdbc:hsqldb:hsql://localhost/" />
-			<property name="jakarta.persistence.jdbc.user" value="sa" />
-			<property name="jakarta.persistence.jdbc.password" value="" />
+				value="jdbc:mysql://mysqln.istic.univ-rennes1.fr/base_nlatifoufalo"/>
+			<property name="jakarta.persistence.jdbc.user" value="user_nlatifoufalo" />
+			<property name="jakarta.persistence.jdbc.password" value="Firdaousse99" />
 			<property
 				name="jakarta.persistence.schema-generation.database.action"
 				value="create" />

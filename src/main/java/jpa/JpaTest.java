@@ -8,11 +8,19 @@ import jakarta.persistence.EntityTransaction;
 
 public class JpaTest {
 
-
 	private EntityManager manager;
+	private UtilisateurService userService;
+	private TicketService ticketService;
+	private RoleService roleService;
+	private TagService tagService;
+
 
 	public JpaTest(EntityManager manager) {
 		this.manager = manager;
+		this.userService = new UtilisateurService();
+		this.roleService = new RoleService();
+		this.ticketService = new TicketService();
+		this.tagService = new TagService();
 	}
 	/**
 	 * @param args
@@ -22,38 +30,38 @@ public class JpaTest {
 
 		JpaTest test = new JpaTest(manager);
 
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
 		try {
-
-			// TODO create and persist entity
-			// Création d'un nouveau service de gestion de tickets
-			TicketService ticketService = new TicketService();
-
-			// Création d'un nouveau ticket
-			Ticket ticket1 = new Ticket("Problème de connexion", "Je ne peux pas me connecter à mon compte.");
-			ticketService.createTicket(ticket1);
-
-			// Mise à jour d'un ticket existant
-			Ticket ticketToUpdate = ticketService.getTicketById(1L);
-			ticketToUpdate.setDescription("Description mise à jour du ticket");
-			ticketService.updateTicket(ticketToUpdate);
-
-			// Suppression d'un ticket existant
-			ticketService.deleteTicket(2L);
-
-			// Récupération de tous les tickets
-			List<Ticket> tickets = ticketService.getAllTickets();
-			for (Ticket ticket : tickets) {
-				System.out.println("Titre: " + ticket.getTitre() + ", Description: " + ticket.getDescription());
-			}
+			//test.createData();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		EntityTransaction tx = manager.getTransaction();
+		tx.begin();
+		/*private void createData() {
+			Role supportRole = roleService.createRole("support");
+			User user1 = utilisateurService.createUser("User 1", supportRole);
+			User user2 = utilisateurService.createUser("User 2", supportRole);
+			Tag tag = tagService.createTag(new Tag("tag 1"));
+
+			// Créer un ticket
+			Ticket ticket = new Ticket();
+			ticket.setTitle("Un ticket");
+			ticket.setDescritpion("Lorem ipsum machin truc");
+			ticket.setPriority(PriorityEnum.ONE);
+			ticket.setState(StateEnum.OUVERT);
+			ticket.setCreatedBy(user1);
+			ticket.setCreatedAt(ZonedDateTime.now());
+			ticket.getTags().add(tag);
+			ticketService.create(ticket);
+
+			// Attribuer le ticket à l'autre utilisateur
+			ticket.setAssignedTo(user2);
+			ticketService.update(ticket);
+		}*/
 		tx.commit();
 
 			
-   	 manager.close();
+   	    manager.close();
 		EntityManagerHelper.closeEntityManagerFactory();
 		System.out.println(".. done");
 	}

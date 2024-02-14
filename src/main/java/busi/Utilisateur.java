@@ -1,7 +1,7 @@
 package busi;
 
 import jakarta.persistence.*;
-import javax.management.relation.Role;
+
 @Entity
 public class Utilisateur {
     @Id

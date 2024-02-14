@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="testjpa" options="--add-exports java.base/javax=ALL-UNNAMED" />
+      <module name="testjpa" options="" />
     </option>
   </component>
 </project>
