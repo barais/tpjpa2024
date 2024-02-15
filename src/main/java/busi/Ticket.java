@@ -1,6 +1,9 @@
 package busi;
 
-
+/**
+ * Classe représentant un ticket dans le système de gestion de tickets.
+ * @autor nana
+ */
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;

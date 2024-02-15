@@ -2,6 +2,10 @@ package busi;
 
 import jakarta.persistence.*;
 
+/**
+ * Entité représentant un utilisateur.
+ * @autor nana
+ */
 @Entity
 public class Utilisateur {
     @Id

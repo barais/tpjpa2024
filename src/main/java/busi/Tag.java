@@ -4,6 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+/**
+ * Classe représentant un tag dans le système de gestion de tickets.
+ * @autor nana
+ */
 @Entity
 public class Tag {
     @Id
