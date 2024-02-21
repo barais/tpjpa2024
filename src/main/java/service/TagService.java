@@ -1,40 +1,34 @@
 package service;
 
 import busi.Tag;
+import dao.TagDao;
 import jakarta.persistence.EntityManager;
 
 public class TagService {
-    private EntityManager manager;
+    private TagDao tagDao;
 
     public TagService(EntityManager manager) {
-        this.manager = manager;
+        this.tagDao = new TagDao(manager);
     }
 
     // Créer un nouveau tag
     public void create(Tag tag) {
-        manager.getTransaction().begin();
-        manager.persist(tag);
-        manager.getTransaction().commit();
+        tagDao.create(tag);
     }
 
     // Mettre à jour un tag existant
     public void update(Tag tag) {
-        manager.getTransaction().begin();
-        manager.merge(tag);
-        manager.getTransaction().commit();
+        tagDao.update(tag);
     }
 
     // Supprimer un tag existant
     public void delete(Long tagId) {
-        manager.getTransaction().begin();
-        Tag tag = manager.find(Tag.class, tagId);
-        manager.remove(tag);
-        manager.getTransaction().commit();
+        tagDao.delete(tagId);
     }
 
     // Récupérer un tag par son identifiant
     public Tag getById(Long tagId) {
-        return manager.find(Tag.class, tagId);
+        return tagDao.getById(tagId);
     }
 }
 

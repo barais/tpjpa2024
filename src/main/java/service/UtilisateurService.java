@@ -1,40 +1,36 @@
 package service;
 
 import busi.Utilisateur;
+import dao.TicketDao;
+import dao.UtilisateurDao;
 import jakarta.persistence.EntityManager;
 
 public class UtilisateurService {
-    private EntityManager manager;
+    private UtilisateurDao utilisateurDao;
 
     public UtilisateurService( EntityManager manager) {
-        this.manager = manager;
+        this.utilisateurDao = new UtilisateurDao(manager);
     }
 
     // Créer un nouvel utilisateur
     public void create(Utilisateur utilisateur) {
-        manager.getTransaction().begin();
-        manager.persist(utilisateur);
-        manager.getTransaction().commit();
+        utilisateurDao.create(utilisateur);
     }
 
     // Mettre à jour un utilisateur existant
     public void update(Utilisateur utilisateur) {
-        manager.getTransaction().begin();
-        manager.merge(utilisateur);
-        manager.getTransaction().commit();
+        utilisateurDao.update(utilisateur);
     }
 
     // Supprimer un utilisateur existant
     public void delete(Long utilisateurId) {
-        manager.getTransaction().begin();
-        Utilisateur utilisateur = manager.find(Utilisateur.class, utilisateurId);
-        manager.remove(utilisateur);
-        manager.getTransaction().commit();
+        utilisateurDao.delete(utilisateurId);
     }
 
     // Récupérer un utilisateur par son identifiant
     public Utilisateur getById(Long utilisateurId) {
-        return manager.find(Utilisateur.class, utilisateurId);
+
+        return utilisateurDao.getById(utilisateurId);
     }
 }
 

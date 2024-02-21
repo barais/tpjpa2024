@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>La page d'accueil utilisateur</title>
+    <style>
+        body {
+            background-color: #FFCCCC; /* Rose clair */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<h1>Bienvenue, <%= request.getParameter("firstname") %> <%= request.getParameter("name") %>!</h1>
+</body>
+</html>

@@ -16,6 +16,14 @@ public class Tag {
     private Long id;
     private String libelle;
 
+    public Tag(String libelle) {
+        this.libelle = libelle;
+    }
+
+    public Tag() {
+
+    }
+
     // Getters and Setters
     public Long getId() {
         return id;

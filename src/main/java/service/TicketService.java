@@ -1,45 +1,40 @@
 package service;
 
 import busi.Ticket;
+import dao.TicketDao;
 import jakarta.persistence.EntityManager;
+
 import java.util.List;
 
 public class TicketService {
-    private EntityManager manager;
+    private TicketDao ticketDao;
 
     public TicketService(EntityManager manager) {
-        this.manager = manager;
+        this.ticketDao = new TicketDao(manager);
     }
 
     // Créer un nouveau ticket
     public void create(Ticket ticket) {
-        manager.getTransaction().begin();
-        manager.persist(ticket);
-        manager.getTransaction().commit();
+        ticketDao.save(ticket);
     }
 
     // Mettre à jour un ticket existant
     public void update(Ticket ticket) {
-        manager.getTransaction().begin();
-        manager.merge(ticket);
-        manager.getTransaction().commit();
+        ticketDao.update(ticket);
     }
 
     // Supprimer un ticket existant
     public void delete(Long ticketId) {
-        manager.getTransaction().begin();
-        Ticket ticket = manager.find(Ticket.class, ticketId);
-        manager.remove(ticket);
-        manager.getTransaction().commit();
+        ticketDao.delete(ticketId);
     }
 
     // Récupérer un ticket par son identifiant
     public Ticket getById(Long ticketId) {
-        return manager.find(Ticket.class, ticketId);
+        return ticketDao.getById(ticketId);
     }
 
     // Récupérer tous les tickets
-    public List<Ticket> getAll() {
-        return manager.createQuery("SELECT t FROM Ticket t", Ticket.class).getResultList();
+    public List<Ticket> getAllTickets() {
+        return ticketDao.getAllTickets();
     }
 }

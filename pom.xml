@@ -6,6 +6,7 @@
 	<groupId>test</groupId>
 	<artifactId>testjpa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 
 	<properties>
 		<maven.compiler.source>21</maven.compiler.source>
@@ -33,5 +34,29 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<version>8.1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>5.0.0</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<!-- Plugin Jetty pour démarrer Jetty depuis Maven -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>11.0.16</version>
+				<configuration>
+					<webApp>
+						<contextPath>/</contextPath>
+					</webApp>
+					<httpConnector>
+						<port>8080</port>
+					</httpConnector>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

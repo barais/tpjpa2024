@@ -1,9 +1,11 @@
-busi\Statut.class
 jpa\JpaTest.class
 service\TicketService.class
 busi\Role.class
 busi\Utilisateur.class
-busi\Priorite.class
 busi\Tag.class
+servlet\UserInfo.class
 busi\Commentaire.class
+busi\Priorite.class
+servlet\accueilUser.class
+busi\Statut.class
 busi\Ticket.class

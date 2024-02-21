@@ -19,7 +19,6 @@ public class Commentaire {
     private Ticket ticket;
 
     public Commentaire() {
-
     }
     public Commentaire(String contenu) {
         this.contenu = contenu;

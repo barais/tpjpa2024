@@ -1,10 +1,8 @@
 package busi;
 
-/**
- * Classe représentant un ticket dans le système de gestion de tickets.
- * @autor nana
- */
 import jakarta.persistence.*;
+
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +17,7 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private Statut statut;
     @Enumerated(EnumType.STRING)
-    private Priorite priorite;
+    private busi.Priorite priorite;
     private Date dateCreation;
     private Date dateMaj;
 
@@ -51,14 +49,12 @@ public class Ticket {
         this.id = id;
     }
 
-    public String getTitre() {
+    public String getTitle() {
         return titre;
     }
-
-    public void setTitre(String titre) {
+    public void setTitle(String unTicket) {
         this.titre = titre;
     }
-
     public String getDescription() {
         return description;
     }
@@ -75,11 +71,11 @@ public class Ticket {
         this.statut = statut;
     }
 
-    public Priorite getPriorite() {
+    public busi.Priorite getPriorite() {
         return priorite;
     }
 
-    public void setPriorite(Priorite priorite) {
+    public void setPriorite(busi.Priorite priorite) {
         this.priorite = priorite;
     }
 
@@ -98,6 +94,7 @@ public class Ticket {
     public void setDateMaj(Date dateMaj) {
         this.dateMaj = dateMaj;
     }
+
 
     public Utilisateur getUtilisateur() {
         return utilisateur;
@@ -130,4 +127,7 @@ public class Ticket {
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
+
+
+    public void setCreatedAt(ZonedDateTime now){}
 }
