@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "mytest", urlPatterns = {"/myurl"})
 public class MyServlet extends HttpServlet {
 
-	@Override
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter p = new PrintWriter(resp.getOutputStream());
         p.print("Hello world - GET");
