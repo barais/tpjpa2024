@@ -1,8 +1,11 @@
 package jpa;
 
 
+import domaine.Projects;
+import domaine.Utilisateur;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import utils.Role;
 
 public class JpaTest {
 

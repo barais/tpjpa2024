@@ -1,0 +1,25 @@
+<html>
+    <body>
+
+        <form action="/UserInfo" method="post">
+            <fieldset style="background: #f6f8ff; border: 2px solid #4238ca;">
+                <legend>Customer Information</legend>
+                <input type="text" name="name" placeholder="Nom"><br /><br />
+                <input type="text" name="username" placeholder="Nom d'utilisateur"><br /><br />
+
+                <select name="role" id="role-select">
+                    <option value="">--Role--</option>
+                    <option value="REPORTER">REPORTER</option>
+                    <option value="DEVELOPER">DEVELOPER</option>
+                    <option value="MAINTENER">MAINTENER</option>
+                    <option value="OWNER">OWNER</option>
+                </select>
+                <br /><br />
+
+                <button type="submit">Submit</button>
+            </fieldset>
+
+        </form>
+
+    </body>
+</html>
