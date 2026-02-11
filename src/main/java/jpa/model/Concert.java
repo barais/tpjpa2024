@@ -5,13 +5,23 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Concert implements Serializable {
+    @Id
+    @GeneratedValue
     private Long concertId;
 
-    private String artiste;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "artiste_genre",
+            joinColumns = @JoinColumn(name = "concert_id"),
+            inverseJoinColumns = @JoinColumn(name = "artiste_id")
+    )
+    private Set<Artiste> artistes = new HashSet<>();
 
     private String lieu;
 
@@ -25,25 +35,24 @@ public class Concert implements Serializable {
 
     private String description;
 
-
+    @OneToMany(mappedBy = "concert", cascade = CascadeType.PERSIST)
     private List<Ticket> tickets = new ArrayList<>();
 
-    @Id
-    @GeneratedValue
+    // region Generated code
+    public Set<Artiste> getArtistes() {
+        return artistes;
+    }
+
+    public void setArtistes(Set<Artiste> artistes) {
+        this.artistes = artistes;
+    }
+
     public Long getConcertId() {
         return concertId;
     }
 
     public void setConcertId(Long concertId) {
         this.concertId = concertId;
-    }
-
-    public String getArtiste() {
-        return artiste;
-    }
-
-    public void setArtiste(String artiste) {
-        this.artiste = artiste;
     }
 
     public String getLieu() {
@@ -94,7 +103,6 @@ public class Concert implements Serializable {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "concert", cascade = CascadeType.PERSIST)
     public List<Ticket> getTickets() {
         return tickets;
     }
@@ -107,13 +115,15 @@ public class Concert implements Serializable {
     public String toString() {
         return "Concert{" +
                 "concertId=" + concertId +
-                ", artiste='" + artiste + '\'' +
+                ", artistes=" + artistes +
                 ", lieu='" + lieu + '\'' +
                 ", date=" + date +
                 ", genre='" + genre + '\'' +
                 ", capacite=" + capacite +
                 ", popularite=" + popularite +
                 ", description='" + description + '\'' +
+                ", tickets=" + tickets +
                 '}';
     }
+    // endregion
 }

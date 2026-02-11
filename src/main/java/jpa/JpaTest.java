@@ -42,6 +42,8 @@ public class JpaTest {
 			System.out.println(test.listConcert());
 			System.out.println("---- LISTE DES PERSONNES ----");
 			System.out.println(test.listPersonnes());
+
+			// TODO Créer 3 artiste + un concert
 		} catch (Exception e) {
 			tx.rollback();
 			e.printStackTrace();
@@ -95,7 +97,6 @@ public class JpaTest {
 
 	private Concert createConcert() {
 		Concert concert = new Concert();
-		concert.setArtiste("ARTISTE");
 		concert.setCapacite(2500L);
 		concert.setDate(LocalDateTime.now());
 		concert.setPopularite(3.5f);
@@ -124,5 +125,7 @@ public class JpaTest {
 				.createQuery("select p from Personne p", Personne.class)
 				.getResultList();
 	}
+
+
 
 }

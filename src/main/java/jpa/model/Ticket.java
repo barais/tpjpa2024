@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Ticket implements Serializable {
+    @Id
+    @GeneratedValue
     private Long ticketId;
 
     private String numeroPlace;
@@ -22,6 +24,7 @@ public class Ticket implements Serializable {
 
     private LocalDateTime dateRemboursement;
 
+    @ManyToOne
     private Concert concert;
 
     // region Generated code
@@ -84,8 +87,6 @@ public class Ticket implements Serializable {
         this.numeroPlace = numeroPlace;
     }
 
-    @Id
-    @GeneratedValue
     public Long getTicketId() {
         return ticketId;
     }
@@ -94,7 +95,6 @@ public class Ticket implements Serializable {
         this.ticketId = ticketId;
     }
 
-    @ManyToOne
     public Concert getConcert() {
         return concert;
     }
